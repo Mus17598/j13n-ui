@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import LoginScreen from '@/components/LoginScreen';
 import ResumeUpload from '@/components/ResumeUpload';
 import JobFilters from '@/components/JobFilters';
@@ -19,14 +19,28 @@ import {
 const Index = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAutoApplying, setIsAutoApplying] = useState(false);
+  const [appliedCount, setAppliedCount] = useState(0);
   
   const handleLogin = () => {
     setIsLoggedIn(true);
   };
   
   const toggleAutoApply = () => {
+    if (!isAutoApplying) {
+      setAppliedCount(0);
+    }
     setIsAutoApplying(!isAutoApplying);
   };
+  
+  useEffect(() => {
+    if (isAutoApplying) {
+      const interval = setInterval(() => {
+        setAppliedCount(prev => prev + 1);
+      }, 5000); // Increment counter every 5 seconds for demo
+      
+      return () => clearInterval(interval);
+    }
+  }, [isAutoApplying]);
   
   // Mock data for the status dashboard
   const applicationStats = {
@@ -60,6 +74,13 @@ const Index = () => {
           </Button>
         </div>
       </header>
+      
+      {/* Auto Apply Animation */}
+      <AutoApplyAnimation 
+        isActive={isAutoApplying} 
+        onStop={toggleAutoApply}
+        appliedCount={appliedCount}
+      />
       
       <main className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -105,14 +126,6 @@ const Index = () => {
           </div>
         </div>
       </main>
-      
-      {/* Auto Apply Animation */}
-      {isAutoApplying && (
-        <AutoApplyAnimation 
-          isActive={isAutoApplying} 
-          onStop={toggleAutoApply} 
-        />
-      )}
       
       {/* AI Chat Bubble */}
       <AIChatBubble />
