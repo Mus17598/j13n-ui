@@ -97,6 +97,10 @@ export default {
 				'bounce-soft': {
 					'0%, 100%': { transform: 'translateY(0)' },
 					'50%': { transform: 'translateY(-5px)' }
+				},
+				'pulse-ring': {
+					'0%': { transform: 'scale(0.95)', opacity: '1' },
+					'100%': { transform: 'scale(2)', opacity: '0' }
 				}
 			},
 			animation: {
@@ -104,7 +108,8 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'float': 'float 3s ease-in-out infinite',
 				'pulse-soft': 'pulse-soft 3s ease-in-out infinite',
-				'bounce-soft': 'bounce-soft 2s ease-in-out infinite'
+				'bounce-soft': 'bounce-soft 2s ease-in-out infinite',
+				'pulse-ring': 'pulse-ring 2s cubic-bezier(0, 0, 0.2, 1) infinite'
 			},
 			backdropBlur: {
 				xs: '2px',
