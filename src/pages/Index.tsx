@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import LoginScreen from '@/components/LoginScreen';
 import ResumeUpload from '@/components/ResumeUpload';
@@ -10,6 +9,12 @@ import AutoApplyAnimation from '@/components/AutoApplyAnimation';
 import AIChatBubble from '@/components/AIChatBubble';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const Index = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -29,6 +34,9 @@ const Index = () => {
     pending: 15,
     rejected: 8
   };
+  
+  const disabledSectionStyle = "pointer-events-none opacity-50 filter blur-[2px] transition-all duration-300";
+  const tooltipMessage = "Auto-Applying in progress. Stop to edit.";
   
   if (!isLoggedIn) {
     return <LoginScreen onLoggedIn={handleLogin} />;
@@ -57,8 +65,36 @@ const Index = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Left Column */}
           <div className="space-y-6">
-            <ResumeUpload />
-            <JobFilters />
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className={isAutoApplying ? disabledSectionStyle : ""}>
+                    <ResumeUpload />
+                  </div>
+                </TooltipTrigger>
+                {isAutoApplying && (
+                  <TooltipContent>
+                    <p>{tooltipMessage}</p>
+                  </TooltipContent>
+                )}
+              </Tooltip>
+            </TooltipProvider>
+            
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className={isAutoApplying ? disabledSectionStyle : ""}>
+                    <JobFilters />
+                  </div>
+                </TooltipTrigger>
+                {isAutoApplying && (
+                  <TooltipContent>
+                    <p>{tooltipMessage}</p>
+                  </TooltipContent>
+                )}
+              </Tooltip>
+            </TooltipProvider>
+            
             <QAEditor />
           </div>
           
