@@ -56,13 +56,13 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLoggedIn }) => {
           animate="visible"
         >
           <motion.h1 
-            className="text-3xl font-bold neon-text"
+            className="text-3xl font-bold text-primary-blue"
             variants={itemVariants}
           >
             Job Apply Flow
           </motion.h1>
           <motion.p 
-            className="text-white/70"
+            className="text-sleek-gray"
             variants={itemVariants}
           >
             Sign in to your account
@@ -80,14 +80,14 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLoggedIn }) => {
             className="space-y-2"
             variants={itemVariants}
           >
-            <Label htmlFor="email" className="text-white/80">Email</Label>
+            <Label htmlFor="email" className="text-foreground/80">Email</Label>
             <Input 
               id="email" 
               type="email" 
               placeholder="Enter your email" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="neo-input text-white/90 focus:border-neon-green/40 focus:shadow-neon"
+              className="neo-input text-foreground/90 focus:border-primary-blue/40 focus:shadow-glass"
               required
             />
           </motion.div>
@@ -96,14 +96,14 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLoggedIn }) => {
             className="space-y-2"
             variants={itemVariants}
           >
-            <Label htmlFor="password" className="text-white/80">Password</Label>
+            <Label htmlFor="password" className="text-foreground/80">Password</Label>
             <Input 
               id="password" 
               type="password" 
               placeholder="Enter your password" 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="neo-input text-white/90 focus:border-neon-green/40 focus:shadow-neon"
+              className="neo-input text-foreground/90 focus:border-primary-blue/40 focus:shadow-glass"
               required
             />
           </motion.div>
@@ -114,7 +114,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLoggedIn }) => {
           >
             <Button 
               type="submit" 
-              className="w-full bg-neon-green/20 hover:bg-neon-green/30 text-neon-green border border-neon-green/30 shadow-neon micro-hover"
+              className="w-full bg-primary-blue/20 hover:bg-primary-blue/30 text-primary-blue border border-primary-blue/30 shadow-glass micro-hover"
             >
               Sign In
             </Button>
@@ -125,9 +125,9 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLoggedIn }) => {
           className="text-center pt-4"
           variants={itemVariants}
         >
-          <p className="text-sm text-white/60">
+          <p className="text-sm text-foreground/60">
             Don't have an account?{" "}
-            <a href="#" className="text-neon-green hover:underline">
+            <a href="#" className="text-primary-blue hover:underline">
               Sign up
             </a>
           </p>

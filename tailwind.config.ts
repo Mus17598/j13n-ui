@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -27,9 +28,10 @@ export default {
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
-          green: '#8FE388',
-          lightGreen: '#C7F2C4',
-          mint: '#F2FCE2',
+          blue: '#8C9EFF',
+          lightBlue: '#C3CFFF',
+          lavender: '#B39DDB',
+          lightLavender: '#D1C4E9',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
@@ -67,26 +69,35 @@ export default {
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))'
         },
-        neon: {
-          green: "#4AFF8F",
-          yellow: "#FFE600",
-          glow: "rgba(74, 255, 143, 0.15)",
+        glass: {
+          background: "rgba(255, 255, 255, 0.7)",
+          border: "rgba(255, 255, 255, 0.5)",
+          highlight: "rgba(255, 255, 255, 0.9)",
+          shadow: "rgba(0, 0, 0, 0.05)",
         },
-        dark: {
-          card: "#1A1A1A",
-          background: "#111111",
-          border: "#2A2A2A",
+        sleek: {
+          blue: "#8C9EFF",
+          lavender: "#B39DDB",
+          gray: "#9E9E9E",
+          lightGray: "#EEEEEE",
         }
       },
       backgroundImage: {
-        'gradient-dark': 'radial-gradient(circle at center, rgba(74, 255, 143, 0.15) 0%, rgba(17, 17, 17, 0) 70%)',
+        'gradient-soft': 'linear-gradient(109.6deg, rgba(223,234,247,1) 11.2%, rgba(244,248,252,1) 91.1%)',
+        'gradient-lavender': 'linear-gradient(90deg, hsla(278, 14%, 80%, 0.6) 0%, hsla(257, 19%, 81%, 0.6) 100%)',
+        'gradient-blue': 'linear-gradient(90deg, hsla(220, 13%, 95%, 1) 0%, hsla(216, 41%, 91%, 1) 100%)',
       },
       boxShadow: {
-        'neon': '0 0 20px rgba(74, 255, 143, 0.15)',
-        'card': '0 8px 16px rgba(0, 0, 0, 0.2)',
+        'neumorphic': '10px 10px 20px rgba(0, 0, 0, 0.05), -10px -10px 20px rgba(255, 255, 255, 0.8)',
+        'neumorphic-inset': 'inset 5px 5px 10px rgba(0, 0, 0, 0.05), inset -5px -5px 10px rgba(255, 255, 255, 0.8)',
+        'glass': '0 8px 32px rgba(0, 0, 0, 0.1)',
+        'glass-hover': '0 12px 42px rgba(0, 0, 0, 0.15)',
+        'button': '0 2px 8px rgba(0, 0, 0, 0.05)',
+        'button-hover': '0 4px 16px rgba(0, 0, 0, 0.1)',
       },
       fontFamily: {
         urbanist: ['Urbanist', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -117,6 +128,10 @@ export default {
         'pulse-ring': {
           '0%': { transform: 'scale(0.95)', opacity: '1' },
           '100%': { transform: 'scale(2)', opacity: '0' }
+        },
+        'shimmer': {
+          '0%': { backgroundPosition: '-500px 0' },
+          '100%': { backgroundPosition: '500px 0' }
         }
       },
       animation: {
@@ -125,7 +140,8 @@ export default {
         'float': 'float 3s ease-in-out infinite',
         'pulse-soft': 'pulse-soft 3s ease-in-out infinite',
         'bounce-soft': 'bounce-soft 2s ease-in-out infinite',
-        'pulse-ring': 'pulse-ring 2s cubic-bezier(0, 0, 0.2, 1) infinite'
+        'pulse-ring': 'pulse-ring 2s cubic-bezier(0, 0, 0.2, 1) infinite',
+        'shimmer': 'shimmer 2s linear infinite'
       },
       backdropBlur: {
         xs: '2px',

@@ -34,17 +34,17 @@ const CircularConnections: React.FC<CircularConnectionsProps> = ({ isActive }) =
           transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
         >
           <motion.div 
-            className="w-16 h-16 rounded-full bg-neon-green/5 flex items-center justify-center shadow-neon"
-            animate={{ boxShadow: ["0 0 10px rgba(74, 255, 143, 0.2)", "0 0 20px rgba(74, 255, 143, 0.4)", "0 0 10px rgba(74, 255, 143, 0.2)"] }}
+            className="w-16 h-16 rounded-full bg-primary-blue/5 flex items-center justify-center shadow-glass"
+            animate={{ boxShadow: ["0 0 10px rgba(140, 158, 255, 0.2)", "0 0 20px rgba(140, 158, 255, 0.4)", "0 0 10px rgba(140, 158, 255, 0.2)"] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >
             <motion.div 
-              className="w-12 h-12 rounded-full bg-neon-green/10 flex items-center justify-center"
+              className="w-12 h-12 rounded-full bg-primary-blue/10 flex items-center justify-center"
               animate={{ scale: [1, 1.05, 1] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             >
               <motion.div 
-                className="w-8 h-8 rounded-full bg-neon-green/20 flex items-center justify-center text-2xl"
+                className="w-8 h-8 rounded-full bg-primary-blue/20 flex items-center justify-center text-2xl"
                 animate={{ rotateY: 360 }}
                 transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
               >
@@ -57,17 +57,17 @@ const CircularConnections: React.FC<CircularConnectionsProps> = ({ isActive }) =
         {/* Circular Paths */}
         <div className="absolute inset-0">
           <motion.div 
-            className="absolute inset-4 rounded-full border border-neon-green/10 shadow-neon"
+            className="absolute inset-4 rounded-full border border-primary-blue/10 shadow-glass"
             animate={{ rotate: 360 }}
             transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
           />
           <motion.div 
-            className="absolute inset-8 rounded-full border border-neon-green/20 shadow-neon"
+            className="absolute inset-8 rounded-full border border-primary-blue/20 shadow-glass"
             animate={{ rotate: -360 }}
             transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
           />
           <motion.div 
-            className="absolute inset-12 rounded-full border border-neon-green/30 shadow-neon"
+            className="absolute inset-12 rounded-full border border-primary-blue/30 shadow-glass"
             animate={{ rotate: 360 }}
             transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
           />
@@ -78,7 +78,7 @@ const CircularConnections: React.FC<CircularConnectionsProps> = ({ isActive }) =
           {[...Array(8)].map((_, index) => (
             <motion.div
               key={index}
-              className="absolute left-1/2 top-1/2 w-1 h-1 rounded-full bg-neon-green"
+              className="absolute left-1/2 top-1/2 w-1 h-1 rounded-full bg-primary-blue"
               initial={{ x: 0, y: 0, opacity: 0 }}
               animate={{
                 x: [0, Math.sin(index * 45 * (Math.PI / 180)) * 100, Math.sin(index * 45 * (Math.PI / 180)) * 100, 0],
@@ -107,7 +107,7 @@ const CircularConnections: React.FC<CircularConnectionsProps> = ({ isActive }) =
             transition={{ type: "spring", stiffness: 200, delay: platform.delay }}
           >
             <motion.div 
-              className="w-10 h-10 rounded-full bg-dark-card shadow-neon border border-dark-border flex items-center justify-center text-xl"
+              className="w-10 h-10 rounded-full bg-white shadow-glass border border-glass-border flex items-center justify-center text-xl"
               animate={{ 
                 y: [0, -5, 0],
               }}

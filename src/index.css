@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,47 +7,48 @@
 
 @layer base {
   :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    --background: 210 30% 98%;
+    --foreground: 224 71% 4%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 71% 4%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71% 4%;
+    --primary: 262 83% 58%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 262 83% 58%;
     --radius: 1rem;
   }
 }
 
 @layer base {
   body {
-    @apply bg-dark-background text-white font-urbanist;
-    background-image: radial-gradient(circle at 50% 0%, rgba(74, 255, 143, 0.15) 0%, rgba(17, 17, 17, 0) 70%);
+    @apply bg-secondary-lightGray/50 text-foreground font-inter;
+    background-image: linear-gradient(109.6deg, rgba(223,234,247,0.5) 11.2%, rgba(244,248,252,0.5) 91.1%);
+    overflow-x: hidden;
   }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-dark-card/80 backdrop-blur-xl border border-dark-border shadow-card rounded-2xl transition-all hover:shadow-neon;
+    @apply bg-glass-background/70 backdrop-blur-md border border-glass-border rounded-2xl transition-all shadow-glass hover:shadow-glass-hover;
   }
   
   .frosted-panel {
-    @apply bg-dark-card/90 backdrop-blur-xl border border-dark-border shadow-card rounded-2xl;
+    @apply bg-white/90 backdrop-blur-md border border-white/20 shadow-glass rounded-2xl;
   }
 
   .animated-gradient {
-    background: linear-gradient(90deg, rgba(143, 227, 136, 0.2) 0%, rgba(230, 250, 230, 0.2) 50%, rgba(143, 227, 136, 0.2) 100%);
+    background: linear-gradient(90deg, rgba(140, 158, 255, 0.1) 0%, rgba(179, 157, 219, 0.1) 50%, rgba(140, 158, 255, 0.1) 100%);
     background-size: 200% 100%;
     animation: gradientMove 15s linear infinite;
   }
@@ -58,48 +59,42 @@
     100% {background-position: 0% 50%}
   }
 
-  .neon-text {
-    @apply text-neon-green;
-    text-shadow: 0 0 10px rgba(74, 255, 143, 0.5);
+  .accent-text {
+    @apply text-primary-lavender;
   }
 
-  .neon-border {
-    @apply border border-neon-green/20;
-    box-shadow: 0 0 10px rgba(74, 255, 143, 0.1);
+  .soft-shadow {
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
   }
   
   /* New styles for improved UI */
   .neo-button {
-    @apply bg-dark-card/90 backdrop-blur-sm border border-dark-border rounded-xl px-4 py-2 transition-all;
-    box-shadow: -2px -2px 5px rgba(255, 255, 255, 0.05), 
-                 3px 3px 5px rgba(0, 0, 0, 0.2);
+    @apply bg-white/90 backdrop-blur-sm border border-glass-border rounded-xl px-4 py-2 transition-all shadow-button hover:shadow-button-hover;
   }
   
   .neo-button:hover {
-    @apply bg-dark-card/70;
-    box-shadow: -1px -1px 3px rgba(255, 255, 255, 0.05), 
-                 2px 2px 4px rgba(0, 0, 0, 0.2);
+    @apply bg-white transform -translate-y-1;
   }
   
   .neo-button:active {
-    @apply bg-dark-card/60;
-    box-shadow: inset -1px -1px 3px rgba(255, 255, 255, 0.05), 
-                inset 2px 2px 4px rgba(0, 0, 0, 0.2);
+    @apply bg-white/80 transform translate-y-0;
+    box-shadow: inset -1px -1px 3px rgba(255, 255, 255, 0.7), 
+                inset 2px 2px 4px rgba(0, 0, 0, 0.05);
   }
   
   .neo-input {
-    @apply bg-dark-card/60 backdrop-blur-sm border border-dark-border rounded-xl px-4 py-2 transition-all;
-    box-shadow: inset -2px -2px 5px rgba(255, 255, 255, 0.05), 
-                inset 3px 3px 5px rgba(0, 0, 0, 0.2);
+    @apply bg-white/80 backdrop-blur-sm border border-glass-border rounded-xl px-4 py-2 transition-all;
+    box-shadow: inset -2px -2px 5px rgba(255, 255, 255, 0.7), 
+                inset 3px 3px 5px rgba(0, 0, 0, 0.05);
   }
   
   .glass-pill {
-    @apply bg-dark-card/40 backdrop-blur-sm text-white/80 rounded-full px-4 py-1 border border-dark-border transition-all;
+    @apply bg-white/40 backdrop-blur-sm text-sleek-gray rounded-full px-4 py-1 border border-glass-border transition-all;
   }
   
   .glass-pill.active {
-    @apply bg-neon-green/20 text-neon-green border-neon-green/30;
-    box-shadow: 0 0 10px rgba(74, 255, 143, 0.15);
+    @apply bg-primary-blue/10 text-primary-blue border-primary-blue/30;
+    box-shadow: 0 0 10px rgba(140, 158, 255, 0.15);
   }
   
   .micro-hover {
@@ -111,7 +106,24 @@
     transform: translateY(-2px);
   }
   
-  .soft-shadow {
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
+  .shimmer {
+    @apply relative overflow-hidden;
+  }
+  
+  .shimmer::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg, 
+      rgba(255, 255, 255, 0) 0%, 
+      rgba(255, 255, 255, 0.6) 50%, 
+      rgba(255, 255, 255, 0) 100%
+    );
+    animation: shimmer 2s infinite;
   }
 }
+

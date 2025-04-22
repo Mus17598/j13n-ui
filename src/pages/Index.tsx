@@ -79,7 +79,7 @@ const Index = () => {
   };
   
   return (
-    <div className="min-h-screen pb-20">
+    <div className="min-h-screen pb-20 bg-gradient-soft">
       {/* Header */}
       <motion.header 
         className="frosted-panel m-4 p-6 rounded-xl"
@@ -89,14 +89,14 @@ const Index = () => {
       >
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold neon-text">Job Apply Flow</h1>
-            <p className="text-white/70">Automated job applications for India & Canada</p>
+            <h1 className="text-2xl md:text-3xl font-bold text-primary-blue">Job Apply Flow</h1>
+            <p className="text-sleek-gray">Automated job applications for India & Canada</p>
           </div>
           <Button 
             onClick={toggleAutoApply}
             className={`micro-hover ${isAutoApplying 
-              ? 'bg-red-500/20 hover:bg-red-600/30 text-red-400 shadow-sm hover:shadow-red-500/25 border border-red-500/30' 
-              : 'bg-neon-green/20 hover:bg-neon-green/30 text-neon-green border border-neon-green/30 shadow-neon'}`}
+              ? 'bg-destructive/10 hover:bg-destructive/20 text-destructive shadow-sm hover:shadow-destructive/10 border border-destructive/30' 
+              : 'bg-primary-blue/20 hover:bg-primary-blue/30 text-primary-blue border border-primary-blue/30 shadow-glass'}`}
           >
             {isAutoApplying ? 'Stop Auto-Apply' : 'Start Auto-Apply'}
             {!isAutoApplying ? <Zap className="ml-2 h-4 w-4" /> : null}
@@ -131,8 +131,8 @@ const Index = () => {
                   </motion.div>
                 </TooltipTrigger>
                 {isAutoApplying && (
-                  <TooltipContent className="bg-dark-card/90 backdrop-blur-sm border border-dark-border">
-                    <p className="text-white/90">{tooltipMessage}</p>
+                  <TooltipContent className="bg-glass-background/90 backdrop-blur-sm border border-glass-border">
+                    <p className="text-foreground/90">{tooltipMessage}</p>
                   </TooltipContent>
                 )}
               </Tooltip>
@@ -149,8 +149,8 @@ const Index = () => {
                   </motion.div>
                 </TooltipTrigger>
                 {isAutoApplying && (
-                  <TooltipContent className="bg-dark-card/90 backdrop-blur-sm border border-dark-border">
-                    <p className="text-white/90">{tooltipMessage}</p>
+                  <TooltipContent className="bg-glass-background/90 backdrop-blur-sm border border-glass-border">
+                    <p className="text-foreground/90">{tooltipMessage}</p>
                   </TooltipContent>
                 )}
               </Tooltip>

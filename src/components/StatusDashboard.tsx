@@ -14,9 +14,9 @@ interface StatusDashboardProps {
 
 const StatusDashboard: React.FC<StatusDashboardProps> = ({ stats }) => {
   const data = [
-    { name: 'Applied', value: stats.applied, color: '#4AFF8F' }, // Neon green
-    { name: 'Pending', value: stats.pending, color: '#FFE600' }, // Neon yellow
-    { name: 'Rejected', value: stats.rejected, color: '#FF4A4A' }, // Neon red
+    { name: 'Applied', value: stats.applied, color: '#8C9EFF' }, // Blue
+    { name: 'Pending', value: stats.pending, color: '#B39DDB' }, // Lavender
+    { name: 'Rejected', value: stats.rejected, color: '#EF9A9A' }, // Light red
   ];
   
   const total = stats.applied + stats.pending + stats.rejected;
@@ -41,8 +41,8 @@ const StatusDashboard: React.FC<StatusDashboardProps> = ({ stats }) => {
   return (
     <Card className="glass-card">
       <CardHeader>
-        <CardTitle className="text-xl font-semibold text-white">Application Status</CardTitle>
-        <CardDescription className="text-white/60">Overview of your job applications</CardDescription>
+        <CardTitle className="text-xl font-semibold text-foreground">Application Status</CardTitle>
+        <CardDescription className="text-sleek-gray">Overview of your job applications</CardDescription>
       </CardHeader>
       <CardContent>
         <motion.div 
@@ -54,7 +54,7 @@ const StatusDashboard: React.FC<StatusDashboardProps> = ({ stats }) => {
           {data.map((item) => (
             <motion.div 
               key={item.name} 
-              className="bg-dark-card/40 rounded-lg p-4 text-center border border-dark-border/50 backdrop-blur-sm"
+              className="bg-white/40 rounded-lg p-4 text-center border border-glass-border backdrop-blur-sm shadow-glass"
               variants={itemVariants}
             >
               <motion.div 
@@ -66,7 +66,7 @@ const StatusDashboard: React.FC<StatusDashboardProps> = ({ stats }) => {
               >
                 {item.value}
               </motion.div>
-              <div className="text-sm text-white/70">{item.name}</div>
+              <div className="text-sm text-sleek-gray">{item.name}</div>
             </motion.div>
           ))}
         </motion.div>
@@ -104,14 +104,14 @@ const StatusDashboard: React.FC<StatusDashboardProps> = ({ stats }) => {
                 formatter={(value: number) => [`${value} (${Math.round((value / total) * 100)}%)`, 'Applications']}
                 contentStyle={{ 
                   borderRadius: '0.5rem', 
-                  background: 'rgba(26, 26, 26, 0.8)',
+                  background: 'rgba(255, 255, 255, 0.8)',
                   backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  color: 'white',
-                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)'
+                  border: '1px solid rgba(255, 255, 255, 0.5)',
+                  color: 'black',
+                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)'
                 }}
                 itemStyle={{
-                  color: 'rgba(255, 255, 255, 0.8)'
+                  color: 'rgba(0, 0, 0, 0.8)'
                 }}
               />
             </PieChart>
@@ -131,7 +131,7 @@ const StatusDashboard: React.FC<StatusDashboardProps> = ({ stats }) => {
               variants={itemVariants}
             >
               <div className="w-3 h-3 rounded-full mr-2" style={{ backgroundColor: item.color, boxShadow: `0 0 10px ${item.color}` }}></div>
-              <span className="text-sm text-white/70">{item.name}</span>
+              <span className="text-sm text-sleek-gray">{item.name}</span>
             </motion.div>
           ))}
         </motion.div>
