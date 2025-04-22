@@ -110,18 +110,22 @@ const AutoApplyAnimation: React.FC<AutoApplyAnimationProps> = ({ isActive, onSto
           </Button>
         </div>
       </div>
-      <style jsx global>{`
-        @keyframes pulse {
-          0% {
-            transform: scale(0.95);
-            opacity: 1;
+      
+      {/* Using style tag without jsx and global attributes */}
+      <style>
+        {`
+          @keyframes pulse {
+            0% {
+              transform: scale(0.95);
+              opacity: 1;
+            }
+            100% {
+              transform: scale(2);
+              opacity: 0;
+            }
           }
-          100% {
-            transform: scale(2);
-            opacity: 0;
-          }
-        }
-      `}</style>
+        `}
+      </style>
     </div>
   );
 };
