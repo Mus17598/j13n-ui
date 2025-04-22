@@ -1,4 +1,6 @@
+
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import LoginScreen from '@/components/LoginScreen';
 import ResumeUpload from '@/components/ResumeUpload';
 import JobFilters from '@/components/JobFilters';
@@ -8,7 +10,7 @@ import RecentApplications from '@/components/RecentApplications';
 import AutoApplyAnimation from '@/components/AutoApplyAnimation';
 import AIChatBubble from '@/components/AIChatBubble';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Zap } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -56,24 +58,51 @@ const Index = () => {
     return <LoginScreen onLoggedIn={handleLogin} />;
   }
   
+  const pageVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { 
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+  
+  const sectionVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { 
+      y: 0, 
+      opacity: 1,
+      transition: { type: "spring", stiffness: 50, damping: 20 }
+    }
+  };
+  
   return (
     <div className="min-h-screen pb-20">
       {/* Header */}
-      <header className="frosted-panel m-4 p-6 rounded-xl">
+      <motion.header 
+        className="frosted-panel m-4 p-6 rounded-xl"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-800">Job Apply Flow</h1>
-            <p className="text-gray-600">Automated job applications for India & Canada</p>
+            <h1 className="text-2xl md:text-3xl font-bold neon-text">Job Apply Flow</h1>
+            <p className="text-white/70">Automated job applications for India & Canada</p>
           </div>
           <Button 
             onClick={toggleAutoApply}
-            className={`${isAutoApplying ? 'bg-red-500 hover:bg-red-600' : 'bg-primary-green hover:bg-primary-green/90'} text-white`}
+            className={`micro-hover ${isAutoApplying 
+              ? 'bg-red-500/20 hover:bg-red-600/30 text-red-400 shadow-sm hover:shadow-red-500/25 border border-red-500/30' 
+              : 'bg-neon-green/20 hover:bg-neon-green/30 text-neon-green border border-neon-green/30 shadow-neon'}`}
           >
             {isAutoApplying ? 'Stop Auto-Apply' : 'Start Auto-Apply'}
-            {!isAutoApplying && <ArrowRight className="ml-2 h-4 w-4" />}
+            {!isAutoApplying ? <Zap className="ml-2 h-4 w-4" /> : null}
           </Button>
         </div>
-      </header>
+      </motion.header>
       
       {/* Auto Apply Animation */}
       <AutoApplyAnimation 
@@ -83,19 +112,27 @@ const Index = () => {
       />
       
       <main className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <motion.div 
+          className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+          variants={pageVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {/* Left Column */}
           <div className="space-y-6">
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <div className={isAutoApplying ? disabledSectionStyle : ""}>
+                  <motion.div 
+                    className={isAutoApplying ? disabledSectionStyle : ""}
+                    variants={sectionVariants}
+                  >
                     <ResumeUpload />
-                  </div>
+                  </motion.div>
                 </TooltipTrigger>
                 {isAutoApplying && (
-                  <TooltipContent>
-                    <p>{tooltipMessage}</p>
+                  <TooltipContent className="bg-dark-card/90 backdrop-blur-sm border border-dark-border">
+                    <p className="text-white/90">{tooltipMessage}</p>
                   </TooltipContent>
                 )}
               </Tooltip>
@@ -104,27 +141,36 @@ const Index = () => {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <div className={isAutoApplying ? disabledSectionStyle : ""}>
+                  <motion.div 
+                    className={isAutoApplying ? disabledSectionStyle : ""}
+                    variants={sectionVariants}
+                  >
                     <JobFilters />
-                  </div>
+                  </motion.div>
                 </TooltipTrigger>
                 {isAutoApplying && (
-                  <TooltipContent>
-                    <p>{tooltipMessage}</p>
+                  <TooltipContent className="bg-dark-card/90 backdrop-blur-sm border border-dark-border">
+                    <p className="text-white/90">{tooltipMessage}</p>
                   </TooltipContent>
                 )}
               </Tooltip>
             </TooltipProvider>
             
-            <QAEditor />
+            <motion.div variants={sectionVariants}>
+              <QAEditor />
+            </motion.div>
           </div>
           
           {/* Right Column */}
           <div className="space-y-6">
-            <StatusDashboard stats={applicationStats} />
-            <RecentApplications />
+            <motion.div variants={sectionVariants}>
+              <StatusDashboard stats={applicationStats} />
+            </motion.div>
+            <motion.div variants={sectionVariants}>
+              <RecentApplications />
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </main>
       
       {/* AI Chat Bubble */}

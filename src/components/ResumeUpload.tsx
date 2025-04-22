@@ -1,7 +1,8 @@
 
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Upload } from "lucide-react";
+import { Upload, FileText, X } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface FileItem {
   id: string;
@@ -12,9 +13,11 @@ interface FileItem {
 
 const ResumeUpload: React.FC = () => {
   const [files, setFiles] = useState<FileItem[]>([]);
+  const [dragActive, setDragActive] = useState<'resume' | 'coverLetter' | null>(null);
   
   const handleDrop = (e: React.DragEvent<HTMLDivElement>, type: 'resume' | 'coverLetter') => {
     e.preventDefault();
+    setDragActive(null);
     const droppedFiles = Array.from(e.dataTransfer.files);
     
     if (droppedFiles.length > 0) {
@@ -36,6 +39,16 @@ const ResumeUpload: React.FC = () => {
   
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
+  };
+  
+  const handleDragEnter = (e: React.DragEvent<HTMLDivElement>, type: 'resume' | 'coverLetter') => {
+    e.preventDefault();
+    setDragActive(type);
+  };
+  
+  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setDragActive(null);
   };
   
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>, type: 'resume' | 'coverLetter') => {
@@ -63,43 +76,80 @@ const ResumeUpload: React.FC = () => {
     return files.find(file => file.type === type);
   };
   
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+  
+  const itemVariants = {
+    hidden: { y: 10, opacity: 0 },
+    visible: { 
+      y: 0, 
+      opacity: 1,
+      transition: { type: "spring", stiffness: 100 }
+    }
+  };
+  
   return (
-    <div className="glass-card rounded-2xl p-6 space-y-6">
-      <h2 className="text-xl font-semibold text-gray-800">Upload Documents</h2>
+    <motion.div 
+      className="glass-card rounded-2xl p-6 space-y-6"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      <h2 className="text-xl font-semibold text-white">Upload Documents</h2>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <motion.div 
+        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
         {/* Resume Upload */}
-        <div>
-          <p className="text-sm text-gray-600 mb-2">Resume</p>
+        <motion.div variants={itemVariants}>
+          <p className="text-sm text-white/70 mb-2">Resume</p>
           {getFileByType('resume') ? (
-            <div className="bg-white/70 rounded-lg p-4 flex items-center space-x-3 border border-gray-200">
-              <div className="w-10 h-10 bg-primary-green/10 rounded flex items-center justify-center">
-                <svg className="w-6 h-6 text-primary-green" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
+            <motion.div 
+              className="bg-dark-card/60 rounded-lg p-4 flex items-center space-x-3 border border-dark-border"
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ type: "spring", stiffness: 200, damping: 15 }}
+            >
+              <div className="w-10 h-10 bg-neon-green/10 rounded-lg flex items-center justify-center">
+                <FileText className="w-6 h-6 text-neon-green" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-800 truncate">
+                <p className="text-sm font-medium text-white truncate">
                   {getFileByType('resume')?.name}
+                </p>
+                <p className="text-xs text-white/50">
+                  PDF Document
                 </p>
               </div>
               <button
                 onClick={() => removeFile(getFileByType('resume')?.id || '')}
-                className="text-gray-400 hover:text-gray-500"
+                className="text-white/40 hover:text-white/80 transition-colors"
+                aria-label="Remove file"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                <X className="w-5 h-5" />
               </button>
-            </div>
+            </motion.div>
           ) : (
             <div
               onDrop={(e) => handleDrop(e, 'resume')}
               onDragOver={handleDragOver}
-              className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:bg-gray-50 transition-colors cursor-pointer"
+              onDragEnter={(e) => handleDragEnter(e, 'resume')}
+              onDragLeave={handleDragLeave}
+              className={`border-2 border-dashed rounded-lg p-6 text-center transition-all cursor-pointer
+                ${dragActive === 'resume' 
+                  ? 'border-neon-green/50 bg-neon-green/5 shadow-neon' 
+                  : 'border-dark-border hover:border-white/30 hover:bg-dark-card/30'}`}
             >
-              <Upload className="mx-auto h-10 w-10 text-gray-400" />
-              <p className="mt-2 text-sm text-gray-500">
+              <Upload className={`mx-auto h-10 w-10 ${dragActive === 'resume' ? 'text-neon-green' : 'text-white/40'}`} />
+              <p className={`mt-2 text-sm ${dragActive === 'resume' ? 'text-neon-green' : 'text-white/60'}`}>
                 Drag and drop your resume here, or click to browse
               </p>
               <input
@@ -112,47 +162,57 @@ const ResumeUpload: React.FC = () => {
               <Button
                 type="button"
                 variant="outline"
-                className="mt-4"
+                className="mt-4 border-dark-border bg-dark-card/30 hover:bg-dark-card/60 text-white/80 hover:text-white micro-hover"
                 onClick={() => document.getElementById('resume-upload')?.click()}
               >
                 Select File
               </Button>
             </div>
           )}
-        </div>
+        </motion.div>
         
         {/* Cover Letter Upload */}
-        <div>
-          <p className="text-sm text-gray-600 mb-2">Cover Letter</p>
+        <motion.div variants={itemVariants}>
+          <p className="text-sm text-white/70 mb-2">Cover Letter</p>
           {getFileByType('coverLetter') ? (
-            <div className="bg-white/70 rounded-lg p-4 flex items-center space-x-3 border border-gray-200">
-              <div className="w-10 h-10 bg-primary-green/10 rounded flex items-center justify-center">
-                <svg className="w-6 h-6 text-primary-green" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
+            <motion.div 
+              className="bg-dark-card/60 rounded-lg p-4 flex items-center space-x-3 border border-dark-border"
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ type: "spring", stiffness: 200, damping: 15 }}
+            >
+              <div className="w-10 h-10 bg-neon-green/10 rounded-lg flex items-center justify-center">
+                <FileText className="w-6 h-6 text-neon-green" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-800 truncate">
+                <p className="text-sm font-medium text-white truncate">
                   {getFileByType('coverLetter')?.name}
+                </p>
+                <p className="text-xs text-white/50">
+                  PDF Document
                 </p>
               </div>
               <button
                 onClick={() => removeFile(getFileByType('coverLetter')?.id || '')}
-                className="text-gray-400 hover:text-gray-500"
+                className="text-white/40 hover:text-white/80 transition-colors"
+                aria-label="Remove file"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                <X className="w-5 h-5" />
               </button>
-            </div>
+            </motion.div>
           ) : (
             <div
               onDrop={(e) => handleDrop(e, 'coverLetter')}
               onDragOver={handleDragOver}
-              className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:bg-gray-50 transition-colors cursor-pointer"
+              onDragEnter={(e) => handleDragEnter(e, 'coverLetter')}
+              onDragLeave={handleDragLeave}
+              className={`border-2 border-dashed rounded-lg p-6 text-center transition-all cursor-pointer
+                ${dragActive === 'coverLetter' 
+                  ? 'border-neon-green/50 bg-neon-green/5 shadow-neon' 
+                  : 'border-dark-border hover:border-white/30 hover:bg-dark-card/30'}`}
             >
-              <Upload className="mx-auto h-10 w-10 text-gray-400" />
-              <p className="mt-2 text-sm text-gray-500">
+              <Upload className={`mx-auto h-10 w-10 ${dragActive === 'coverLetter' ? 'text-neon-green' : 'text-white/40'}`} />
+              <p className={`mt-2 text-sm ${dragActive === 'coverLetter' ? 'text-neon-green' : 'text-white/60'}`}>
                 Drag and drop your cover letter here, or click to browse
               </p>
               <input
@@ -165,16 +225,16 @@ const ResumeUpload: React.FC = () => {
               <Button
                 type="button"
                 variant="outline"
-                className="mt-4"
+                className="mt-4 border-dark-border bg-dark-card/30 hover:bg-dark-card/60 text-white/80 hover:text-white micro-hover"
                 onClick={() => document.getElementById('cover-letter-upload')?.click()}
               >
                 Select File
               </Button>
             </div>
           )}
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 };
 

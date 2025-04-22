@@ -2,7 +2,8 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { FileText, Download } from "lucide-react";
+import { FileText, Download, Calendar } from "lucide-react";
+import { motion } from 'framer-motion';
 
 interface Application {
   id: string;
@@ -74,57 +75,80 @@ const RecentApplications: React.FC = () => {
   
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'applied': return 'bg-primary-green/90 hover:bg-primary-green';
-      case 'pending': return 'bg-yellow-400/90 hover:bg-yellow-400';
-      case 'rejected': return 'bg-red-500/90 hover:bg-red-500';
-      default: return 'bg-gray-500/90 hover:bg-gray-500';
+      case 'applied': return 'bg-neon-green/70 hover:bg-neon-green/90 border border-neon-green/30';
+      case 'pending': return 'bg-neon-yellow/30 hover:bg-neon-yellow/50 text-neon-yellow border border-neon-yellow/30';
+      case 'rejected': return 'bg-red-500/30 hover:bg-red-500/50 text-red-300 border border-red-500/30';
+      default: return 'bg-white/10 hover:bg-white/20 text-white/70 border border-white/20';
+    }
+  };
+  
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { staggerChildren: 0.07 }
+    }
+  };
+  
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { 
+      y: 0, 
+      opacity: 1,
+      transition: { type: "spring", stiffness: 70, damping: 15 }
     }
   };
   
   return (
     <Card className="glass-card">
       <CardHeader>
-        <CardTitle className="text-xl font-semibold text-gray-800">Recent Applications</CardTitle>
+        <CardTitle className="text-xl font-semibold text-white">Recent Applications</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="space-y-4">
+        <motion.div 
+          className="space-y-4"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {applications.map((app) => (
-            <div 
+            <motion.div 
               key={app.id} 
-              className="bg-white/70 rounded-lg p-4 hover:bg-white/90 transition-colors"
+              className="bg-dark-card/60 rounded-lg p-4 hover:bg-dark-card/80 transition-colors border border-dark-border/70 backdrop-blur-sm micro-hover"
+              variants={itemVariants}
             >
               <div className="flex flex-wrap justify-between items-start gap-2 mb-3">
                 <div>
-                  <h3 className="font-medium text-gray-800">{app.position}</h3>
-                  <p className="text-gray-600 text-sm">{app.company}</p>
+                  <h3 className="font-medium text-white">{app.position}</h3>
+                  <p className="text-white/60 text-sm">{app.company}</p>
                 </div>
-                <Badge className={`${getStatusColor(app.status)} text-white`}>
+                <Badge className={`${getStatusColor(app.status)}`}>
                   {app.status.charAt(0).toUpperCase() + app.status.slice(1)}
                 </Badge>
               </div>
               
               <div className="flex flex-wrap justify-between items-center text-sm">
-                <div className="text-gray-500">
+                <div className="text-white/50 flex items-center">
+                  <Calendar className="h-4 w-4 mr-1 text-white/40" />
                   Applied: {formatDate(app.appliedDate)}
                 </div>
                 
-                <div className="flex space-x-2 mt-2 sm:mt-0">
-                  <button className="flex items-center text-gray-600 hover:text-gray-900 group">
-                    <FileText className="h-4 w-4 mr-1" />
+                <div className="flex space-x-4 mt-2 sm:mt-0">
+                  <button className="flex items-center text-white/60 hover:text-neon-green transition-colors group">
+                    <FileText className="h-4 w-4 mr-1 group-hover:text-neon-green transition-colors" />
                     <span>Resume</span>
-                    <Download className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <Download className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity group-hover:text-neon-green" />
                   </button>
-                  <span className="text-gray-300">|</span>
-                  <button className="flex items-center text-gray-600 hover:text-gray-900 group">
-                    <FileText className="h-4 w-4 mr-1" />
+                  <button className="flex items-center text-white/60 hover:text-neon-green transition-colors group">
+                    <FileText className="h-4 w-4 mr-1 group-hover:text-neon-green transition-colors" />
                     <span>Cover Letter</span>
-                    <Download className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <Download className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity group-hover:text-neon-green" />
                   </button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </CardContent>
     </Card>
   );

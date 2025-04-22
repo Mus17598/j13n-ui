@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { motion } from "framer-motion";
 
 interface LoginScreenProps {
   onLoggedIn: () => void;
@@ -17,60 +18,121 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLoggedIn }) => {
     // In a real app, this would handle authentication
     onLoggedIn();
   };
+  
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { 
+        staggerChildren: 0.1,
+        delayChildren: 0.3
+      }
+    }
+  };
+  
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { 
+      y: 0, 
+      opacity: 1,
+      transition: { type: "spring", stiffness: 100 }
+    }
+  };
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center p-4">
       <div className="absolute inset-0 -z-10 animated-gradient"></div>
       
-      <div className="frosted-panel w-full max-w-md p-8 space-y-6">
-        <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold text-gray-800">Job Apply Flow</h1>
-          <p className="text-gray-600">Sign in to your account</p>
-        </div>
+      <motion.div 
+        className="frosted-panel w-full max-w-md p-8 space-y-6 soft-shadow"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <motion.div 
+          className="text-center space-y-2"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.h1 
+            className="text-3xl font-bold neon-text"
+            variants={itemVariants}
+          >
+            Job Apply Flow
+          </motion.h1>
+          <motion.p 
+            className="text-white/70"
+            variants={itemVariants}
+          >
+            Sign in to your account
+          </motion.p>
+        </motion.div>
         
-        <form onSubmit={handleLogin} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+        <motion.form 
+          onSubmit={handleLogin} 
+          className="space-y-4"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div 
+            className="space-y-2"
+            variants={itemVariants}
+          >
+            <Label htmlFor="email" className="text-white/80">Email</Label>
             <Input 
               id="email" 
               type="email" 
               placeholder="Enter your email" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="bg-white/50 border-gray-200"
+              className="neo-input text-white/90 focus:border-neon-green/40 focus:shadow-neon"
               required
             />
-          </div>
+          </motion.div>
           
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+          <motion.div 
+            className="space-y-2"
+            variants={itemVariants}
+          >
+            <Label htmlFor="password" className="text-white/80">Password</Label>
             <Input 
               id="password" 
               type="password" 
               placeholder="Enter your password" 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="bg-white/50 border-gray-200"
+              className="neo-input text-white/90 focus:border-neon-green/40 focus:shadow-neon"
               required
             />
-          </div>
+          </motion.div>
           
-          <div className="pt-2">
-            <Button type="submit" className="w-full bg-primary-green hover:bg-primary-green/90 text-white">
+          <motion.div 
+            className="pt-2"
+            variants={itemVariants}
+          >
+            <Button 
+              type="submit" 
+              className="w-full bg-neon-green/20 hover:bg-neon-green/30 text-neon-green border border-neon-green/30 shadow-neon micro-hover"
+            >
               Sign In
             </Button>
-          </div>
-        </form>
+          </motion.div>
+        </motion.form>
         
-        <div className="text-center pt-4">
-          <p className="text-sm text-gray-500">
+        <motion.div 
+          className="text-center pt-4"
+          variants={itemVariants}
+        >
+          <p className="text-sm text-white/60">
             Don't have an account?{" "}
-            <a href="#" className="text-primary-green hover:underline">
+            <a href="#" className="text-neon-green hover:underline">
               Sign up
             </a>
           </p>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </div>
   );
 };

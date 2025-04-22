@@ -67,4 +67,51 @@
     @apply border border-neon-green/20;
     box-shadow: 0 0 10px rgba(74, 255, 143, 0.1);
   }
+  
+  /* New styles for improved UI */
+  .neo-button {
+    @apply bg-dark-card/90 backdrop-blur-sm border border-dark-border rounded-xl px-4 py-2 transition-all;
+    box-shadow: -2px -2px 5px rgba(255, 255, 255, 0.05), 
+                 3px 3px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .neo-button:hover {
+    @apply bg-dark-card/70;
+    box-shadow: -1px -1px 3px rgba(255, 255, 255, 0.05), 
+                 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .neo-button:active {
+    @apply bg-dark-card/60;
+    box-shadow: inset -1px -1px 3px rgba(255, 255, 255, 0.05), 
+                inset 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .neo-input {
+    @apply bg-dark-card/60 backdrop-blur-sm border border-dark-border rounded-xl px-4 py-2 transition-all;
+    box-shadow: inset -2px -2px 5px rgba(255, 255, 255, 0.05), 
+                inset 3px 3px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .glass-pill {
+    @apply bg-dark-card/40 backdrop-blur-sm text-white/80 rounded-full px-4 py-1 border border-dark-border transition-all;
+  }
+  
+  .glass-pill.active {
+    @apply bg-neon-green/20 text-neon-green border-neon-green/30;
+    box-shadow: 0 0 10px rgba(74, 255, 143, 0.15);
+  }
+  
+  .micro-hover {
+    @apply transition-all duration-300;
+    transform: translateY(0);
+  }
+  
+  .micro-hover:hover {
+    transform: translateY(-2px);
+  }
+  
+  .soft-shadow {
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
+  }
 }
