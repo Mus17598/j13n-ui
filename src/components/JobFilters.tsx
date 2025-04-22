@@ -1,122 +1,144 @@
 
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Filter } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import SearchableFilter from './SearchableFilter';
-import { motion } from "framer-motion";
+import { Filter, Search } from "lucide-react";
 
 const JobFilters: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedJobTypes, setSelectedJobTypes] = useState<string[]>([]);
-  const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
-  const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
-  const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
-  
-  const jobTypes = ["Full-time", "Part-time", "Contract", "Internship", "Remote"];
-  const locations = ["Toronto", "Vancouver", "Mumbai", "Delhi", "Bangalore", "Remote"];
-  const roles = ["Software Engineer", "Product Manager", "Data Scientist", "Designer", "Marketing"];
-  const industries = ["Technology", "Healthcare", "Finance", "Education", "Retail"];
-  
-  const toggleFilter = (value: string, currentSelections: string[], setFunction: React.Dispatch<React.SetStateAction<string[]>>) => {
-    if (currentSelections.includes(value)) {
-      setFunction(currentSelections.filter(item => item !== value));
-    } else {
-      setFunction([...currentSelections, value]);
-    }
-  };
+  const [jobType, setJobType] = useState<string>('');
+  const [location, setLocation] = useState<string>('');
+  const [role, setRole] = useState<string>('');
+  const [industry, setIndustry] = useState<string>('');
   
   const clearFilters = () => {
     setSearchTerm('');
-    setSelectedJobTypes([]);
-    setSelectedLocations([]);
-    setSelectedRoles([]);
-    setSelectedIndustries([]);
+    setJobType('');
+    setLocation('');
+    setRole('');
+    setIndustry('');
   };
-
+  
   return (
-    <motion.div 
-      className="glass-card p-6"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-    >
+    <div className="glass-card rounded-2xl p-6">
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-        <h2 className="text-xl font-semibold text-foreground flex items-center">
-          <Filter className="w-5 h-5 mr-2 text-primary-blue" />
+        <h2 className="text-xl font-semibold text-gray-800 flex items-center">
+          <Filter className="w-5 h-5 mr-2 text-primary-green" />
           Job Filters
         </h2>
         <Button 
           variant="outline" 
           size="sm"
           onClick={clearFilters}
-          className="text-sm text-sleek-gray border-glass-border hover:bg-white/60 hover:text-foreground"
+          className="text-sm"
         >
           Clear All
         </Button>
       </div>
       
       <div className="space-y-6">
+        {/* Search Bar */}
         <div className="relative">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <Search className="h-5 w-5 text-gray-400" />
+          </div>
           <Input
             type="text"
             placeholder="Search job titles, companies, or keywords"
-            className="pl-10 neo-input focus:border-primary-blue/40 focus:shadow-glass"
+            className="pl-10 bg-white/60"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
         
+        {/* Filter Options */}
         <Tabs defaultValue="basic" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 bg-white/50 border border-glass-border rounded-lg">
-            <TabsTrigger 
-              value="basic"
-              className="data-[state=active]:bg-white data-[state=active]:shadow-glass data-[state=active]:text-primary-blue rounded-lg"
-            >
-              Basic Filters
-            </TabsTrigger>
-            <TabsTrigger 
-              value="advanced"
-              className="data-[state=active]:bg-white data-[state=active]:shadow-glass data-[state=active]:text-primary-blue rounded-lg"
-            >
-              Advanced Filters
-            </TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 bg-secondary-gray/50">
+            <TabsTrigger value="basic">Basic Filters</TabsTrigger>
+            <TabsTrigger value="advanced">Advanced Filters</TabsTrigger>
           </TabsList>
           
-          <TabsContent value="basic" className="pt-4 space-y-4">
-            <SearchableFilter
-              title="Job Type"
-              options={jobTypes}
-              selectedOptions={selectedJobTypes}
-              onToggle={(value) => toggleFilter(value, selectedJobTypes, setSelectedJobTypes)}
-            />
-            <SearchableFilter
-              title="Location"
-              options={locations}
-              selectedOptions={selectedLocations}
-              onToggle={(value) => toggleFilter(value, selectedLocations, setSelectedLocations)}
-            />
+          <TabsContent value="basic" className="pt-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Job Type */}
+              <div className="space-y-2">
+                <Label htmlFor="job-type">Job Type</Label>
+                <Select value={jobType} onValueChange={setJobType}>
+                  <SelectTrigger id="job-type" className="bg-white/60">
+                    <SelectValue placeholder="Select job type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="full-time">Full-time</SelectItem>
+                    <SelectItem value="part-time">Part-time</SelectItem>
+                    <SelectItem value="contract">Contract</SelectItem>
+                    <SelectItem value="internship">Internship</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              {/* Location */}
+              <div className="space-y-2">
+                <Label htmlFor="location">Location</Label>
+                <Select value={location} onValueChange={setLocation}>
+                  <SelectTrigger id="location" className="bg-white/60">
+                    <SelectValue placeholder="Select location" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="toronto">Toronto, Canada</SelectItem>
+                    <SelectItem value="vancouver">Vancouver, Canada</SelectItem>
+                    <SelectItem value="mumbai">Mumbai, India</SelectItem>
+                    <SelectItem value="delhi">Delhi, India</SelectItem>
+                    <SelectItem value="bangalore">Bangalore, India</SelectItem>
+                    <SelectItem value="remote">Remote</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
           </TabsContent>
           
-          <TabsContent value="advanced" className="pt-4 space-y-4">
-            <SearchableFilter
-              title="Role"
-              options={roles}
-              selectedOptions={selectedRoles}
-              onToggle={(value) => toggleFilter(value, selectedRoles, setSelectedRoles)}
-            />
-            <SearchableFilter
-              title="Industry"
-              options={industries}
-              selectedOptions={selectedIndustries}
-              onToggle={(value) => toggleFilter(value, selectedIndustries, setSelectedIndustries)}
-            />
+          <TabsContent value="advanced" className="pt-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Role */}
+              <div className="space-y-2">
+                <Label htmlFor="role">Role</Label>
+                <Select value={role} onValueChange={setRole}>
+                  <SelectTrigger id="role" className="bg-white/60">
+                    <SelectValue placeholder="Select role" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="software-engineer">Software Engineer</SelectItem>
+                    <SelectItem value="product-manager">Product Manager</SelectItem>
+                    <SelectItem value="data-scientist">Data Scientist</SelectItem>
+                    <SelectItem value="designer">Designer</SelectItem>
+                    <SelectItem value="marketing">Marketing</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              {/* Industry */}
+              <div className="space-y-2">
+                <Label htmlFor="industry">Industry</Label>
+                <Select value={industry} onValueChange={setIndustry}>
+                  <SelectTrigger id="industry" className="bg-white/60">
+                    <SelectValue placeholder="Select industry" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="tech">Technology</SelectItem>
+                    <SelectItem value="healthcare">Healthcare</SelectItem>
+                    <SelectItem value="finance">Finance</SelectItem>
+                    <SelectItem value="education">Education</SelectItem>
+                    <SelectItem value="retail">Retail</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
           </TabsContent>
         </Tabs>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

@@ -2,7 +2,6 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import { motion } from 'framer-motion';
 
 interface StatusDashboardProps {
   stats: {
@@ -14,69 +13,32 @@ interface StatusDashboardProps {
 
 const StatusDashboard: React.FC<StatusDashboardProps> = ({ stats }) => {
   const data = [
-    { name: 'Applied', value: stats.applied, color: '#8C9EFF' }, // Blue
-    { name: 'Pending', value: stats.pending, color: '#B39DDB' }, // Lavender
-    { name: 'Rejected', value: stats.rejected, color: '#EF9A9A' }, // Light red
+    { name: 'Applied', value: stats.applied, color: '#8FE388' },
+    { name: 'Pending', value: stats.pending, color: '#FFD166' },
+    { name: 'Rejected', value: stats.rejected, color: '#EF6F6C' },
   ];
   
   const total = stats.applied + stats.pending + stats.rejected;
   
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { 
-      opacity: 1,
-      transition: { staggerChildren: 0.1 }
-    }
-  };
-  
-  const itemVariants = {
-    hidden: { y: 10, opacity: 0 },
-    visible: { 
-      y: 0, 
-      opacity: 1,
-      transition: { type: "spring", stiffness: 100 }
-    }
-  };
-  
   return (
     <Card className="glass-card">
       <CardHeader>
-        <CardTitle className="text-xl font-semibold text-foreground">Application Status</CardTitle>
-        <CardDescription className="text-sleek-gray">Overview of your job applications</CardDescription>
+        <CardTitle className="text-xl font-semibold text-gray-800">Application Status</CardTitle>
+        <CardDescription>Overview of your job applications</CardDescription>
       </CardHeader>
       <CardContent>
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           {data.map((item) => (
-            <motion.div 
-              key={item.name} 
-              className="bg-white/40 rounded-lg p-4 text-center border border-glass-border backdrop-blur-sm shadow-glass"
-              variants={itemVariants}
-            >
-              <motion.div 
-                className="text-2xl font-bold" 
-                style={{ color: item.color }}
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
-              >
+            <div key={item.name} className="bg-white/60 rounded-lg p-4 text-center">
+              <div className="text-2xl font-bold" style={{ color: item.color }}>
                 {item.value}
-              </motion.div>
-              <div className="text-sm text-sleek-gray">{item.name}</div>
-            </motion.div>
+              </div>
+              <div className="text-sm text-gray-600">{item.name}</div>
+            </div>
           ))}
-        </motion.div>
+        </div>
         
-        <motion.div 
-          className="h-64"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
+        <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
@@ -87,54 +49,32 @@ const StatusDashboard: React.FC<StatusDashboardProps> = ({ stats }) => {
                 outerRadius={80}
                 paddingAngle={5}
                 dataKey="value"
-                startAngle={90}
-                endAngle={-270}
               >
                 {data.map((entry, index) => (
-                  <Cell 
-                    key={`cell-${index}`} 
-                    fill={entry.color} 
-                    fillOpacity={0.8}
-                    stroke={entry.color}
-                    strokeWidth={2}
-                  />
+                  <Cell key={`cell-${index}`} fill={entry.color} />
                 ))}
               </Pie>
               <Tooltip 
                 formatter={(value: number) => [`${value} (${Math.round((value / total) * 100)}%)`, 'Applications']}
                 contentStyle={{ 
                   borderRadius: '0.5rem', 
-                  background: 'rgba(255, 255, 255, 0.8)',
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255, 255, 255, 0.5)',
-                  color: 'black',
-                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)'
-                }}
-                itemStyle={{
-                  color: 'rgba(0, 0, 0, 0.8)'
+                  background: 'rgba(255, 255, 255, 0.9)',
+                  border: 'none',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
                 }}
               />
             </PieChart>
           </ResponsiveContainer>
-        </motion.div>
+        </div>
         
-        <motion.div 
-          className="flex justify-center space-x-6 mt-4"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
+        <div className="flex justify-center space-x-6 mt-4">
           {data.map((item) => (
-            <motion.div 
-              key={item.name} 
-              className="flex items-center"
-              variants={itemVariants}
-            >
-              <div className="w-3 h-3 rounded-full mr-2" style={{ backgroundColor: item.color, boxShadow: `0 0 10px ${item.color}` }}></div>
-              <span className="text-sm text-sleek-gray">{item.name}</span>
-            </motion.div>
+            <div key={item.name} className="flex items-center">
+              <div className="w-3 h-3 rounded-full mr-2" style={{ backgroundColor: item.color }}></div>
+              <span className="text-sm text-gray-600">{item.name}</span>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </CardContent>
     </Card>
   );

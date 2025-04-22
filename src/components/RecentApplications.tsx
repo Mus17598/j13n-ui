@@ -2,8 +2,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { FileText, Download, Calendar } from "lucide-react";
-import { motion } from 'framer-motion';
+import { FileText, Download } from "lucide-react";
 
 interface Application {
   id: string;
@@ -75,80 +74,57 @@ const RecentApplications: React.FC = () => {
   
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'applied': return 'bg-primary-blue/20 hover:bg-primary-blue/30 text-primary-blue border border-primary-blue/30';
-      case 'pending': return 'bg-primary-lavender/20 hover:bg-primary-lavender/30 text-primary-lavender border border-primary-lavender/30';
-      case 'rejected': return 'bg-red-300/20 hover:bg-red-300/30 text-red-400 border border-red-300/30';
-      default: return 'bg-white/10 hover:bg-white/20 text-foreground/70 border border-white/20';
-    }
-  };
-  
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { 
-      opacity: 1,
-      transition: { staggerChildren: 0.07 }
-    }
-  };
-  
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { 
-      y: 0, 
-      opacity: 1,
-      transition: { type: "spring", stiffness: 70, damping: 15 }
+      case 'applied': return 'bg-primary-green/90 hover:bg-primary-green';
+      case 'pending': return 'bg-yellow-400/90 hover:bg-yellow-400';
+      case 'rejected': return 'bg-red-500/90 hover:bg-red-500';
+      default: return 'bg-gray-500/90 hover:bg-gray-500';
     }
   };
   
   return (
     <Card className="glass-card">
       <CardHeader>
-        <CardTitle className="text-xl font-semibold text-foreground">Recent Applications</CardTitle>
+        <CardTitle className="text-xl font-semibold text-gray-800">Recent Applications</CardTitle>
       </CardHeader>
       <CardContent>
-        <motion.div 
-          className="space-y-4"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
+        <div className="space-y-4">
           {applications.map((app) => (
-            <motion.div 
+            <div 
               key={app.id} 
-              className="bg-white/60 rounded-lg p-4 hover:bg-white/80 transition-colors border border-glass-border backdrop-blur-sm shadow-glass micro-hover"
-              variants={itemVariants}
+              className="bg-white/70 rounded-lg p-4 hover:bg-white/90 transition-colors"
             >
               <div className="flex flex-wrap justify-between items-start gap-2 mb-3">
                 <div>
-                  <h3 className="font-medium text-foreground">{app.position}</h3>
-                  <p className="text-sleek-gray text-sm">{app.company}</p>
+                  <h3 className="font-medium text-gray-800">{app.position}</h3>
+                  <p className="text-gray-600 text-sm">{app.company}</p>
                 </div>
-                <Badge className={`${getStatusColor(app.status)}`}>
+                <Badge className={`${getStatusColor(app.status)} text-white`}>
                   {app.status.charAt(0).toUpperCase() + app.status.slice(1)}
                 </Badge>
               </div>
               
               <div className="flex flex-wrap justify-between items-center text-sm">
-                <div className="text-sleek-gray flex items-center">
-                  <Calendar className="h-4 w-4 mr-1 text-sleek-gray" />
+                <div className="text-gray-500">
                   Applied: {formatDate(app.appliedDate)}
                 </div>
                 
-                <div className="flex space-x-4 mt-2 sm:mt-0">
-                  <button className="flex items-center text-sleek-gray hover:text-primary-blue transition-colors group">
-                    <FileText className="h-4 w-4 mr-1 group-hover:text-primary-blue transition-colors" />
+                <div className="flex space-x-2 mt-2 sm:mt-0">
+                  <button className="flex items-center text-gray-600 hover:text-gray-900 group">
+                    <FileText className="h-4 w-4 mr-1" />
                     <span>Resume</span>
-                    <Download className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity group-hover:text-primary-blue" />
+                    <Download className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </button>
-                  <button className="flex items-center text-sleek-gray hover:text-primary-blue transition-colors group">
-                    <FileText className="h-4 w-4 mr-1 group-hover:text-primary-blue transition-colors" />
+                  <span className="text-gray-300">|</span>
+                  <button className="flex items-center text-gray-600 hover:text-gray-900 group">
+                    <FileText className="h-4 w-4 mr-1" />
                     <span>Cover Letter</span>
-                    <Download className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity group-hover:text-primary-blue" />
+                    <Download className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </button>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </CardContent>
     </Card>
   );

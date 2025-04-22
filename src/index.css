@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,48 +7,99 @@
 
 @layer base {
   :root {
-    --background: 210 30% 98%;
-    --foreground: 224 71% 4%;
+    --background: 150 30% 98%;
+    --foreground: 222.2 84% 4.9%;
+
     --card: 0 0% 100%;
-    --card-foreground: 224 71% 4%;
+    --card-foreground: 222.2 84% 4.9%;
+
     --popover: 0 0% 100%;
-    --popover-foreground: 224 71% 4%;
-    --primary: 262 83% 58%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 142 62% 72%;
     --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
+
+    --secondary: 150 20% 96%;
     --secondary-foreground: 222.2 47.4% 11.2%;
+
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
+
+    --accent: 150 30% 96%;
     --accent-foreground: 222.2 47.4% 11.2%;
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
+
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 262 83% 58%;
+    --ring: 150 60% 50%;
+
     --radius: 1rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 142 62% 72%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
   }
 }
 
 @layer base {
+  * {
+    @apply border-border;
+  }
+
   body {
-    @apply bg-secondary-lightGray/50 text-foreground font-inter;
-    background-image: linear-gradient(109.6deg, rgba(223,234,247,0.5) 11.2%, rgba(244,248,252,0.5) 91.1%);
-    overflow-x: hidden;
+    @apply bg-background text-foreground font-urbanist;
+    background-image: radial-gradient(circle at 10% 20%, rgba(143, 227, 136, 0.1) 0%, rgba(230, 250, 230, 0.1) 50%);
   }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-glass-background/70 backdrop-blur-md border border-glass-border rounded-2xl transition-all shadow-glass hover:shadow-glass-hover;
+    @apply bg-white/40 backdrop-blur-md border border-white/50 shadow-xl;
   }
   
   .frosted-panel {
-    @apply bg-white/90 backdrop-blur-md border border-white/20 shadow-glass rounded-2xl;
+    @apply bg-white/80 backdrop-blur-lg border border-white/40 shadow-lg rounded-2xl;
   }
 
   .animated-gradient {
-    background: linear-gradient(90deg, rgba(140, 158, 255, 0.1) 0%, rgba(179, 157, 219, 0.1) 50%, rgba(140, 158, 255, 0.1) 100%);
+    background: linear-gradient(90deg, rgba(143, 227, 136, 0.2) 0%, rgba(230, 250, 230, 0.2) 50%, rgba(143, 227, 136, 0.2) 100%);
     background-size: 200% 100%;
     animation: gradientMove 15s linear infinite;
   }
@@ -58,72 +109,4 @@
     50% {background-position: 100% 50%}
     100% {background-position: 0% 50%}
   }
-
-  .accent-text {
-    @apply text-primary-lavender;
-  }
-
-  .soft-shadow {
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* New styles for improved UI */
-  .neo-button {
-    @apply bg-white/90 backdrop-blur-sm border border-glass-border rounded-xl px-4 py-2 transition-all shadow-button hover:shadow-button-hover;
-  }
-  
-  .neo-button:hover {
-    @apply bg-white transform -translate-y-1;
-  }
-  
-  .neo-button:active {
-    @apply bg-white/80 transform translate-y-0;
-    box-shadow: inset -1px -1px 3px rgba(255, 255, 255, 0.7), 
-                inset 2px 2px 4px rgba(0, 0, 0, 0.05);
-  }
-  
-  .neo-input {
-    @apply bg-white/80 backdrop-blur-sm border border-glass-border rounded-xl px-4 py-2 transition-all;
-    box-shadow: inset -2px -2px 5px rgba(255, 255, 255, 0.7), 
-                inset 3px 3px 5px rgba(0, 0, 0, 0.05);
-  }
-  
-  .glass-pill {
-    @apply bg-white/40 backdrop-blur-sm text-sleek-gray rounded-full px-4 py-1 border border-glass-border transition-all;
-  }
-  
-  .glass-pill.active {
-    @apply bg-primary-blue/10 text-primary-blue border-primary-blue/30;
-    box-shadow: 0 0 10px rgba(140, 158, 255, 0.15);
-  }
-  
-  .micro-hover {
-    @apply transition-all duration-300;
-    transform: translateY(0);
-  }
-  
-  .micro-hover:hover {
-    transform: translateY(-2px);
-  }
-  
-  .shimmer {
-    @apply relative overflow-hidden;
-  }
-  
-  .shimmer::before {
-    position: absolute;
-    content: "";
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      90deg, 
-      rgba(255, 255, 255, 0) 0%, 
-      rgba(255, 255, 255, 0.6) 50%, 
-      rgba(255, 255, 255, 0) 100%
-    );
-    animation: shimmer 2s infinite;
-  }
 }
-

@@ -1,66 +1,80 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
-import { RefreshCw } from "lucide-react";
-import CircularConnections from './CircularConnections';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Progress } from "@/components/ui/progress";
 
 interface AutoApplyAnimationProps {
   isActive: boolean;
   onStop: () => void;
-  appliedCount: number;
 }
 
-const AutoApplyAnimation: React.FC<AutoApplyAnimationProps> = ({ isActive, onStop, appliedCount }) => {
+const AutoApplyAnimation: React.FC<AutoApplyAnimationProps> = ({ isActive, onStop }) => {
+  const [progress, setProgress] = useState(0);
+  const [appliedCount, setAppliedCount] = useState(0);
+  
+  // Simulate progress and application counts
+  useEffect(() => {
+    if (isActive) {
+      const interval = setInterval(() => {
+        setProgress(prev => {
+          if (prev >= 100) {
+            clearInterval(interval);
+            return 0;
+          }
+          return prev + 1;
+        });
+        
+        if (progress % 20 === 0 && progress > 0) {
+          setAppliedCount(prev => prev + 1);
+        }
+      }, 300);
+      
+      return () => clearInterval(interval);
+    }
+  }, [isActive, progress]);
+  
   if (!isActive) return null;
   
   return (
-    <>
-      <CircularConnections isActive={isActive} />
-      <AnimatePresence>
-        {isActive && (
-          <motion.div 
-            className="fixed top-0 left-0 right-0 z-50 py-2 bg-glass-background/95 backdrop-blur-xl border-b border-glass-border shadow-glass"
-            initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -100, opacity: 0 }}
-            transition={{ type: "spring", damping: 20, stiffness: 100 }}
-          >
-            <div className="container mx-auto px-4">
-              <div className="flex items-center justify-between gap-4">
-                <div className="flex items-center gap-4">
-                  <div className="relative">
-                    <RefreshCw className="h-5 w-5 text-primary-blue animate-spin" />
-                    <div className="absolute inset-0 rounded-full border border-primary-blue/20 animate-pulse-ring" />
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-medium text-foreground">Auto-Applying...</span>
-                    <motion.span 
-                      className="text-sm px-2 py-0.5 bg-primary-blue/10 text-primary-blue rounded-full border border-primary-blue/30"
-                      key={appliedCount}
-                      initial={{ scale: 0.8, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                    >
-                      {appliedCount} jobs applied
-                    </motion.span>
-                  </div>
-                </div>
-                
-                <Button 
-                  onClick={onStop}
-                  variant="destructive"
-                  size="sm"
-                  className="bg-destructive/10 hover:bg-destructive/20 text-destructive shadow-sm hover:shadow-destructive/10 border border-destructive/30 transition-all micro-hover"
-                >
-                  Stop Auto-Apply
-                </Button>
-              </div>
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/30 backdrop-blur-sm">
+      <div className="frosted-panel max-w-md w-full p-8 space-y-6 relative overflow-hidden">
+        {/* Floating elements */}
+        <div className="absolute top-10 left-10 w-12 h-12 bg-primary-green/20 rounded-full animate-float"></div>
+        <div className="absolute bottom-20 right-10 w-8 h-8 bg-primary-green/30 rounded-full animate-pulse-soft"></div>
+        <div className="absolute top-1/2 right-20 w-6 h-6 bg-primary-mint rounded-full animate-bounce-soft"></div>
+        
+        <div className="text-center space-y-2 relative z-10">
+          <h2 className="text-2xl font-bold text-gray-800">Auto-Applying...</h2>
+          <p className="text-gray-600">
+            Sit back while we apply to jobs matching your criteria
+          </p>
+        </div>
+        
+        <div className="space-y-4 relative z-10">
+          <div>
+            <div className="flex justify-between mb-1 text-sm">
+              <span>Progress</span>
+              <span>{progress}%</span>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+            <Progress value={progress} className="h-2" />
+          </div>
+          
+          <div className="bg-secondary-gray/40 backdrop-blur-sm rounded-lg p-4 text-center">
+            <div className="text-3xl font-bold text-primary-green">{appliedCount}</div>
+            <div className="text-sm text-gray-600">Jobs Applied</div>
+          </div>
+        </div>
+        
+        <div className="flex justify-center relative z-10">
+          <Button 
+            onClick={onStop}
+            className="bg-red-500 hover:bg-red-600 text-white"
+          >
+            Stop Auto-Apply
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 };
 
