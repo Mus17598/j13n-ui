@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import LoginScreen from '@/components/LoginScreen';
@@ -79,39 +78,41 @@ const Index = () => {
   };
   
   return (
-    <div className="min-h-screen pb-20 bg-gradient-soft">
-      {/* Header */}
-      <motion.header 
-        className="frosted-panel m-4 p-6 rounded-xl"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-primary-blue">Job Apply Flow</h1>
-            <p className="text-sleek-gray">Automated job applications for India & Canada</p>
+    <div className="min-h-screen pb-20">
+      {/* Header with gradient background */}
+      <div className="bg-gradient-to-b from-[#f0f2f5] to-white pb-32">
+        <motion.header 
+          className="frosted-panel m-4 p-6 rounded-xl"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h1 className="text-2xl md:text-3xl font-bold text-primary-blue">Job Apply Flow</h1>
+              <p className="text-sleek-gray">Automated job applications for India & Canada</p>
+            </div>
+            <Button 
+              onClick={toggleAutoApply}
+              className={`micro-hover ${isAutoApplying 
+                ? 'bg-destructive/10 hover:bg-destructive/20 text-destructive shadow-sm hover:shadow-destructive/10 border border-destructive/30' 
+                : 'bg-primary-blue/20 hover:bg-primary-blue/30 text-primary-blue border border-primary-blue/30 shadow-glass'}`}
+            >
+              {isAutoApplying ? 'Stop Auto-Apply' : 'Start Auto-Apply'}
+              {!isAutoApplying ? <Zap className="ml-2 h-4 w-4" /> : null}
+            </Button>
           </div>
-          <Button 
-            onClick={toggleAutoApply}
-            className={`micro-hover ${isAutoApplying 
-              ? 'bg-destructive/10 hover:bg-destructive/20 text-destructive shadow-sm hover:shadow-destructive/10 border border-destructive/30' 
-              : 'bg-primary-blue/20 hover:bg-primary-blue/30 text-primary-blue border border-primary-blue/30 shadow-glass'}`}
-          >
-            {isAutoApplying ? 'Stop Auto-Apply' : 'Start Auto-Apply'}
-            {!isAutoApplying ? <Zap className="ml-2 h-4 w-4" /> : null}
-          </Button>
-        </div>
-      </motion.header>
+        </motion.header>
+        
+        {/* Auto Apply Animation */}
+        <AutoApplyAnimation 
+          isActive={isAutoApplying} 
+          onStop={toggleAutoApply}
+          appliedCount={appliedCount}
+        />
+      </div>
       
-      {/* Auto Apply Animation */}
-      <AutoApplyAnimation 
-        isActive={isAutoApplying} 
-        onStop={toggleAutoApply}
-        appliedCount={appliedCount}
-      />
-      
-      <main className="container mx-auto px-4">
+      <main className="container mx-auto px-4 -mt-24">
         <motion.div 
           className="grid grid-cols-1 lg:grid-cols-2 gap-6"
           variants={pageVariants}
