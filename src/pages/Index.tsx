@@ -1,5 +1,4 @@
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import LoginScreen from '@/components/LoginScreen';
 import ResumeUpload from '@/components/ResumeUpload';
 import JobFilters from '@/components/JobFilters';
@@ -10,18 +9,38 @@ import AutoApplyAnimation from '@/components/AutoApplyAnimation';
 import AIChatBubble from '@/components/AIChatBubble';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const Index = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAutoApplying, setIsAutoApplying] = useState(false);
+  const [appliedCount, setAppliedCount] = useState(0);
   
   const handleLogin = () => {
     setIsLoggedIn(true);
   };
   
   const toggleAutoApply = () => {
+    if (!isAutoApplying) {
+      setAppliedCount(0);
+    }
     setIsAutoApplying(!isAutoApplying);
   };
+  
+  useEffect(() => {
+    if (isAutoApplying) {
+      const interval = setInterval(() => {
+        setAppliedCount(prev => prev + 1);
+      }, 5000); // Increment counter every 5 seconds for demo
+      
+      return () => clearInterval(interval);
+    }
+  }, [isAutoApplying]);
   
   // Mock data for the status dashboard
   const applicationStats = {
@@ -29,6 +48,9 @@ const Index = () => {
     pending: 15,
     rejected: 8
   };
+  
+  const disabledSectionStyle = "pointer-events-none opacity-50 filter blur-[2px] transition-all duration-300";
+  const tooltipMessage = "Auto-Applying in progress. Stop to edit.";
   
   if (!isLoggedIn) {
     return <LoginScreen onLoggedIn={handleLogin} />;
@@ -53,12 +75,47 @@ const Index = () => {
         </div>
       </header>
       
+      {/* Auto Apply Animation */}
+      <AutoApplyAnimation 
+        isActive={isAutoApplying} 
+        onStop={toggleAutoApply}
+        appliedCount={appliedCount}
+      />
+      
       <main className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Left Column */}
           <div className="space-y-6">
-            <ResumeUpload />
-            <JobFilters />
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className={isAutoApplying ? disabledSectionStyle : ""}>
+                    <ResumeUpload />
+                  </div>
+                </TooltipTrigger>
+                {isAutoApplying && (
+                  <TooltipContent>
+                    <p>{tooltipMessage}</p>
+                  </TooltipContent>
+                )}
+              </Tooltip>
+            </TooltipProvider>
+            
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className={isAutoApplying ? disabledSectionStyle : ""}>
+                    <JobFilters />
+                  </div>
+                </TooltipTrigger>
+                {isAutoApplying && (
+                  <TooltipContent>
+                    <p>{tooltipMessage}</p>
+                  </TooltipContent>
+                )}
+              </Tooltip>
+            </TooltipProvider>
+            
             <QAEditor />
           </div>
           
@@ -69,14 +126,6 @@ const Index = () => {
           </div>
         </div>
       </main>
-      
-      {/* Auto Apply Animation */}
-      {isAutoApplying && (
-        <AutoApplyAnimation 
-          isActive={isAutoApplying} 
-          onStop={toggleAutoApply} 
-        />
-      )}
       
       {/* AI Chat Bubble */}
       <AIChatBubble />
