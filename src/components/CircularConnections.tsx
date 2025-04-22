@@ -23,9 +23,9 @@ const CircularConnections: React.FC<CircularConnectionsProps> = ({ isActive }) =
       <div className="relative w-64 h-64">
         {/* Center Icon */}
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          <div className="w-16 h-16 rounded-full bg-primary-green/20 flex items-center justify-center">
-            <div className="w-12 h-12 rounded-full bg-primary-green/30 flex items-center justify-center">
-              <div className="w-8 h-8 rounded-full bg-primary-green/40 flex items-center justify-center text-2xl">
+          <div className="w-16 h-16 rounded-full bg-neon-green/5 flex items-center justify-center shadow-neon">
+            <div className="w-12 h-12 rounded-full bg-neon-green/10 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full bg-neon-green/20 flex items-center justify-center text-2xl">
                 ⚡️
               </div>
             </div>
@@ -34,9 +34,9 @@ const CircularConnections: React.FC<CircularConnectionsProps> = ({ isActive }) =
 
         {/* Circular Paths */}
         <div className="absolute inset-0">
-          <div className="absolute inset-4 rounded-full border-2 border-primary-green/10 animate-[spin_8s_linear_infinite]" />
-          <div className="absolute inset-8 rounded-full border-2 border-primary-green/20 animate-[spin_12s_linear_infinite]" />
-          <div className="absolute inset-12 rounded-full border-2 border-primary-green/30 animate-[spin_16s_linear_infinite]" />
+          <div className="absolute inset-4 rounded-full border border-neon-green/10 animate-[spin_8s_linear_infinite] shadow-neon" />
+          <div className="absolute inset-8 rounded-full border border-neon-green/20 animate-[spin_12s_linear_infinite] shadow-neon" />
+          <div className="absolute inset-12 rounded-full border border-neon-green/30 animate-[spin_16s_linear_infinite] shadow-neon" />
         </div>
 
         {/* Platform Icons */}
@@ -45,7 +45,7 @@ const CircularConnections: React.FC<CircularConnectionsProps> = ({ isActive }) =
             key={index}
             className={`absolute ${platform.position} animate-pulse`}
           >
-            <div className="w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center text-xl">
+            <div className="w-10 h-10 rounded-full bg-dark-card shadow-neon border border-dark-border flex items-center justify-center text-xl">
               {platform.icon}
             </div>
           </div>
