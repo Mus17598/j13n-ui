@@ -1,25 +1,43 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Filter, Search } from "lucide-react";
+import { Filter, Search, X } from "lucide-react";
 
 const JobFilters: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [searchTags, setSearchTags] = useState<string[]>([]);
   const [jobType, setJobType] = useState<string>('');
   const [location, setLocation] = useState<string>('');
   const [role, setRole] = useState<string>('');
   const [industry, setIndustry] = useState<string>('');
+  const [seniority, setSeniority] = useState<string>('');
+  const [minSalary, setMinSalary] = useState<string>('');
+  const [currency, setCurrency] = useState<string>('CAD');
   
   const clearFilters = () => {
     setSearchTerm('');
+    setSearchTags([]);
     setJobType('');
     setLocation('');
     setRole('');
     setIndustry('');
+    setSeniority('');
+    setMinSalary('');
+    setCurrency('CAD');
+  };
+
+  const handleSearchSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && searchTerm.trim()) {
+      setSearchTags([...searchTags, searchTerm.trim()]);
+      setSearchTerm('');
+    }
+  };
+
+  const removeSearchTag = (tagToRemove: string) => {
+    setSearchTags(searchTags.filter(tag => tag !== tagToRemove));
   };
   
   return (
@@ -41,17 +59,40 @@ const JobFilters: React.FC = () => {
       
       <div className="space-y-6">
         {/* Search Bar */}
-        <div className="relative">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <Search className="h-5 w-5 text-gray-400" />
+        <div className="space-y-3">
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Search className="h-5 w-5 text-gray-400" />
+            </div>
+            <Input
+              type="text"
+              placeholder="Search job titles, companies, or keywords"
+              className="pl-10 bg-white/60"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={handleSearchSubmit}
+            />
           </div>
-          <Input
-            type="text"
-            placeholder="Search job titles, companies, or keywords"
-            className="pl-10 bg-white/60"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+          
+          {/* Search Tags */}
+          {searchTags.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {searchTags.map((tag, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-1 px-3 py-1 bg-primary-green/10 text-primary-green rounded-full text-sm"
+                >
+                  {tag}
+                  <button
+                    onClick={() => removeSearchTag(tag)}
+                    className="ml-1 hover:text-primary-green/80"
+                  >
+                    <X className="h-3 w-3" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
         
         {/* Filter Options */}
@@ -133,6 +174,46 @@ const JobFilters: React.FC = () => {
                     <SelectItem value="retail">Retail</SelectItem>
                   </SelectContent>
                 </Select>
+              </div>
+
+              {/* Seniority Level - Moved to Advanced Filters */}
+              <div className="space-y-2">
+                <Label htmlFor="seniority">Seniority Level</Label>
+                <Select value={seniority} onValueChange={setSeniority}>
+                  <SelectTrigger id="seniority" className="bg-white/60">
+                    <SelectValue placeholder="Select seniority level" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="entry">Entry Level</SelectItem>
+                    <SelectItem value="associate">Associate Level</SelectItem>
+                    <SelectItem value="mid-senior">Mid-to-Senior Level</SelectItem>
+                    <SelectItem value="director">Director Level and above</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Minimum Salary with Currency */}
+              <div className="space-y-2">
+                <Label htmlFor="min-salary">Minimum Salary</Label>
+                <div className="flex gap-2">
+                  <Input
+                    id="min-salary"
+                    type="number"
+                    placeholder="Enter minimum salary"
+                    className="bg-white/60 flex-grow"
+                    value={minSalary}
+                    onChange={(e) => setMinSalary(e.target.value)}
+                  />
+                  <Select value={currency} onValueChange={setCurrency}>
+                    <SelectTrigger className="bg-white/60 w-24">
+                      <SelectValue placeholder="CAD" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="CAD">CAD</SelectItem>
+                      <SelectItem value="INR">INR</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
             </div>
           </TabsContent>
