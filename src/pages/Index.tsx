@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginScreen from '@/components/LoginScreen';
@@ -334,7 +333,7 @@ const Index = ({ isLoggedIn }: IndexProps) => {
       
       {showJobReview && (
         <JobReviewModal
-          jobs={mockJobs}
+          jobList={mockJobs}
           onClose={() => setShowJobReview(false)}
           onConfirm={handleJobReviewConfirm}
         />
