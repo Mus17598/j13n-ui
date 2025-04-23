@@ -1,11 +1,8 @@
+
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginScreen from '@/components/LoginScreen';
-import ResumeUpload from '@/components/ResumeUpload';
 import JobFilters from '@/components/JobFilters';
-import StatusDashboard from '@/components/StatusDashboard';
-import QAEditor from '@/components/QAEditor';
-import RecentApplications from '@/components/RecentApplications';
 import AutoApplyAnimation from '@/components/AutoApplyAnimation';
 import AIChatBubble from '@/components/AIChatBubble';
 import { Button } from '@/components/ui/button';
@@ -18,6 +15,11 @@ import {
 } from "@/components/ui/tooltip";
 import ProfileMenu from '@/components/ProfileMenu';
 import JobReviewModal from '@/components/JobReviewModal';
+import UserProfileCard from '@/components/UserProfileCard';
+import QACard from '@/components/QACard';
+import StatusDashboard from '@/components/StatusDashboard';
+import ResumeUploadCard from '@/components/ResumeUploadCard';
+import RecentJobsCard from '@/components/RecentJobsCard';
 
 interface IndexProps {
   isLoggedIn: boolean;
@@ -147,6 +149,34 @@ const mockJobs = [
   },
 ];
 
+// Sample QA data
+const mockQuestions = [
+  {
+    id: '1',
+    question: 'What makes you a good fit for this position?',
+    answer: 'My experience in building scalable web applications and my strong problem-solving skills make me well-suited for this role. I have a track record of delivering projects on time and collaborating effectively with cross-functional teams.',
+    status: 'answered' as const
+  },
+  {
+    id: '2',
+    question: 'Describe a challenging project you worked on and how you overcame obstacles.',
+    answer: 'In my previous role, I led the migration of a legacy system to a modern architecture. We faced numerous technical challenges, but by breaking the project into manageable phases and maintaining clear communication, we successfully completed the migration ahead of schedule.',
+    status: 'answered' as const
+  },
+  {
+    id: '3',
+    question: 'How would you handle a situation where project requirements change mid-development?',
+    answer: '',
+    status: 'failed' as const
+  },
+  {
+    id: '4',
+    question: 'What are your salary expectations?',
+    answer: '',
+    status: 'failed' as const
+  }
+];
+
 const Index = ({ isLoggedIn }: IndexProps) => {
   const [isAutoApplying, setIsAutoApplying] = useState(false);
   const [appliedCount, setAppliedCount] = useState(0);
@@ -200,26 +230,34 @@ const Index = ({ isLoggedIn }: IndexProps) => {
       return () => clearInterval(interval);
     }
   }, [isAutoApplying]);
-  
+
+  // Application stats for visualization
   const applicationStats = {
-    totalApplications: 156,
-    responseRate: 68,
-    interviewRate: 42,
-    offerRate: 15
+    applied: 156,
+    pending: 68,
+    rejected: 42
+  };
+  
+  // User profile stats
+  const profileStats = {
+    applied: 156,
+    interviews: 24,
+    offers: 8,
+    rejected: 42
   };
   
   const disabledSectionStyle = "opacity-50 pointer-events-none cursor-not-allowed";
   const tooltipMessage = "This section is disabled while auto-applying is active";
   
   return (
-    <div className="min-h-screen bg-gray-50/50">
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+      <header className="bg-white/70 backdrop-blur-md border-b border-gray-200/50 sticky top-0 z-40 shadow-sm">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <h1 className="text-2xl font-semibold text-gray-900">Dashboard</h1>
+          <h1 className="text-2xl font-semibold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Dashboard</h1>
           <div className="flex items-center space-x-4">
             <Button 
               onClick={startAutoApplyFlow}
-              className="bg-primary-green hover:bg-primary-green/90"
+              className="bg-gradient-to-r from-blue-400 to-purple-500 hover:opacity-90 text-white"
               disabled={isAutoApplying}
             >
               Start Auto-Apply
@@ -229,13 +267,14 @@ const Index = ({ isLoggedIn }: IndexProps) => {
               userEmail={userEmail}
               accountType={accountType}
               onLogout={handleLogout}
+              gender={userGender}
             />
           </div>
         </div>
       </header>
       
       {/* Auto Apply Animation - Positioned at the top */}
-      <div className="container mx-auto px-4 mb-6">
+      <div className="container mx-auto px-4 mb-6 pt-6">
         <AutoApplyAnimation 
           isActive={isAutoApplying} 
           onStop={stopAutoApply}
@@ -243,39 +282,51 @@ const Index = ({ isLoggedIn }: IndexProps) => {
         />
       </div>
 
-      <main className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left Column */}
-          <div className="space-y-6">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <div className={isAutoApplying ? disabledSectionStyle : ''}>
-                    <ResumeUpload />
-                  </div>
-                </TooltipTrigger>
-                {isAutoApplying && <TooltipContent>{tooltipMessage}</TooltipContent>}
-              </Tooltip>
-            </TooltipProvider>
-            
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <div className={isAutoApplying ? disabledSectionStyle : ''}>
-                    <JobFilters />
-                  </div>
-                </TooltipTrigger>
-                {isAutoApplying && <TooltipContent>{tooltipMessage}</TooltipContent>}
-              </Tooltip>
-            </TooltipProvider>
-          </div>
+      <main className="container mx-auto px-4 py-8">
+        {/* Top Row: Profile and QA */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <UserProfileCard 
+            userName="John Doe"
+            stats={profileStats}
+          />
+          <QACard questions={mockQuestions} />
+        </div>
+        
+        {/* Middle Row: Stats and Jobs */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div className={`col-span-1 ${isAutoApplying ? disabledSectionStyle : ''}`}>
+                  <JobFilters />
+                </div>
+              </TooltipTrigger>
+              {isAutoApplying && <TooltipContent>{tooltipMessage}</TooltipContent>}
+            </Tooltip>
+          </TooltipProvider>
           
-          {/* Middle Column */}
-          <div className="space-y-6 lg:col-span-2">
+          <div className="col-span-2">
             <StatusDashboard stats={applicationStats} />
-            <QAEditor />
-            <RecentApplications />
           </div>
+        </div>
+        
+        {/* Bottom Row: Resume Upload */}
+        <div className="mb-6">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div className={isAutoApplying ? disabledSectionStyle : ''}>
+                  <ResumeUploadCard />
+                </div>
+              </TooltipTrigger>
+              {isAutoApplying && <TooltipContent>{tooltipMessage}</TooltipContent>}
+            </Tooltip>
+          </TooltipProvider>
+        </div>
+        
+        {/* Recent Jobs (Scrollable) */}
+        <div>
+          <RecentJobsCard />
         </div>
       </main>
       
