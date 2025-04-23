@@ -1,25 +1,13 @@
-
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import LoginScreen from '@/components/LoginScreen';
 import JobFilters from '@/components/JobFilters';
 import AutoApplyAnimation from '@/components/AutoApplyAnimation';
 import AIChatBubble from '@/components/AIChatBubble';
-import { Button } from '@/components/ui/button';
-import { ArrowRight, LogOut } from 'lucide-react';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import ProfileMenu from '@/components/ProfileMenu';
 import JobReviewModal from '@/components/JobReviewModal';
-import UserProfileCard from '@/components/UserProfileCard';
-import QACard from '@/components/QACard';
 import StatusDashboard from '@/components/StatusDashboard';
-import ResumeUploadCard from '@/components/ResumeUploadCard';
 import RecentJobsCard from '@/components/RecentJobsCard';
+import AppSidebar from '@/components/Layout/AppSidebar';
+import FloatingActionBanner from '@/components/Layout/FloatingActionBanner';
 
 interface IndexProps {
   isLoggedIn: boolean;
@@ -245,93 +233,73 @@ const Index = ({ isLoggedIn }: IndexProps) => {
     offers: 8,
     rejected: 42
   };
+
+  const handleResumeUpload = () => {
+    document.getElementById('resume-upload')?.click();
+  };
   
-  const disabledSectionStyle = "opacity-50 pointer-events-none cursor-not-allowed";
-  const tooltipMessage = "This section is disabled while auto-applying is active";
+  const handleCoverLetterUpload = () => {
+    document.getElementById('cover-letter-upload')?.click();
+  };
   
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
-      <header className="bg-white/70 backdrop-blur-md border-b border-gray-200/50 sticky top-0 z-40 shadow-sm">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <h1 className="text-2xl font-semibold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Dashboard</h1>
-          <div className="flex items-center space-x-4">
-            <Button 
-              onClick={startAutoApplyFlow}
-              className="bg-gradient-to-r from-blue-400 to-purple-500 hover:opacity-90 text-white"
-              disabled={isAutoApplying}
-            >
-              Start Auto-Apply
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-            <ProfileMenu 
-              userEmail={userEmail}
-              accountType={accountType}
-              onLogout={handleLogout}
-              gender={userGender}
-            />
-          </div>
-        </div>
-      </header>
-      
-      {/* Auto Apply Animation - Positioned at the top */}
-      <div className="container mx-auto px-4 mb-6 pt-6">
-        <AutoApplyAnimation 
-          isActive={isAutoApplying} 
-          onStop={stopAutoApply}
-          appliedCount={appliedCount}
-        />
-      </div>
-
-      <main className="container mx-auto px-4 py-8">
-        {/* Top Row: Profile and QA */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-          <UserProfileCard 
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex gap-8">
+          {/* Left Sidebar */}
+          <AppSidebar
             userName="John Doe"
             stats={profileStats}
           />
-          <QACard questions={mockQuestions} />
-        </div>
-        
-        {/* Middle Row: Stats and Jobs */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div className={`col-span-1 ${isAutoApplying ? disabledSectionStyle : ''}`}>
-                  <JobFilters />
-                </div>
-              </TooltipTrigger>
-              {isAutoApplying && <TooltipContent>{tooltipMessage}</TooltipContent>}
-            </Tooltip>
-          </TooltipProvider>
           
-          <div className="col-span-2">
+          {/* Main Content */}
+          <div className="flex-1 space-y-6">
+            {/* Top Filters Section */}
+            <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-md p-6">
+              <JobFilters />
+            </div>
+            
+            {/* Auto Apply Animation */}
+            <AutoApplyAnimation 
+              isActive={isAutoApplying} 
+              onStop={stopAutoApply}
+              appliedCount={appliedCount}
+            />
+            
+            {/* Stats Dashboard */}
             <StatusDashboard stats={applicationStats} />
+            
+            {/* Recent Jobs */}
+            <RecentJobsCard />
           </div>
         </div>
-        
-        {/* Bottom Row: Resume Upload */}
-        <div className="mb-6">
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div className={isAutoApplying ? disabledSectionStyle : ''}>
-                  <ResumeUploadCard />
-                </div>
-              </TooltipTrigger>
-              {isAutoApplying && <TooltipContent>{tooltipMessage}</TooltipContent>}
-            </Tooltip>
-          </TooltipProvider>
-        </div>
-        
-        {/* Recent Jobs (Scrollable) */}
-        <div>
-          <RecentJobsCard />
-        </div>
-      </main>
+      </div>
       
+      {/* Hidden File Inputs */}
+      <input
+        type="file"
+        id="resume-upload"
+        className="hidden"
+        accept=".pdf,.doc,.docx"
+      />
+      <input
+        type="file"
+        id="cover-letter-upload"
+        className="hidden"
+        accept=".pdf,.doc,.docx"
+      />
+      
+      {/* Floating Action Banner */}
+      <FloatingActionBanner
+        onAutoApplyClick={startAutoApplyFlow}
+        onResumeUpload={handleResumeUpload}
+        onCoverLetterUpload={handleCoverLetterUpload}
+      />
+      
+      {/* Chat Bubble */}
       <AIChatBubble />
       
+      {/* Job Review Modal */}
       {showJobReview && (
         <JobReviewModal
           initialJobs={mockJobs}
