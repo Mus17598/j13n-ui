@@ -1,23 +1,24 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import LoginScreen from '@/components/LoginScreen';
-import ResumeUpload from '@/components/ResumeUpload';
 import JobFilters from '@/components/JobFilters';
 import StatusDashboard from '@/components/StatusDashboard';
 import QAEditor from '@/components/QAEditor';
 import RecentApplications from '@/components/RecentApplications';
 import AutoApplyAnimation from '@/components/AutoApplyAnimation';
 import AIChatBubble from '@/components/AIChatBubble';
+import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, LogOut } from 'lucide-react';
 import {
-  Tooltip,
-  TooltipContent,
   TooltipProvider,
+  Tooltip,
   TooltipTrigger,
+  TooltipContent,
 } from "@/components/ui/tooltip";
 import ProfileMenu from '@/components/ProfileMenu';
 import JobReviewModal from '@/components/JobReviewModal';
+import CandidateProfile from '@/components/CandidateProfile';
+import FloatingUploadBar from '@/components/FloatingUploadBar';
+import ResumeUpload from '@/components/ResumeUpload';
 
 interface IndexProps {
   isLoggedIn: boolean;
@@ -202,10 +203,9 @@ const Index = ({ isLoggedIn }: IndexProps) => {
   }, [isAutoApplying]);
   
   const applicationStats = {
-    totalApplications: 156,
-    responseRate: 68,
-    interviewRate: 42,
-    offerRate: 15
+    applied: 24,
+    pending: 12,
+    rejected: 8
   };
   
   const disabledSectionStyle = "opacity-50 pointer-events-none cursor-not-allowed";
@@ -244,8 +244,18 @@ const Index = ({ isLoggedIn }: IndexProps) => {
       </div>
 
       <main className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left Column */}
+        <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] lg:grid-cols-[300px_1fr_1fr] gap-6">
+          {/* Left Column - Candidate Profile */}
+          <div className="space-y-6">
+            <CandidateProfile 
+              name="John Doe"
+              email={userEmail}
+              status="applied"
+              gender={userGender}
+            />
+          </div>
+          
+          {/* Middle Column */}
           <div className="space-y-6">
             <TooltipProvider>
               <Tooltip>
@@ -270,14 +280,17 @@ const Index = ({ isLoggedIn }: IndexProps) => {
             </TooltipProvider>
           </div>
           
-          {/* Middle Column */}
-          <div className="space-y-6 lg:col-span-2">
+          {/* Right Column */}
+          <div className="space-y-6 lg:col-span-1 md:col-span-2">
             <StatusDashboard stats={applicationStats} />
             <QAEditor />
             <RecentApplications />
           </div>
         </div>
       </main>
+      
+      {/* Floating Upload Bar */}
+      <FloatingUploadBar />
       
       <AIChatBubble />
       
