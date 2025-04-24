@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import {
   Dialog,
@@ -24,6 +25,7 @@ interface JobReviewModalProps {
   onClose: () => void;
   onConfirm: (jobs: Job[]) => void;
   initialJobs: Job[];
+  jobs?: Job[]; // Add optional jobs prop for backward compatibility
 }
 
 const JobReviewModal: React.FC<JobReviewModalProps> = ({
@@ -31,8 +33,10 @@ const JobReviewModal: React.FC<JobReviewModalProps> = ({
   onClose,
   onConfirm,
   initialJobs,
+  jobs,
 }) => {
-  const [jobs, setJobs] = useState<Job[]>(initialJobs);
+  // Use jobs prop if provided, otherwise fall back to initialJobs
+  const [jobList, setJobList] = useState<Job[]>(jobs || initialJobs);
   const [showRemoveDialog, setShowRemoveDialog] = useState(false);
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [removalReason, setRemovalReason] = useState('');
@@ -57,7 +61,7 @@ const JobReviewModal: React.FC<JobReviewModalProps> = ({
     saveRemovalReason(selectedJob, removalReason);
 
     // Remove the job from the list
-    setJobs(jobs.filter(j => j.id !== selectedJob.id));
+    setJobList(jobList.filter(j => j.id !== selectedJob.id));
     setShowRemoveDialog(false);
     setSelectedJob(null);
     setRemovalReason('');
@@ -93,7 +97,7 @@ const JobReviewModal: React.FC<JobReviewModalProps> = ({
 
           <ScrollArea className="flex-1 p-6">
             <div className="space-y-4 pr-4">
-              {jobs.map((job) => (
+              {jobList.map((job) => (
                 <div
                   key={job.id}
                   className="flex items-start justify-between p-4 rounded-lg border bg-card hover:bg-accent/5 transition-colors"
@@ -131,10 +135,10 @@ const JobReviewModal: React.FC<JobReviewModalProps> = ({
                 Cancel
               </Button>
               <Button
-                onClick={() => onConfirm(jobs)}
+                onClick={() => onConfirm(jobList)}
                 className="bg-primary-green hover:bg-primary-green/90 text-white"
               >
-                Confirm and Start Applying ({jobs.length} jobs)
+                Confirm and Start Applying ({jobList.length} jobs)
               </Button>
             </div>
           </div>
@@ -182,4 +186,4 @@ const JobReviewModal: React.FC<JobReviewModalProps> = ({
   );
 };
 
-export default JobReviewModal; 
+export default JobReviewModal;

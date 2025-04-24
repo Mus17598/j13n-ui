@@ -296,7 +296,8 @@ const Index = ({ isLoggedIn }: IndexProps) => {
       
       {showJobReview && (
         <JobReviewModal
-          jobs={mockJobs}
+          initialJobs={mockJobs}
+          isOpen={showJobReview}
           onClose={() => setShowJobReview(false)}
           onConfirm={handleJobReviewConfirm}
         />

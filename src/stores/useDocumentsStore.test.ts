@@ -27,7 +27,7 @@ describe('useDocumentsStore', () => {
 
   it('should upload a document', async () => {
     // Mock successful API response
-    (global.fetch as jest.Mock).mockResolvedValueOnce({
+    (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
       ok: true,
       json: async () => ({ fileUrl: 'https://example.com/file.pdf' }),
     });
@@ -48,7 +48,7 @@ describe('useDocumentsStore', () => {
 
   it('should handle upload failure', async () => {
     // Mock failed API response
-    (global.fetch as jest.Mock).mockResolvedValueOnce({
+    (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
       ok: false,
     });
 
@@ -68,7 +68,7 @@ describe('useDocumentsStore', () => {
 
   it('should remove a document', async () => {
     // Mock successful API response for setup
-    (global.fetch as jest.Mock).mockResolvedValueOnce({
+    (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
       ok: true,
       json: async () => ({ fileUrl: 'https://example.com/file.pdf' }),
     });
