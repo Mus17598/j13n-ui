@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import {
   Dialog,
@@ -21,14 +20,14 @@ interface Job {
 }
 
 interface JobReviewModalProps {
-  isOpen?: boolean;
+  isOpen: boolean;
   onClose: () => void;
   onConfirm: (jobs: Job[]) => void;
   initialJobs: Job[];
 }
 
 const JobReviewModal: React.FC<JobReviewModalProps> = ({
-  isOpen = true,  // Default to true if not provided
+  isOpen,
   onClose,
   onConfirm,
   initialJobs,
@@ -183,4 +182,4 @@ const JobReviewModal: React.FC<JobReviewModalProps> = ({
   );
 };
 
-export default JobReviewModal;
+export default JobReviewModal; 

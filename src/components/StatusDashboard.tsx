@@ -21,15 +21,15 @@ const StatusDashboard: React.FC<StatusDashboardProps> = ({ stats }) => {
   const total = stats.applied + stats.pending + stats.rejected;
   
   return (
-    <Card className="backdrop-blur-md bg-white/40 border border-white/50 shadow-xl rounded-2xl h-full">
+    <Card className="glass-card">
       <CardHeader>
-        <CardTitle className="text-xl font-semibold text-gray-800 bg-gradient-to-r from-yellow-300 via-purple-300 to-blue-300 bg-clip-text text-transparent">Application Status</CardTitle>
+        <CardTitle className="text-xl font-semibold text-gray-800">Application Status</CardTitle>
         <CardDescription>Overview of your job applications</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           {data.map((item) => (
-            <div key={item.name} className="bg-white/60 rounded-lg p-4 text-center hover:shadow-md transition-shadow">
+            <div key={item.name} className="bg-white/60 rounded-lg p-4 text-center">
               <div className="text-2xl font-bold" style={{ color: item.color }}>
                 {item.value}
               </div>
