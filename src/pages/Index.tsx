@@ -12,6 +12,28 @@ import CandidateProfile from '@/components/CandidateProfile';
 import FloatingActionBar from '@/components/FloatingActionBar';
 import { useDocumentsStore } from '@/stores/useDocumentsStore';
 
+// Define the mockJobs array for the JobReviewModal
+const mockJobs = [
+  {
+    id: '1',
+    title: 'Frontend Developer',
+    company: 'TechCorp',
+    url: 'https://example.com/job1',
+  },
+  {
+    id: '2',
+    title: 'UI/UX Designer',
+    company: 'DesignStudio',
+    url: 'https://example.com/job2',
+  },
+  {
+    id: '3',
+    title: 'Full Stack Developer',
+    company: 'WebSolutions',
+    url: 'https://example.com/job3',
+  }
+];
+
 interface IndexProps {
   isLoggedIn: boolean;
 }
@@ -140,7 +162,7 @@ const Index = ({ isLoggedIn }: IndexProps) => {
       
       {showJobReview && (
         <JobReviewModal
-          initialJobs={[]}
+          initialJobs={mockJobs}
           isOpen={showJobReview}
           onClose={() => setShowJobReview(false)}
           onConfirm={handleJobReviewConfirm}
