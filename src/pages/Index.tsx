@@ -1,8 +1,6 @@
-
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import JobFilters from '@/components/JobFilters';
-import StatusDashboard from '@/components/StatusDashboard';
 import QAEditor from '@/components/QAEditor';
 import RecentApplications from '@/components/RecentApplications';
 import AIChatBubble from '@/components/AIChatBubble';
@@ -125,20 +123,15 @@ const Index = ({ isLoggedIn }: IndexProps) => {
               status="applied"
               gender={userGender}
             />
+            <QAEditor />
           </div>
           
-          {/* Middle Column - Job Applications */}
-          <div className="col-span-12 md:col-span-6 space-y-6">
+          {/* Right Column - Job Applications */}
+          <div className="col-span-12 md:col-span-9 space-y-6">
             <div className="grid grid-cols-1 gap-6">
               <JobFilters />
               <RecentApplications />
             </div>
-          </div>
-          
-          {/* Right Column - Status & Stats */}
-          <div className="col-span-12 md:col-span-3 space-y-6">
-            <StatusDashboard stats={{ applied: 24, pending: 12, rejected: 8 }} />
-            <QAEditor />
           </div>
         </motion.div>
       </main>
