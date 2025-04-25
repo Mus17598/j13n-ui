@@ -85,7 +85,15 @@
 
   body {
     @apply bg-background text-foreground font-urbanist;
-    background-image: radial-gradient(circle at 10% 20%, rgba(143, 227, 136, 0.1) 0%, rgba(230, 250, 230, 0.1) 50%);
+    background-image: radial-gradient(circle at 10% 20%, rgba(143, 227, 136, 0.05) 0%, rgba(230, 250, 230, 0.05) 50%);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-urbanist font-semibold tracking-tight;
+  }
+  
+  button {
+    @apply font-urbanist;
   }
 }
 
@@ -103,10 +111,61 @@
     background-size: 200% 100%;
     animation: gradientMove 15s linear infinite;
   }
+  
+  .glassmorphism {
+    @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-lg rounded-2xl;
+  }
+  
+  .globalmorphism {
+    @apply bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-lg border border-white/30 shadow-xl rounded-2xl;
+  }
 
   @keyframes gradientMove {
     0% {background-position: 0% 50%}
     50% {background-position: 100% 50%}
     100% {background-position: 0% 50%}
   }
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
 }

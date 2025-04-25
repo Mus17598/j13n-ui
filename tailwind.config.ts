@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -31,6 +32,9 @@ export default {
 					green: '#8FE388',
 					lightGreen: '#C7F2C4',
 					mint: '#F2FCE2',
+					blue: '#74BBFB',
+					purple: '#B487FB',
+					red: '#FF6B6B',
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -72,7 +76,10 @@ export default {
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)'
+				sm: 'calc(var(--radius) - 4px)',
+				'2xl': '1rem',
+				'3xl': '1.5rem',
+				'4xl': '2rem',
 			},
 			keyframes: {
 				'accordion-down': {

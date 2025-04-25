@@ -11,6 +11,7 @@ import JobReviewModal from '@/components/JobReviewModal';
 import CandidateProfile from '@/components/CandidateProfile';
 import FloatingActionBar from '@/components/FloatingActionBar';
 import { useDocumentsStore } from '@/stores/useDocumentsStore';
+import { motion } from 'framer-motion';
 
 // Define the mockJobs array for the JobReviewModal
 const mockJobs = [
@@ -90,10 +91,17 @@ const Index = ({ isLoggedIn }: IndexProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100/50">
-      <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200/50 sticky top-0 z-40">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100/50 font-urbanist">
+      <header className="bg-white/60 backdrop-blur-xl border-b border-white/20 sticky top-0 z-40">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <h1 className="text-2xl font-urbanist text-gray-900">Dashboard</h1>
+          <motion.h1 
+            className="text-2xl font-bold bg-gradient-to-r from-gray-700 to-gray-900 bg-clip-text text-transparent"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            Dashboard
+          </motion.h1>
           <ProfileMenu 
             userEmail={userEmail}
             accountType={accountType}
@@ -103,35 +111,36 @@ const Index = ({ isLoggedIn }: IndexProps) => {
       </header>
       
       <main className="container mx-auto px-4 py-6">
-        <div className="grid grid-cols-12 gap-6">
-          {/* Left Column - Profile & Stats */}
-          <div className="col-span-3">
-            <div className="space-y-6">
-              <CandidateProfile 
-                name="John Doe"
-                email={userEmail}
-                status="applied"
-                gender={userGender}
-              />
-            </div>
+        <motion.div 
+          className="grid grid-cols-12 gap-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          {/* Left Column - Profile */}
+          <div className="col-span-12 md:col-span-3 space-y-6">
+            <CandidateProfile 
+              name="John Doe"
+              email={userEmail}
+              status="applied"
+              gender={userGender}
+            />
           </div>
           
-          {/* Middle Column - Job Filters & Applications */}
-          <div className="col-span-6">
-            <div className="space-y-6">
+          {/* Middle Column - Job Applications */}
+          <div className="col-span-12 md:col-span-6 space-y-6">
+            <div className="grid grid-cols-1 gap-6">
               <JobFilters />
               <RecentApplications />
             </div>
           </div>
           
-          {/* Right Column - Status & QA */}
-          <div className="col-span-3">
-            <div className="space-y-6">
-              <StatusDashboard stats={{ applied: 24, pending: 12, rejected: 8 }} />
-              <QAEditor />
-            </div>
+          {/* Right Column - Status & Stats */}
+          <div className="col-span-12 md:col-span-3 space-y-6">
+            <StatusDashboard stats={{ applied: 24, pending: 12, rejected: 8 }} />
+            <QAEditor />
           </div>
-        </div>
+        </motion.div>
       </main>
 
       <FloatingActionBar
