@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2, Rocket, Brain, Clock, Shield, Search, Filter, Send, Twitter, Linkedin, Github, MessageCircle, User, Upload, Zap, BarChart } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
+import AutoApplyFAB from '@/components/AutoApplyFAB';
 
 const Landing: React.FC = () => {
   const navigate = useNavigate();
@@ -32,6 +33,10 @@ const Landing: React.FC = () => {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
+  const handleAutoApplyClick = () => {
+    navigate('/signup');
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -148,7 +153,7 @@ const Landing: React.FC = () => {
                 <Button 
                   size="lg" 
                   className="text-lg px-10 py-7 bg-primary-green hover:bg-primary-green/90 transition-all duration-300 shadow-lg hover:shadow-xl rounded-full"
-                  onClick={() => navigate('/signup')}
+                  onClick={handleAutoApplyClick}
                 >
                   Try it Free
                   <motion.div
@@ -401,7 +406,7 @@ const Landing: React.FC = () => {
             <Button 
               size="lg" 
               className="text-lg px-8 py-6 bg-primary-green hover:bg-primary-green/90 transition-all shadow-lg hover:shadow-xl"
-              onClick={() => navigate('/signup')}
+              onClick={handleAutoApplyClick}
             >
               Sign up free
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -572,6 +577,9 @@ const Landing: React.FC = () => {
           </div>
         </div>
       </footer>
+
+      {/* Add AutoApplyFAB */}
+      <AutoApplyFAB onClick={handleAutoApplyClick} />
     </div>
   );
 };

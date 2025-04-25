@@ -89,36 +89,27 @@ const Index = ({ isLoggedIn }: IndexProps) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100/50 font-sans">
-      <header className="bg-white/60 backdrop-blur-xl border-b border-white/20 sticky top-0 z-40">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <ProfileMenu 
-            userEmail={userEmail}
-            accountType={accountType}
-            onLogout={handleLogout}
-          />
-        </div>
-      </header>
-      
-      <main className="container mx-auto px-4 py-6">
+      <main className="container mx-auto px-4 py-6 h-[calc(100vh)]">
         <motion.div 
-          className="grid grid-cols-12 gap-6"
+          className="grid grid-cols-12 gap-6 h-full"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <div className="col-span-12 md:col-span-3 space-y-6">
+          <div className="col-span-12 md:col-span-3 sticky top-6">
             <CandidateProfile 
               name="John Doe"
               email={userEmail}
               status="applied"
               gender={userGender}
+              className="bg-transparent text-2xl"
             />
-            <QAEditor />
           </div>
           
-          <div className="col-span-12 md:col-span-9 space-y-6">
+          <div className="col-span-12 md:col-span-9 space-y-6 overflow-y-auto pr-4 max-h-[calc(100vh-4rem)]">
             <div className="grid grid-cols-1 gap-6">
               <JobFilters />
+              <QAEditor />
               <RecentApplications />
             </div>
           </div>
