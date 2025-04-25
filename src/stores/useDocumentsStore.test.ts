@@ -27,10 +27,10 @@ describe('useDocumentsStore', () => {
 
   it('should upload a document', async () => {
     // Mock successful API response
-    (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+    vi.mocked(global.fetch).mockResolvedValueOnce({
       ok: true,
       json: async () => ({ fileUrl: 'https://example.com/file.pdf' }),
-    });
+    } as Response);
 
     const file = new File(['test'], 'resume.pdf', { type: 'application/pdf' });
     const { uploadDocument } = useDocumentsStore.getState();
@@ -48,9 +48,9 @@ describe('useDocumentsStore', () => {
 
   it('should handle upload failure', async () => {
     // Mock failed API response
-    (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+    vi.mocked(global.fetch).mockResolvedValueOnce({
       ok: false,
-    });
+    } as Response);
 
     const file = new File(['test'], 'resume.pdf', { type: 'application/pdf' });
     const { uploadDocument } = useDocumentsStore.getState();
@@ -68,10 +68,10 @@ describe('useDocumentsStore', () => {
 
   it('should remove a document', async () => {
     // Mock successful API response for setup
-    (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+    vi.mocked(global.fetch).mockResolvedValueOnce({
       ok: true,
       json: async () => ({ fileUrl: 'https://example.com/file.pdf' }),
-    });
+    } as Response);
 
     const file = new File(['test'], 'resume.pdf', { type: 'application/pdf' });
     const { uploadDocument, removeDocument } = useDocumentsStore.getState();

@@ -22,7 +22,7 @@ vi.mock('framer-motion', async () => {
 describe('FloatingUploadBar', () => {
   beforeEach(() => {
     // Mock the useDocumentsStore implementation for each test
-    (useDocumentsStore as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
+    vi.mocked(useDocumentsStore).mockReturnValue({
       resume: null,
       coverLetter: null,
       isUploading: null,
@@ -42,7 +42,7 @@ describe('FloatingUploadBar', () => {
   });
 
   it('shows checkmark when documents are uploaded', () => {
-    (useDocumentsStore as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
+    vi.mocked(useDocumentsStore).mockReturnValue({
       resume: { fileName: 'resume.pdf', fileUrl: 'test-url', uploadedAt: new Date() },
       coverLetter: { fileName: 'coverletter.pdf', fileUrl: 'test-url', uploadedAt: new Date() },
       isUploading: null,
@@ -53,13 +53,12 @@ describe('FloatingUploadBar', () => {
     render(<FloatingUploadBar />);
     
     // We need to check for checkmark elements which appear when docs are uploaded
-    // This depends on your specific implementation details
     const checkmarks = document.querySelectorAll('.text-white');
     expect(checkmarks.length).toBeGreaterThan(0);
   });
 
   it('disables buttons while uploading', () => {
-    (useDocumentsStore as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
+    vi.mocked(useDocumentsStore).mockReturnValue({
       resume: null,
       coverLetter: null,
       isUploading: 'resume',
@@ -75,7 +74,7 @@ describe('FloatingUploadBar', () => {
 
   it('calls uploadDocument when file is selected', () => {
     const mockUploadDocument = vi.fn();
-    (useDocumentsStore as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
+    vi.mocked(useDocumentsStore).mockReturnValue({
       resume: null,
       coverLetter: null,
       isUploading: null,
@@ -100,7 +99,7 @@ describe('FloatingUploadBar', () => {
 
   it('calls removeDocument when remove button is clicked', () => {
     const mockRemoveDocument = vi.fn();
-    (useDocumentsStore as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
+    vi.mocked(useDocumentsStore).mockReturnValue({
       resume: { fileName: 'resume.pdf', fileUrl: 'test-url', uploadedAt: new Date() },
       coverLetter: null,
       isUploading: null,
