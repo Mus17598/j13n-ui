@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -23,14 +22,12 @@ const CandidateProfile: React.FC<CandidateProfileProps> = ({
 }) => {
   const navigate = useNavigate();
   
-  // Status badge configurations
   const statusConfig = {
     applied: { color: '#8FE388', text: 'Applied', bg: 'bg-primary-green/80' },
     pending: { color: '#FFD166', text: 'Pending', bg: 'bg-yellow-400/80' },
     rejected: { color: '#EF6F6C', text: 'Rejected', bg: 'bg-red-400/80' },
   };
   
-  // Get user initials for avatar fallback
   const getInitials = () => {
     return name
       .split(' ')
@@ -41,12 +38,12 @@ const CandidateProfile: React.FC<CandidateProfileProps> = ({
 
   return (
     <motion.div 
-      className="bg-white rounded-2xl shadow-md p-6 sticky top-6"
+      className="space-y-6"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="flex flex-col items-center mb-6">
+      <div className="flex flex-col items-center">
         <Avatar className="w-24 h-24 mb-4">
           <AvatarImage src={avatarUrl} alt={name} />
           <AvatarFallback className="bg-gray-200 text-gray-700 text-xl">
@@ -65,7 +62,7 @@ const CandidateProfile: React.FC<CandidateProfileProps> = ({
         </Badge>
       </div>
       
-      <div className="border-t border-gray-100 pt-4">
+      <div className="pt-4">
         <h3 className="text-sm font-medium text-gray-700 mb-3">Application Stats</h3>
         <div className="space-y-2">
           <div className="flex justify-between items-center">
@@ -89,7 +86,7 @@ const CandidateProfile: React.FC<CandidateProfileProps> = ({
       
       <button 
         onClick={() => navigate('/profile')}
-        className="w-full mt-5 py-2 px-3 bg-gray-100 hover:bg-gray-200 transition-colors rounded-lg text-sm text-gray-700 flex items-center justify-center"
+        className="w-full py-2 px-3 bg-gray-50 hover:bg-gray-100 transition-colors rounded-lg text-sm text-gray-700 flex items-center justify-center"
       >
         Edit Profile
       </button>

@@ -216,58 +216,30 @@ const Index = ({ isLoggedIn }: IndexProps) => {
       <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <h1 className="text-2xl font-semibold text-gray-900">Dashboard</h1>
-          <div className="flex items-center space-x-4">
-            <Button 
-              onClick={startAutoApplyFlow}
-              className="bg-primary-green hover:bg-primary-green/90"
-              disabled={isAutoApplying}
-            >
-              Start Auto-Apply
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-            <ProfileMenu 
-              userEmail={userEmail}
-              accountType={accountType}
-              onLogout={handleLogout}
-            />
-          </div>
+          <ProfileMenu 
+            userEmail={userEmail}
+            accountType={accountType}
+            onLogout={handleLogout}
+          />
         </div>
       </header>
       
-      {/* Auto Apply Animation - Positioned at the top */}
-      <div className="container mx-auto px-4 mb-6">
-        <AutoApplyAnimation 
-          isActive={isAutoApplying} 
-          onStop={stopAutoApply}
-          appliedCount={appliedCount}
-        />
-      </div>
-
       <main className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] lg:grid-cols-[300px_1fr_1fr] gap-6">
           {/* Left Column - Candidate Profile */}
           <div className="space-y-6">
-            <CandidateProfile 
-              name="John Doe"
-              email={userEmail}
-              status="applied"
-              gender={userGender}
-            />
+            <div className="pt-6">
+              <CandidateProfile 
+                name="John Doe"
+                email={userEmail}
+                status="applied"
+                gender={userGender}
+              />
+            </div>
           </div>
           
           {/* Middle Column */}
           <div className="space-y-6">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <div className={isAutoApplying ? disabledSectionStyle : ''}>
-                    <ResumeUpload />
-                  </div>
-                </TooltipTrigger>
-                {isAutoApplying && <TooltipContent>{tooltipMessage}</TooltipContent>}
-              </Tooltip>
-            </TooltipProvider>
-            
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -289,8 +261,18 @@ const Index = ({ isLoggedIn }: IndexProps) => {
         </div>
       </main>
       
-      {/* Floating Upload Bar */}
-      <FloatingUploadBar />
+      <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 flex flex-col items-center gap-4">
+        <FloatingUploadBar />
+        
+        <Button 
+          onClick={startAutoApplyFlow}
+          className="bg-white/80 hover:bg-white/90 backdrop-blur-sm text-gray-800 shadow-lg rounded-full px-8 transition-all"
+          disabled={isAutoApplying}
+        >
+          Start Auto-Apply
+          <ArrowRight className="ml-2 h-4 w-4" />
+        </Button>
+      </div>
       
       <AIChatBubble />
       
