@@ -1,5 +1,5 @@
-
 import type { Config } from "tailwindcss";
+import defaultTheme from 'tailwindcss/defaultTheme';
 
 export default {
 	darkMode: ["class"],
@@ -18,7 +18,18 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				urbanist: ['Urbanist', 'sans-serif'],
+				'sans': ['Geist', ...defaultTheme.fontFamily.sans],
+				'urbanist': ['Geist', ...defaultTheme.fontFamily.sans],
+			},
+			fontSize: {
+				'xs': '0.75rem',
+				'sm': '0.875rem',
+				'base': '1rem',
+				'lg': '1.125rem',
+				'xl': '1.25rem',
+				'2xl': '1.5rem',
+				'3xl': '1.875rem',
+				'4xl': '2.25rem',
 			},
 			colors: {
 				border: 'hsl(var(--border))',

@@ -11,7 +11,6 @@ import FloatingActionBar from '@/components/FloatingActionBar';
 import { useDocumentsStore } from '@/stores/useDocumentsStore';
 import { motion } from 'framer-motion';
 
-// Define the mockJobs array for the JobReviewModal
 const mockJobs = [
   {
     id: '1',
@@ -89,17 +88,9 @@ const Index = ({ isLoggedIn }: IndexProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100/50 font-urbanist">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100/50 font-sans">
       <header className="bg-white/60 backdrop-blur-xl border-b border-white/20 sticky top-0 z-40">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <motion.h1 
-            className="text-2xl font-bold bg-gradient-to-r from-gray-700 to-gray-900 bg-clip-text text-transparent"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            Dashboard
-          </motion.h1>
           <ProfileMenu 
             userEmail={userEmail}
             accountType={accountType}
@@ -115,7 +106,6 @@ const Index = ({ isLoggedIn }: IndexProps) => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          {/* Left Column - Profile */}
           <div className="col-span-12 md:col-span-3 space-y-6">
             <CandidateProfile 
               name="John Doe"
@@ -126,7 +116,6 @@ const Index = ({ isLoggedIn }: IndexProps) => {
             <QAEditor />
           </div>
           
-          {/* Right Column - Job Applications */}
           <div className="col-span-12 md:col-span-9 space-y-6">
             <div className="grid grid-cols-1 gap-6">
               <JobFilters />
@@ -146,7 +135,6 @@ const Index = ({ isLoggedIn }: IndexProps) => {
       
       <AIChatBubble />
       
-      {/* Hidden file inputs */}
       <input
         type="file"
         id="resume-upload"
