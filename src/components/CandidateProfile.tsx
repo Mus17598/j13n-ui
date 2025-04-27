@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useNavigate } from 'react-router-dom';
 import PersonalizedAvatar from '@/components/PersonalizedAvatar';
 import { motion } from 'framer-motion';
-import { MapPin, Briefcase } from 'lucide-react';
+import ImageUploader from '@/components/ImageUploader';
+import { useToast } from "@/components/ui/use-toast";
 import { UserSettingsDropdown } from '@/components/UserSettingsDropdown';
 
 interface CandidateProfileProps {
@@ -30,7 +31,19 @@ const CandidateProfile: React.FC<CandidateProfileProps> = ({
   role = 'Visual Designer at NALA Money'
 }) => {
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const [localAvatarUrl, setLocalAvatarUrl] = useState<string | undefined>(avatarUrl);
   
+  const handleImageSelect = (file: File) => {
+    const url = URL.createObjectURL(file);
+    setLocalAvatarUrl(url);
+    
+    toast({
+      title: "Profile picture updated",
+      description: "Your new profile picture has been set successfully.",
+    });
+  };
+
   const statusConfig = {
     applied: { color: '#8FE388', text: 'Applied', bg: 'bg-[#8FE388]/80' },
     pending: { color: '#74BBFB', text: 'Pending', bg: 'bg-[#74BBFB]/80' },
@@ -98,15 +111,17 @@ const CandidateProfile: React.FC<CandidateProfileProps> = ({
         </div>
         
         <div className="flex flex-col items-center">
-          <Avatar className="w-32 h-32 ring-4 ring-white shadow-lg">
-            <AvatarImage src={avatarUrl} alt={name} />
-            <AvatarFallback className="bg-gradient-to-br from-[#D6BCFA] to-[#9b87f5] text-white text-3xl">
-              {avatarUrl ? null : (
-                <PersonalizedAvatar gender={gender} />
-              )}
-              {!avatarUrl && !gender && name.charAt(0)}
-            </AvatarFallback>
-          </Avatar>
+          <ImageUploader onImageSelect={handleImageSelect}>
+            <Avatar className="w-32 h-32 ring-4 ring-white shadow-lg">
+              <AvatarImage src={localAvatarUrl} alt={name} />
+              <AvatarFallback className="bg-gradient-to-br from-[#D6BCFA] to-[#9b87f5] text-white text-3xl">
+                {localAvatarUrl ? null : (
+                  <PersonalizedAvatar gender={gender} />
+                )}
+                {!localAvatarUrl && !gender && name.charAt(0)}
+              </AvatarFallback>
+            </Avatar>
+          </ImageUploader>
 
           <div className="mt-6 space-y-2">
             <h2 className="text-4xl font-bold text-gray-900">{name}</h2>
