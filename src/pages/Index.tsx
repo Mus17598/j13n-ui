@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import JobFilters from '@/components/JobFilters';
@@ -11,6 +10,7 @@ import CandidateProfile from '@/components/CandidateProfile';
 import FloatingActionBar from '@/components/FloatingActionBar';
 import { useDocumentsStore } from '@/stores/useDocumentsStore';
 import { motion } from 'framer-motion';
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const mockJobs = [
   {
@@ -90,14 +90,9 @@ const Index = ({ isLoggedIn }: IndexProps) => {
 
   return (
     <div className="h-screen overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100/50 font-sans">
-      <main className="container mx-auto px-4 h-full py-6">
-        <motion.div 
-          className="grid grid-cols-12 gap-6 h-full"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <div className="col-span-12 md:col-span-3 h-full flex items-center">
+      <main className="container mx-auto h-full py-6">
+        <div className="grid grid-cols-12 gap-6 h-full">
+          <div className="col-span-3 h-full pt-8">
             <CandidateProfile 
               name="John Doe"
               email={userEmail}
@@ -107,14 +102,24 @@ const Index = ({ isLoggedIn }: IndexProps) => {
             />
           </div>
           
-          <div className="col-span-12 md:col-span-9 overflow-y-auto pr-4 h-full">
-            <div className="grid grid-cols-1 gap-6">
-              <JobFilters />
-              <QAEditor />
-              <RecentApplications />
-            </div>
+          <div className="col-span-9 h-full pr-4">
+            <ScrollArea className="h-full w-full">
+              <div className="space-y-4 pr-4">
+                <div className="glassmorphism p-6">
+                  <JobFilters />
+                </div>
+                
+                <div className="glassmorphism p-6">
+                  <QAEditor />
+                </div>
+                
+                <div className="glassmorphism p-6">
+                  <RecentApplications />
+                </div>
+              </div>
+            </ScrollArea>
           </div>
-        </motion.div>
+        </div>
       </main>
 
       <FloatingActionBar

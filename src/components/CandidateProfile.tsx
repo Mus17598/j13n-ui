@@ -99,7 +99,7 @@ const CandidateProfile: React.FC<CandidateProfileProps> = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="flex flex-col items-center text-center w-full px-8"
+      className="flex flex-col items-center text-center w-full"
     >
       <div className="relative w-full">
         <div className="absolute top-0 right-0">
@@ -110,11 +110,11 @@ const CandidateProfile: React.FC<CandidateProfileProps> = ({
           />
         </div>
         
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center space-y-6">
           <ImageUploader onImageSelect={handleImageSelect}>
-            <Avatar className="w-32 h-32 ring-4 ring-white shadow-lg">
+            <Avatar className="w-24 h-24 ring-2 ring-white/50 shadow-lg hover:ring-4 transition-all duration-200">
               <AvatarImage src={localAvatarUrl} alt={name} />
-              <AvatarFallback className="bg-gradient-to-br from-[#D6BCFA] to-[#9b87f5] text-white text-3xl">
+              <AvatarFallback className="bg-gradient-to-br from-[#D6BCFA] to-[#9b87f5] text-white text-2xl">
                 {localAvatarUrl ? null : (
                   <PersonalizedAvatar gender={gender} />
                 )}
@@ -123,25 +123,21 @@ const CandidateProfile: React.FC<CandidateProfileProps> = ({
             </Avatar>
           </ImageUploader>
 
-          <div className="mt-6 space-y-2">
-            <h2 className="text-4xl font-bold text-gray-900">{name}</h2>
-            <p className="text-xl text-gray-500">{role}</p>
+          <div className="space-y-2">
+            <h2 className="text-2xl font-bold text-gray-900">{name}</h2>
+            <p className="text-sm text-gray-600">{role}</p>
           </div>
 
-          <div className="mt-8">
-            <p className="text-lg text-gray-600 leading-relaxed">
-              {bio}
-            </p>
-          </div>
+          <p className="text-sm text-gray-500 leading-relaxed max-w-xs">
+            {bio}
+          </p>
 
-          <div className="mt-8">
-            <button 
-              onClick={() => navigate('/profile')}
-              className="text-base font-medium text-gray-500 hover:text-gray-900 transition-colors"
-            >
-              My Bento
-            </button>
-          </div>
+          <button 
+            onClick={() => navigate('/profile')}
+            className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
+          >
+            View Profile
+          </button>
         </div>
       </div>
     </motion.div>
