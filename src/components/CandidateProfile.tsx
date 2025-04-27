@@ -86,45 +86,47 @@ const CandidateProfile: React.FC<CandidateProfileProps> = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="pr-8"
+      className="flex flex-col items-center text-center w-full px-8"
     >
-      <div className="relative">
+      <div className="relative w-full">
         <div className="absolute top-0 right-0">
           <UserSettingsDropdown
             username={name}
             email={email}
-            onLogout={handleLogout}
+            onLogout={() => navigate('/login')}
           />
         </div>
         
-        <Avatar className="w-32 h-32 ring-4 ring-white shadow-lg">
-          <AvatarImage src={avatarUrl} alt={name} />
-          <AvatarFallback className="bg-gradient-to-br from-[#D6BCFA] to-[#9b87f5] text-white text-3xl">
-            {avatarUrl ? null : (
-              <PersonalizedAvatar gender={gender} />
-            )}
-            {!avatarUrl && !gender && name.charAt(0)}
-          </AvatarFallback>
-        </Avatar>
+        <div className="flex flex-col items-center">
+          <Avatar className="w-32 h-32 ring-4 ring-white shadow-lg">
+            <AvatarImage src={avatarUrl} alt={name} />
+            <AvatarFallback className="bg-gradient-to-br from-[#D6BCFA] to-[#9b87f5] text-white text-3xl">
+              {avatarUrl ? null : (
+                <PersonalizedAvatar gender={gender} />
+              )}
+              {!avatarUrl && !gender && name.charAt(0)}
+            </AvatarFallback>
+          </Avatar>
 
-        <div className="mt-6">
-          <h2 className="text-4xl font-bold text-gray-900">{name}</h2>
-          <p className="text-lg text-gray-500 mt-1">{role}</p>
-        </div>
+          <div className="mt-6 space-y-2">
+            <h2 className="text-4xl font-bold text-gray-900">{name}</h2>
+            <p className="text-xl text-gray-500">{role}</p>
+          </div>
 
-        <div className="mt-6">
-          <p className="text-lg text-gray-600 leading-relaxed max-w-md">
-            {bio}
-          </p>
-        </div>
+          <div className="mt-8">
+            <p className="text-lg text-gray-600 leading-relaxed">
+              {bio}
+            </p>
+          </div>
 
-        <div className="mt-8">
-          <button 
-            onClick={() => navigate('/profile')}
-            className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
-          >
-            My Bento
-          </button>
+          <div className="mt-8">
+            <button 
+              onClick={() => navigate('/profile')}
+              className="text-base font-medium text-gray-500 hover:text-gray-900 transition-colors"
+            >
+              My Bento
+            </button>
+          </div>
         </div>
       </div>
     </motion.div>

@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import JobFilters from '@/components/JobFilters';
@@ -88,25 +89,25 @@ const Index = ({ isLoggedIn }: IndexProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100/50 font-sans">
-      <main className="container mx-auto px-4 py-6 h-[calc(100vh)]">
+    <div className="h-screen overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100/50 font-sans">
+      <main className="container mx-auto px-4 h-full py-6">
         <motion.div 
           className="grid grid-cols-12 gap-6 h-full"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <div className="col-span-12 md:col-span-3 sticky top-6">
+          <div className="col-span-12 md:col-span-3 h-full flex items-center">
             <CandidateProfile 
               name="John Doe"
               email={userEmail}
               status="applied"
               gender={userGender}
-              className="bg-transparent text-2xl"
+              className="bg-transparent text-2xl w-full"
             />
           </div>
           
-          <div className="col-span-12 md:col-span-9 space-y-6 overflow-y-auto pr-4 max-h-[calc(100vh-4rem)]">
+          <div className="col-span-12 md:col-span-9 overflow-y-auto pr-4 h-full">
             <div className="grid grid-cols-1 gap-6">
               <JobFilters />
               <QAEditor />
