@@ -11,6 +11,7 @@ import CandidateProfile from '@/components/CandidateProfile';
 import FloatingActionBar from '@/components/FloatingActionBar';
 import { useDocumentsStore } from '@/stores/useDocumentsStore';
 import { motion } from 'framer-motion';
+import Profile from "@/components/Profile";
 
 const mockJobs = [
   {
@@ -98,20 +99,40 @@ const Index = ({ isLoggedIn }: IndexProps) => {
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           <div className="col-span-12 md:col-span-3 h-full flex items-center">
-            <CandidateProfile 
-              name="John Doe"
-              email={userEmail}
-              status="applied"
-              gender={userGender}
-              className="bg-transparent text-2xl w-full"
-            />
+            <Profile />
           </div>
           
-          <div className="col-span-12 md:col-span-9 overflow-y-auto pr-4 h-full">
+          <div
+            className="col-span-12 md:col-span-9 overflow-y-auto pr-4 h-full custom-scrollbar-hide"
+            style={{
+              scrollbarWidth: 'none', // Firefox
+              msOverflowStyle: 'none', // IE and Edge
+            }}
+          >
+            <style>
+              {`
+                .custom-scrollbar-hide::-webkit-scrollbar {
+                  display: none;
+                }
+              `}
+            </style>
             <div className="grid grid-cols-1 gap-6">
-              <JobFilters />
-              <QAEditor />
-              <RecentApplications />
+              <div className="border border-gray-200 shadow-sm bg-gray-50 rounded-2xl p-4">
+                <JobFilters />
+              </div>
+              <div className="border border-gray-200 shadow-sm bg-gray-50 rounded-2xl p-4">
+                <QAEditor />
+              </div>
+              <div className="border border-gray-200 shadow-sm bg-gray-50 rounded-2xl p-4 recent-applications-scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                <style>
+                  {`
+                    .recent-applications-scrollbar-hide::-webkit-scrollbar {
+                      display: none;
+                    }
+                  `}
+                </style>
+                <RecentApplications />
+              </div>
             </div>
           </div>
         </motion.div>

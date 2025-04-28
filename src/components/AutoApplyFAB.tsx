@@ -21,7 +21,7 @@ const AutoApplyFAB: React.FC<AutoApplyFABProps> = ({ onClick }) => {
       <button
         onClick={onClick}
         className="flex items-center gap-2 px-8 py-4 text-lg font-semibold text-white rounded-full
-                 bg-gradient-to-r from-cyan-400 to-green-400 hover:from-cyan-500 hover:to-green-500
+                 bg-[#0CAA41] hover:bg-[#0CAA41]/90
                  shadow-lg hover:shadow-xl transition-all duration-300 ease-out
                  hover:scale-105 active:scale-95"
       >
@@ -32,4 +32,4 @@ const AutoApplyFAB: React.FC<AutoApplyFABProps> = ({ onClick }) => {
   );
 };
 
-export default AutoApplyFAB; 
+export default AutoApplyFAB;

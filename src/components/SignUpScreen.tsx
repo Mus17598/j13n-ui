@@ -165,7 +165,7 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ onSignedUp }) => {
           
           <Button 
             type="submit" 
-            className="w-full bg-primary-green hover:bg-primary-green/90 text-white"
+            className="w-full bg-[#0CAA41] hover:bg-[#0CAA41]/90 text-white"
             disabled={!agreedToTerms}
           >
             Sign up
@@ -185,4 +185,4 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ onSignedUp }) => {
   );
 };
 
-export default SignUpScreen; 
+export default SignUpScreen;
