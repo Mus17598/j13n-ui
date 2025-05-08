@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +7,8 @@ import { motion } from 'framer-motion';
 import ImageUploader from '@/components/ImageUploader';
 import { useToast } from "@/components/ui/use-toast";
 import { UserSettingsDropdown } from '@/components/UserSettingsDropdown';
+import { Button } from '@/components/ui/button';
+import { Home } from 'lucide-react';
 
 interface CandidateProfileProps {
   name?: string;
@@ -134,13 +137,22 @@ const CandidateProfile: React.FC<CandidateProfileProps> = ({
             </p>
           </div>
 
-          <div className="mt-8">
+          <div className="mt-8 flex flex-col space-y-4">
             <button 
               onClick={() => navigate('/profile')}
               className="text-base font-medium text-gray-500 hover:text-gray-900 transition-colors"
             >
               My Bento
             </button>
+            
+            <Button 
+              onClick={() => navigate('/')}
+              className="mt-4 bg-primary-green hover:bg-primary-green/90 text-white flex items-center justify-center gap-2"
+              size="sm"
+            >
+              <Home size={16} />
+              Landing Page
+            </Button>
           </div>
         </div>
       </div>
