@@ -6,7 +6,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     <div className="h-screen overflow-hidden bg-white">
       <div className="flex h-full bg-white">
         {/* Left Section */}
-        <div className="bg-white">
+        <div className="w-[300px] bg-white h-full p-6">
           {/* This section will not scroll */}
           {children}
         </div>
@@ -16,7 +16,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           <ScrollArea className="h-full">
             <div className="p-4">
               {/* Content will be scrollable within the ScrollArea */}
-              {/* children will be placed here */}
             </div>
           </ScrollArea>
         </div>
