@@ -1,8 +1,11 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { storeAuthToken } from '@/utils/auth';
+import { toast } from '@/components/ui/sonner';
 
 interface LoginScreenProps {
   onLoggedIn: () => void;
@@ -11,21 +14,44 @@ interface LoginScreenProps {
 const LoginScreen: React.FC<LoginScreenProps> = ({ onLoggedIn }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, this would handle authentication
-    onLoggedIn();
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('http://localhost:3000/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.token) {
+        // Store token and redirect
+        storeAuthToken(data.token);
+        toast.success("Login successful!");
+        onLoggedIn();
+      } else {
+        toast.error(data.message || 'Login failed. Please check your credentials.');
+      }
+    } catch (error) {
+      toast.error('Login request failed. Please try again.');
+      console.error('Login error:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleGoogleLogin = () => {
-    // Implement Google OAuth login
-    console.log('Google login clicked');
+    window.location.href = 'http://localhost:3000/auth/google';
   };
 
   const handleLinkedInLogin = () => {
-    // Implement LinkedIn OAuth login
-    console.log('LinkedIn login clicked');
+    window.location.href = 'http://localhost:3000/auth/linkedin';
   };
 
   return (
@@ -45,6 +71,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLoggedIn }) => {
             variant="outline"
             className="w-full bg-white hover:bg-gray-50 text-gray-700 flex items-center justify-center gap-2"
             onClick={handleGoogleLogin}
+            disabled={isLoading}
           >
             <img src="/google-icon.svg" alt="Google" className="w-5 h-5" />
             Continue with Google
@@ -55,6 +82,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLoggedIn }) => {
             variant="outline"
             className="w-full bg-white hover:bg-gray-50 text-gray-700 flex items-center justify-center gap-2"
             onClick={handleLinkedInLogin}
+            disabled={isLoading}
           >
             <img src="/linkedin-icon.svg" alt="LinkedIn" className="w-5 h-5" />
             Continue with LinkedIn
@@ -81,6 +109,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLoggedIn }) => {
               onChange={(e) => setEmail(e.target.value)}
               className="bg-white/50 border-gray-200"
               required
+              disabled={isLoading}
             />
           </div>
           
@@ -94,6 +123,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLoggedIn }) => {
               onChange={(e) => setPassword(e.target.value)}
               className="bg-white/50 border-gray-200"
               required
+              disabled={isLoading}
             />
           </div>
           
@@ -103,8 +133,17 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLoggedIn }) => {
             </Link>
           </div>
           
-          <Button type="submit" className="w-full bg-primary-green hover:bg-primary-green/90 text-white">
-            Sign In
+          <Button 
+            type="submit" 
+            className="w-full bg-primary-green hover:bg-primary-green/90 text-white"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <>
+                <span className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full mr-2"></span>
+                Signing In...
+              </>
+            ) : 'Sign In'}
           </Button>
         </form>
         

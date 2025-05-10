@@ -1,9 +1,12 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { storeAuthToken } from '@/utils/auth';
+import { toast } from '@/components/ui/sonner';
 
 interface SignUpScreenProps {
   onSignedUp: () => void;
@@ -16,21 +19,49 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ onSignedUp }) => {
   const [password, setPassword] = useState('');
   const [country, setCountry] = useState('');
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSignUp = (e: React.FormEvent) => {
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, this would handle registration
-    onSignedUp();
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('http://localhost:3000/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          name: `${firstName} ${lastName}`,
+          email, 
+          password,
+          country
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.token) {
+        // Store token and redirect
+        storeAuthToken(data.token);
+        toast.success("Account created successfully!");
+        onSignedUp();
+      } else {
+        toast.error(data.message || 'Signup failed. Please try again.');
+      }
+    } catch (error) {
+      toast.error('Signup request failed. Please try again.');
+      console.error('Signup error:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleGoogleSignUp = () => {
-    // Implement Google OAuth sign-up
-    console.log('Google sign-up clicked');
+    window.location.href = 'http://localhost:3000/auth/google';
   };
 
   const handleLinkedInSignUp = () => {
-    // Implement LinkedIn OAuth sign-up
-    console.log('LinkedIn sign-up clicked');
+    window.location.href = 'http://localhost:3000/auth/linkedin';
   };
 
   return (
@@ -49,6 +80,7 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ onSignedUp }) => {
             variant="outline"
             className="w-full bg-white hover:bg-gray-50 text-gray-700 flex items-center justify-center gap-2"
             onClick={handleGoogleSignUp}
+            disabled={isLoading}
           >
             <img src="/google-icon.svg" alt="Google" className="w-5 h-5" />
             Continue with Google
@@ -59,6 +91,7 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ onSignedUp }) => {
             variant="outline"
             className="w-full bg-white hover:bg-gray-50 text-gray-700 flex items-center justify-center gap-2"
             onClick={handleLinkedInSignUp}
+            disabled={isLoading}
           >
             <img src="/linkedin-icon.svg" alt="LinkedIn" className="w-5 h-5" />
             Continue with LinkedIn
@@ -86,6 +119,7 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ onSignedUp }) => {
                 onChange={(e) => setFirstName(e.target.value)}
                 className="bg-white/50 border-gray-200"
                 required
+                disabled={isLoading}
               />
             </div>
             
@@ -99,6 +133,7 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ onSignedUp }) => {
                 onChange={(e) => setLastName(e.target.value)}
                 className="bg-white/50 border-gray-200"
                 required
+                disabled={isLoading}
               />
             </div>
           </div>
@@ -113,6 +148,7 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ onSignedUp }) => {
               onChange={(e) => setEmail(e.target.value)}
               className="bg-white/50 border-gray-200"
               required
+              disabled={isLoading}
             />
           </div>
           
@@ -126,6 +162,7 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ onSignedUp }) => {
               onChange={(e) => setPassword(e.target.value)}
               className="bg-white/50 border-gray-200"
               required
+              disabled={isLoading}
             />
           </div>
 
@@ -139,6 +176,7 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ onSignedUp }) => {
               onChange={(e) => setCountry(e.target.value)}
               className="bg-white/50 border-gray-200"
               required
+              disabled={isLoading}
             />
           </div>
 
@@ -147,6 +185,7 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ onSignedUp }) => {
               id="terms" 
               checked={agreedToTerms}
               onCheckedChange={(checked) => setAgreedToTerms(checked as boolean)}
+              disabled={isLoading}
             />
             <label
               htmlFor="terms"
@@ -166,9 +205,14 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ onSignedUp }) => {
           <Button 
             type="submit" 
             className="w-full bg-[#0CAA41] hover:bg-[#0CAA41]/90 text-white"
-            disabled={!agreedToTerms}
+            disabled={!agreedToTerms || isLoading}
           >
-            Sign up
+            {isLoading ? (
+              <>
+                <span className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full mr-2"></span>
+                Signing Up...
+              </>
+            ) : 'Sign up'}
           </Button>
         </form>
         
