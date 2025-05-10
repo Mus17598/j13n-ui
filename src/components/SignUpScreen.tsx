@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,6 +6,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Link, useNavigate } from 'react-router-dom';
 import { storeAuthToken } from '@/utils/auth';
 import { toast } from '@/components/ui/sonner';
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
 
 interface SignUpScreenProps {
   onSignedUp: () => void;
@@ -20,11 +21,13 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ onSignedUp }) => {
   const [country, setCountry] = useState('');
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [signupError, setSignupError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setSignupError(null);
 
     try {
       const response = await fetch('http://localhost:3000/auth/signup', {
@@ -46,9 +49,17 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ onSignedUp }) => {
         toast.success("Account created successfully!");
         onSignedUp();
       } else {
-        toast.error(data.message || 'Signup failed. Please try again.');
+        // Check if this is an "email already in use" error
+        if (data.code === 'auth/email-already-in-use' || data.message?.includes('already in use') || data.message?.includes('already exists')) {
+          setSignupError("This email is already in use.");
+          toast.error("This email is already in use.");
+        } else {
+          setSignupError(data.message || 'Signup failed. Please try again.');
+          toast.error(data.message || 'Signup failed. Please try again.');
+        }
       }
     } catch (error) {
+      setSignupError('Signup request failed. Please try again.');
       toast.error('Signup request failed. Please try again.');
       console.error('Signup error:', error);
     } finally {
@@ -72,6 +83,13 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ onSignedUp }) => {
         <div className="text-center space-y-2">
           <h1 className="text-3xl font-bold text-gray-800">Sign up to use JobCopilot</h1>
         </div>
+
+        {signupError && (
+          <Alert variant="destructive" className="mb-4">
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>{signupError}</AlertDescription>
+          </Alert>
+        )}
 
         {/* Social Sign-up Buttons */}
         <div className="space-y-3">
