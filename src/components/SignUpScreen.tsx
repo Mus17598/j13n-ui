@@ -32,7 +32,11 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ onSignedUp }) => {
         )}
 
         {/* Social Sign-up Buttons */}
-        <SocialSignUpButtons isLoading={isLoading} />
+        <SocialSignUpButtons 
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          onSuccess={onSignedUp} 
+        />
 
         <AuthDivider text="OR SIGNUP WITH EMAIL" />
         

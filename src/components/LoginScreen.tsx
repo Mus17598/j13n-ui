@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,6 +7,8 @@ import { storeAuthToken } from '@/utils/auth';
 import { toast } from '@/components/ui/sonner';
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
+import SocialSignUpButtons from './auth/SocialSignUpButtons';
+import AuthDivider from './auth/AuthDivider';
 
 interface LoginScreenProps {
   onLoggedIn: () => void;
@@ -58,14 +59,6 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLoggedIn }) => {
     }
   };
 
-  const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:3000/auth/google';
-  };
-
-  const handleLinkedInLogin = () => {
-    window.location.href = 'http://localhost:3000/auth/linkedin';
-  };
-
   return (
     <div className="min-h-screen w-full flex items-center justify-center p-4">
       <div className="absolute inset-0 -z-10 animated-gradient"></div>
@@ -84,38 +77,13 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLoggedIn }) => {
         )}
 
         {/* Social Login Buttons */}
-        <div className="space-y-3">
-          <Button
-            type="button"
-            variant="outline"
-            className="w-full bg-white hover:bg-gray-50 text-gray-700 flex items-center justify-center gap-2"
-            onClick={handleGoogleLogin}
-            disabled={isLoading}
-          >
-            <img src="/google-icon.svg" alt="Google" className="w-5 h-5" />
-            Continue with Google
-          </Button>
+        <SocialSignUpButtons 
+          isLoading={isLoading} 
+          setIsLoading={setIsLoading}
+          onSuccess={onLoggedIn}
+        />
 
-          <Button
-            type="button"
-            variant="outline"
-            className="w-full bg-white hover:bg-gray-50 text-gray-700 flex items-center justify-center gap-2"
-            onClick={handleLinkedInLogin}
-            disabled={isLoading}
-          >
-            <img src="/linkedin-icon.svg" alt="LinkedIn" className="w-5 h-5" />
-            Continue with LinkedIn
-          </Button>
-        </div>
-
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t border-gray-300"></span>
-          </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="px-2 bg-white text-gray-500">OR LOGIN WITH EMAIL</span>
-          </div>
-        </div>
+        <AuthDivider text="OR LOGIN WITH EMAIL" />
         
         <form onSubmit={handleLogin} className="space-y-4">
           <div className="space-y-2">
