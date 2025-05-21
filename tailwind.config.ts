@@ -40,7 +40,7 @@ export default {
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))',
-					green: '#8FE388',
+					green: '#0CAA41', // Updated to Glassdoor green
 					lightGreen: '#C7F2C4',
 					mint: '#F2FCE2',
 					blue: '#74BBFB',

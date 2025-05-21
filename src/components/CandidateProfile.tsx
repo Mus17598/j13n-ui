@@ -1,11 +1,14 @@
 
-import React from 'react';
-import { Badge } from "@/components/ui/badge";
+import React, { useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useNavigate } from 'react-router-dom';
 import PersonalizedAvatar from '@/components/PersonalizedAvatar';
 import { motion } from 'framer-motion';
-import { Card, CardContent } from "@/components/ui/card";
+import ImageUploader from '@/components/ImageUploader';
+import { useToast } from "@/components/ui/use-toast";
+import { UserSettingsDropdown } from '@/components/UserSettingsDropdown';
+import { Button } from '@/components/ui/button';
+import { Home } from 'lucide-react';
 
 interface CandidateProfileProps {
   name?: string;
@@ -13,6 +16,10 @@ interface CandidateProfileProps {
   status?: 'applied' | 'pending' | 'rejected';
   avatarUrl?: string;
   gender?: 'male' | 'female' | 'other' | 'prefer_not_to_say';
+  className?: string;
+  bio?: string;
+  location?: string;
+  role?: string;
 }
 
 const CandidateProfile: React.FC<CandidateProfileProps> = ({
@@ -21,9 +28,25 @@ const CandidateProfile: React.FC<CandidateProfileProps> = ({
   status = 'pending',
   avatarUrl,
   gender = 'prefer_not_to_say',
+  className,
+  bio = 'Always looking for new & innovative ways to share my art and design skills. I love nothing more than diving into a new project and getting my hands dirty.',
+  location = 'San Francisco, CA',
+  role = 'Visual Designer at NALA Money'
 }) => {
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const [localAvatarUrl, setLocalAvatarUrl] = useState<string | undefined>(avatarUrl);
   
+  const handleImageSelect = (file: File) => {
+    const url = URL.createObjectURL(file);
+    setLocalAvatarUrl(url);
+    
+    toast({
+      title: "Profile picture updated",
+      description: "Your new profile picture has been set successfully.",
+    });
+  };
+
   const statusConfig = {
     applied: { color: '#8FE388', text: 'Applied', bg: 'bg-[#8FE388]/80' },
     pending: { color: '#74BBFB', text: 'Pending', bg: 'bg-[#74BBFB]/80' },
@@ -38,68 +61,101 @@ const CandidateProfile: React.FC<CandidateProfileProps> = ({
       .toUpperCase();
   };
 
+  const applicationStats = [
+    { 
+      label: 'Applied',
+      value: '24',
+      color: 'text-[#8FE388]',
+      bgColor: 'bg-[#8FE388]/10',
+      description: 'Total job applications submitted'
+    },
+    { 
+      label: 'Interviews',
+      value: '7',
+      color: 'text-[#74BBFB]',
+      bgColor: 'bg-[#74BBFB]/10',
+      description: 'Interviews scheduled or completed'
+    },
+    { 
+      label: 'Offers',
+      value: '2',
+      color: 'text-[#B487FB]',
+      bgColor: 'bg-[#B487FB]/10',
+      description: 'Job offers received'
+    },
+    { 
+      label: 'Failed',
+      value: '15',
+      color: 'text-[#FF6B6B]',
+      bgColor: 'bg-[#FF6B6B]/10',
+      description: 'Applications rejected or expired'
+    }
+  ];
+
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    navigate('/login');
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
+      className="flex flex-col items-center text-center w-full px-8"
     >
-      <Card className="frosted-panel border-none overflow-hidden h-full">
-        <CardContent className="p-6">
-          <div className="flex flex-col items-center mb-6">
-            <div className="relative">
-              <Avatar className="w-20 h-20 ring-4 ring-white/30 shadow-lg">
-                <AvatarImage src={avatarUrl} alt={name} />
-                <AvatarFallback className="bg-gradient-to-br from-[#D6BCFA] to-[#9b87f5] text-white text-xl">
-                  {avatarUrl ? null : (
-                    <PersonalizedAvatar gender={gender} />
-                  )}
-                  {!avatarUrl && !gender && getInitials()}
-                </AvatarFallback>
-              </Avatar>
-              <div className="absolute -bottom-1 -right-1">
-                <Badge className={`${statusConfig[status].bg} text-white px-2 text-xs font-medium`}>
-                  {statusConfig[status].text}
-                </Badge>
-              </div>
-            </div>
+      <div className="relative w-full">
+        <div className="absolute top-0 right-0">
+          <UserSettingsDropdown
+            username={name}
+            email={email}
+            onLogout={() => navigate('/login')}
+          />
+        </div>
+        
+        <div className="flex flex-col items-center">
+          <ImageUploader onImageSelect={handleImageSelect}>
+            <Avatar className="w-32 h-32 ring-4 ring-white shadow-lg">
+              <AvatarImage src={localAvatarUrl} alt={name} />
+              <AvatarFallback className="bg-gradient-to-br from-[#D6BCFA] to-[#9b87f5] text-white text-3xl">
+                {localAvatarUrl ? null : (
+                  <PersonalizedAvatar gender={gender} />
+                )}
+                {!localAvatarUrl && !gender && name.charAt(0)}
+              </AvatarFallback>
+            </Avatar>
+          </ImageUploader>
+
+          <div className="mt-6 space-y-2">
+            <h2 className="text-4xl font-bold text-gray-900">{name}</h2>
+            <p className="text-xl text-gray-500">{role}</p>
+          </div>
+
+          <div className="mt-8">
+            <p className="text-lg text-gray-600 leading-relaxed">
+              {bio}
+            </p>
+          </div>
+
+          <div className="mt-8 flex flex-col space-y-4">
+            <button 
+              onClick={() => navigate('/profile')}
+              className="text-base font-medium text-gray-500 hover:text-gray-900 transition-colors"
+            >
+              My Bento
+            </button>
             
-            <h2 className="text-xl font-urbanist font-semibold text-gray-800 mt-3">{name}</h2>
-            <p className="text-sm text-gray-500 font-urbanist">{email}</p>
+            <Button 
+              onClick={() => navigate('/')}
+              className="mt-4 bg-primary-green hover:bg-primary-green/90 text-white flex items-center justify-center gap-2"
+              size="sm"
+            >
+              <Home size={16} />
+              Landing Page
+            </Button>
           </div>
-          
-          <div className="space-y-4 mb-6">
-            <div>
-              <h3 className="text-sm font-medium text-gray-700 mb-3 font-urbanist">Application Stats</h3>
-              <div className="space-y-2.5">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-500">Applied</span>
-                  <span className="text-sm font-medium bg-[#8FE388]/10 text-[#8FE388] px-2 py-0.5 rounded">24</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-500">Interviews</span>
-                  <span className="text-sm font-medium bg-[#74BBFB]/10 text-[#74BBFB] px-2 py-0.5 rounded">7</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-500">Offers</span>
-                  <span className="text-sm font-medium bg-[#B487FB]/10 text-[#B487FB] px-2 py-0.5 rounded">2</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-500">Acceptance Rate</span>
-                  <span className="text-sm font-medium bg-gray-100 text-gray-700 px-2 py-0.5 rounded">28.5%</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <button 
-            onClick={() => navigate('/profile')}
-            className="w-full py-2 px-3 bg-white/50 hover:bg-white/70 transition-colors rounded-xl text-sm text-gray-700 font-medium flex items-center justify-center border border-white/30 backdrop-blur-sm"
-          >
-            Edit Profile
-          </button>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </motion.div>
   );
 };
