@@ -74,6 +74,13 @@
   }
 }
 
+@layer utilities {
+  /* Adding custom border-radius utility to fix the error */
+  .rounded-same {
+    border-radius: inherit;
+  }
+}
+
 @layer components {
   .glass-card {
     @apply bg-white/5 backdrop-blur-md border border-white/10 shadow-xl;
@@ -101,7 +108,7 @@
   }
   
   .glow-effect::before {
-    @apply absolute inset-0 rounded-inherit blur-lg opacity-50 bg-gradient-to-r from-primary-purple to-primary-blue -z-10;
+    @apply absolute inset-0 rounded-same blur-lg opacity-50 bg-gradient-to-r from-primary-purple to-primary-blue -z-10;
     content: '';
   }
   
