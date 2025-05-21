@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400;500;700&display=swap');
 @import '@fontsource/geist-sans/400.css';
 @import '@fontsource/geist-sans/500.css';
 @import '@fontsource/geist-sans/600.css';
@@ -10,146 +12,123 @@
 
 @layer base {
   :root {
-    --background: 150 30% 98%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 142 62% 72%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 270 79% 76%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 150 20% 96%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
 
-    --accent: 150 30% 96%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 150 60% 50%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 270 79% 76%;
 
     --radius: 1rem;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-background: 240 10% 3.9%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 270 79% 76%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 142 62% 72%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 270 79% 76%;
   }
 }
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border selection:bg-primary-purple/20 selection:text-white;
   }
 
   body {
-    @apply bg-background text-foreground font-urbanist;
-    background-image: radial-gradient(circle at 10% 20%, rgba(143, 227, 136, 0.05) 0%, rgba(230, 250, 230, 0.05) 50%);
+    @apply bg-background text-foreground font-sans antialiased overflow-x-hidden;
+    background-image: 
+      radial-gradient(circle at 15% 30%, rgba(155, 135, 245, 0.15) 0%, rgba(30, 30, 30, 0) 25%),
+      radial-gradient(circle at 85% 70%, rgba(116, 187, 251, 0.15) 0%, rgba(30, 30, 30, 0) 25%);
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-urbanist font-semibold tracking-tight;
+    @apply font-display font-bold tracking-tight;
   }
   
   button {
-    @apply font-urbanist;
+    @apply font-sans;
   }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-white/40 backdrop-blur-md border border-white/50 shadow-xl;
+    @apply bg-white/5 backdrop-blur-md border border-white/10 shadow-xl;
   }
   
   .frosted-panel {
-    @apply bg-white/80 backdrop-blur-lg border border-white/40 shadow-lg rounded-2xl;
+    @apply bg-white/10 backdrop-blur-lg border border-white/10 shadow-lg rounded-2xl;
   }
 
   .animated-gradient {
-    background: linear-gradient(90deg, rgba(143, 227, 136, 0.2) 0%, rgba(230, 250, 230, 0.2) 50%, rgba(143, 227, 136, 0.2) 100%);
-    background-size: 200% 100%;
-    animation: gradientMove 15s linear infinite;
+    background-size: 200% 200%;
+    animation: gradient-rotate 15s linear infinite;
   }
   
   .glassmorphism {
-    @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-lg rounded-2xl;
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-lg rounded-2xl;
   }
   
-  .globalmorphism {
-    @apply bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-lg border border-white/30 shadow-xl rounded-2xl;
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-purple to-primary-blue animate-text-gradient bg-[length:200%_auto];
   }
-
-  @keyframes gradientMove {
-    0% {background-position: 0% 50%}
-    50% {background-position: 100% 50%}
-    100% {background-position: 0% 50%}
+  
+  .glow-effect {
+    @apply relative;
+  }
+  
+  .glow-effect::before {
+    @apply absolute inset-0 rounded-inherit blur-lg opacity-50 bg-gradient-to-r from-primary-purple to-primary-blue -z-10;
+    content: '';
+  }
+  
+  .shimmer {
+    @apply relative overflow-hidden;
+  }
+  
+  .shimmer::after {
+    @apply absolute top-0 -inset-x-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 animate-shimmer;
+    content: '';
+  }
+  
+  .grain {
+    @apply relative;
+  }
+  
+  .grain::before {
+    @apply absolute inset-0 opacity-20 pointer-events-none bg-noise;
+    content: '';
   }
 }
 
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  @apply w-full max-w-none mx-auto p-0 text-left;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
+/* Keep essential existing CSS below this line */
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
@@ -163,12 +142,4 @@
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }

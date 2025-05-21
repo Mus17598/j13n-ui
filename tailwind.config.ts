@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 import defaultTheme from 'tailwindcss/defaultTheme';
 
@@ -5,7 +6,7 @@ export default {
 	darkMode: ["class"],
 	content: [
 		"./index.html",
-		"./src/**/*.{js,ts,jsx,tsx}",
+		"./src/**/*.{ts,tsx}",
 	],
 	prefix: "",
 	theme: {
@@ -18,8 +19,8 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				'sans': ['Geist', ...defaultTheme.fontFamily.sans],
-				'urbanist': ['Geist', ...defaultTheme.fontFamily.sans],
+				'sans': ['Inter', ...defaultTheme.fontFamily.sans],
+				'display': ['Satoshi', ...defaultTheme.fontFamily.sans],
 			},
 			fontSize: {
 				'xs': '0.75rem',
@@ -30,6 +31,8 @@ export default {
 				'2xl': '1.5rem',
 				'3xl': '1.875rem',
 				'4xl': '2.25rem',
+				'5xl': '3rem',
+				'6xl': '4rem',
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -40,18 +43,17 @@ export default {
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))',
-					green: '#8FE388',
-					lightGreen: '#C7F2C4',
-					mint: '#F2FCE2',
+					purple: '#9B87F5',
 					blue: '#74BBFB',
-					purple: '#B487FB',
+					teal: '#4ECDC4',
+					mint: '#E2FAE7',
 					red: '#FF6B6B',
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
 					foreground: 'hsl(var(--secondary-foreground))',
-					gray: '#F6F6F7',
-					lightGray: '#F1F1F1',
+					gray: '#2A2A2A',
+					lightGray: '#3A3A3A',
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
@@ -91,6 +93,7 @@ export default {
 				'2xl': '1rem',
 				'3xl': '1.5rem',
 				'4xl': '2rem',
+				'5xl': '2.5rem',
 			},
 			keyframes: {
 				'accordion-down': {
@@ -116,6 +119,18 @@ export default {
 				'pulse-ring': {
 					'0%': { transform: 'scale(0.95)', opacity: '1' },
 					'100%': { transform: 'scale(2)', opacity: '0' }
+				},
+				'shimmer': {
+					'100%': { transform: 'translateX(100%)' }
+				},
+				'text-gradient': {
+					'0%': { backgroundPosition: '0% 50%' },
+					'50%': { backgroundPosition: '100% 50%' },
+					'100%': { backgroundPosition: '0% 50%' }
+				},
+				'gradient-rotate': {
+					'0%, 100%': { backgroundPosition: '0% 50%' },
+					'50%': { backgroundPosition: '100% 50%' }
 				}
 			},
 			animation: {
@@ -124,10 +139,22 @@ export default {
 				'float': 'float 3s ease-in-out infinite',
 				'pulse-soft': 'pulse-soft 3s ease-in-out infinite',
 				'bounce-soft': 'bounce-soft 2s ease-in-out infinite',
-				'pulse-ring': 'pulse-ring 2s cubic-bezier(0, 0, 0.2, 1) infinite'
+				'pulse-ring': 'pulse-ring 2s cubic-bezier(0, 0, 0.2, 1) infinite',
+				'shimmer': 'shimmer 2s infinite',
+				'text-gradient': 'text-gradient 8s ease infinite',
+				'gradient-rotate': 'gradient-rotate 4s ease-in-out infinite'
 			},
 			backdropBlur: {
 				xs: '2px',
+				sm: '4px',
+				md: '8px',
+				lg: '12px',
+				xl: '16px',
+			},
+			backgroundImage: {
+				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+				'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+				'noise': "url('/noise.svg')",
 			},
 		}
 	},
