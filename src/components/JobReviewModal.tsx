@@ -136,7 +136,7 @@ const JobReviewModal: React.FC<JobReviewModalProps> = ({
               </Button>
               <Button
                 onClick={() => onConfirm(jobList)}
-                className="bg-[#0CAA41] hover:bg-[#0CAA41]/90 text-white"
+                className="bg-primary-green hover:bg-primary-green/90 text-white"
               >
                 Confirm and Start Applying ({jobList.length} jobs)
               </Button>

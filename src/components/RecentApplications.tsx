@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -86,7 +87,7 @@ const RecentApplications: React.FC = () => {
         <CardTitle className="text-xl font-semibold text-gray-800">Recent Applications</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+        <div className="space-y-4">
           {applications.map((app) => (
             <div 
               key={app.id} 

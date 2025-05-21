@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -82,86 +83,82 @@ const QAEditor: React.FC = () => {
             </TabsTrigger>
           </TabsList>
           
-          <TabsContent value="answered" className="mt-0">
-            <div className="h-[400px] overflow-y-auto pr-2 custom-scrollbar">
-              {answeredQuestions.length === 0 ? (
-                <div className="text-center py-6 text-gray-500">No answered questions yet</div>
-              ) : (
-                answeredQuestions.map(q => (
-                  <div key={q.id} className="bg-white/70 rounded-lg p-4 space-y-3">
-                    <div className="font-medium text-gray-800">{q.question}</div>
-                    {editingId === q.id ? (
-                      <div className="space-y-3">
-                        <Textarea
-                          value={editValue}
-                          onChange={(e) => setEditValue(e.target.value)}
-                          rows={4}
-                          className="w-full bg-white"
-                        />
-                        <div className="flex space-x-2 justify-end">
-                          <Button size="sm" variant="outline" onClick={cancelEditing}>
-                            Cancel
-                          </Button>
-                          <Button size="sm" onClick={saveAnswer}>
-                            Save
-                          </Button>
-                        </div>
+          <TabsContent value="answered" className="space-y-4 mt-4">
+            {answeredQuestions.length === 0 ? (
+              <div className="text-center py-6 text-gray-500">No answered questions yet</div>
+            ) : (
+              answeredQuestions.map(q => (
+                <div key={q.id} className="bg-white/70 rounded-lg p-4 space-y-3">
+                  <div className="font-medium text-gray-800">{q.question}</div>
+                  {editingId === q.id ? (
+                    <div className="space-y-3">
+                      <Textarea
+                        value={editValue}
+                        onChange={(e) => setEditValue(e.target.value)}
+                        rows={4}
+                        className="w-full bg-white"
+                      />
+                      <div className="flex space-x-2 justify-end">
+                        <Button size="sm" variant="outline" onClick={cancelEditing}>
+                          Cancel
+                        </Button>
+                        <Button size="sm" onClick={saveAnswer}>
+                          Save
+                        </Button>
                       </div>
-                    ) : (
-                      <div>
-                        <div className="text-gray-600">{q.answer}</div>
-                        <div className="mt-2 text-right">
-                          <Button size="sm" variant="ghost" onClick={() => startEditing(q)}>
-                            Edit
-                          </Button>
-                        </div>
+                    </div>
+                  ) : (
+                    <div>
+                      <div className="text-gray-600">{q.answer}</div>
+                      <div className="mt-2 text-right">
+                        <Button size="sm" variant="ghost" onClick={() => startEditing(q)}>
+                          Edit
+                        </Button>
                       </div>
-                    )}
-                  </div>
-                ))
-              )}
-            </div>
+                    </div>
+                  )}
+                </div>
+              ))
+            )}
           </TabsContent>
           
-          <TabsContent value="failed" className="mt-0">
-            <div className="h-[400px] overflow-y-auto pr-2 custom-scrollbar">
-              {failedQuestions.length === 0 ? (
-                <div className="text-center py-6 text-gray-500">No failed questions</div>
-              ) : (
-                failedQuestions.map(q => (
-                  <div key={q.id} className="bg-white/70 rounded-lg p-4 space-y-3 border-l-4 border-red-400">
-                    <div className="font-medium text-gray-800">{q.question}</div>
-                    {editingId === q.id ? (
-                      <div className="space-y-3">
-                        <Textarea
-                          value={editValue}
-                          onChange={(e) => setEditValue(e.target.value)}
-                          rows={4}
-                          className="w-full bg-white"
-                        />
-                        <div className="flex space-x-2 justify-end">
-                          <Button size="sm" variant="outline" onClick={cancelEditing}>
-                            Cancel
-                          </Button>
-                          <Button size="sm" onClick={saveAnswer}>
-                            Save
-                          </Button>
-                        </div>
+          <TabsContent value="failed" className="space-y-4 mt-4">
+            {failedQuestions.length === 0 ? (
+              <div className="text-center py-6 text-gray-500">No failed questions</div>
+            ) : (
+              failedQuestions.map(q => (
+                <div key={q.id} className="bg-white/70 rounded-lg p-4 space-y-3 border-l-4 border-red-400">
+                  <div className="font-medium text-gray-800">{q.question}</div>
+                  {editingId === q.id ? (
+                    <div className="space-y-3">
+                      <Textarea
+                        value={editValue}
+                        onChange={(e) => setEditValue(e.target.value)}
+                        rows={4}
+                        className="w-full bg-white"
+                      />
+                      <div className="flex space-x-2 justify-end">
+                        <Button size="sm" variant="outline" onClick={cancelEditing}>
+                          Cancel
+                        </Button>
+                        <Button size="sm" onClick={saveAnswer}>
+                          Save
+                        </Button>
                       </div>
-                    ) : (
-                      <div>
-                        <div className="text-red-500 text-sm">This question needs an answer</div>
-                        <div className="mt-2 text-right">
-                          <Button size="sm" onClick={() => startEditing(q)}>
-                            Add Answer
-                          </Button>
-                        </div>
+                    </div>
+                  ) : (
+                    <div>
+                      <div className="text-red-500 text-sm">This question needs an answer</div>
+                      <div className="mt-2 text-right">
+                        <Button size="sm" onClick={() => startEditing(q)}>
+                          Add Answer
+                        </Button>
                       </div>
-                    )}
-                  </div>
-                ))
-              )}
-            </div>
+                    </div>
+                  )}
+                </div>
+              ))
+            )}
           </TabsContent>
         </Tabs>
       </CardContent>
