@@ -578,10 +578,10 @@ const Landing: React.FC = () => {
         </div>
       </footer>
 
-      {/* REMOVE the floating Start Auto-Apply button */}
-      {/* <AutoApplyFAB onClick={handleAutoApplyClick} /> */}
+      {/* Add AutoApplyFAB */}
+      <AutoApplyFAB onClick={handleAutoApplyClick} />
     </div>
   );
 };
 
-export default Landing;
+export default Landing; 

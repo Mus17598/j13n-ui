@@ -8,7 +8,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
 import { Check, ChevronRight } from 'lucide-react';
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface FormData {
   // Basic Information
@@ -614,37 +613,33 @@ const UserOnboardingForm: React.FC<UserOnboardingFormProps> = ({ onComplete }) =
   };
 
   return (
-    <div className="h-screen overflow-hidden bg-gray-50/50 flex items-center justify-center">
-      <div className="container px-4 h-full flex items-center justify-center">
-        <div className="w-full max-w-3xl">
-          <div className="glass-card rounded-2xl p-6">
-            <h1 className="text-2xl font-bold text-gray-800 mb-4">Complete Your Profile</h1>
+    <div className="min-h-screen bg-gray-50/50">
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-3xl mx-auto">
+          <div className="glass-card rounded-2xl p-8">
+            <h1 className="text-2xl font-bold text-gray-800 mb-6">Complete Your Profile</h1>
             {renderProgressBar()}
-            <ScrollArea className="h-[calc(100vh-240px)] pr-4">
-              <div className="pb-4">
-                <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
-                  {renderFormStep()}
-                </form>
+            <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
+              {renderFormStep()}
+              <div className="flex justify-between pt-6">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleBack}
+                  disabled={currentStep === 1}
+                >
+                  Back
+                </Button>
+                <Button
+                  type="button"
+                  onClick={handleNext}
+                  className="bg-primary-green hover:bg-primary-green/90 text-white"
+                >
+                  {currentStep === totalSteps ? 'Submit' : 'Next'}
+                  {currentStep !== totalSteps && <ChevronRight className="ml-2 h-4 w-4" />}
+                </Button>
               </div>
-            </ScrollArea>
-            <div className="flex justify-between pt-4 mt-4 border-t border-gray-100">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={handleBack}
-                disabled={currentStep === 1}
-              >
-                Back
-              </Button>
-              <Button
-                type="button"
-                onClick={handleNext}
-                className="bg-primary-green hover:bg-primary-green/90 text-white"
-              >
-                {currentStep === totalSteps ? 'Submit' : 'Next'}
-                {currentStep !== totalSteps && <ChevronRight className="ml-2 h-4 w-4" />}
-              </Button>
-            </div>
+            </form>
           </div>
         </div>
       </div>
@@ -652,4 +647,4 @@ const UserOnboardingForm: React.FC<UserOnboardingFormProps> = ({ onComplete }) =
   );
 };
 
-export default UserOnboardingForm;
+export default UserOnboardingForm; 
