@@ -43,12 +43,10 @@ export default {
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))',
-					purple: '#22C55E',
-					blue: '#10B981',
-					teal: '#059669',
-					mint: '#DCFCE7',
-					red: '#EF4444',
-					green: '#22C55E',
+					blue: '#3B82F6',
+					navy: '#1E40AF',
+					light: '#93C5FD',
+					mint: '#EFF6FF',
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',

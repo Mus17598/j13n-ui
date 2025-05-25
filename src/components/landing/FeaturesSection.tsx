@@ -3,15 +3,15 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { GlassCard } from '@/components/ui/glass-card';
 import SectionHeading from '@/components/ui/section-heading';
-import { Clock, CheckCircle2, Brain, Rocket, Shield, MessageCircle } from 'lucide-react';
+import { Clock, Zap, Shield, BarChart, MousePointer, Users } from 'lucide-react';
 
 const features = [
-  { icon: Clock, title: "Saves 10+ hours/week", desc: "Focus on what matters while AutoApply handles the rest." },
-  { icon: CheckCircle2, title: "Personalized applications", desc: "Every application is tailored to match the job requirements." },
-  { icon: Brain, title: "Learns from you", desc: "Gets smarter with every application you approve or reject." },
-  { icon: Rocket, title: "Real-time tracking", desc: "Monitor your applications status in real-time." },
-  { icon: Shield, title: "Private & secure", desc: "Your data is encrypted and never shared without permission." },
-  { icon: MessageCircle, title: "24/7 Support", desc: "Got questions? We've got answers. Our support team makes it super easy to get your problems solved — fast." }
+  { icon: MousePointer, title: "One-Click Applications", desc: "Apply to multiple job platforms instantly with a single click." },
+  { icon: Clock, title: "Save Hours Daily", desc: "Automate your job search and focus on interview preparation." },
+  { icon: Zap, title: "Multi-Platform Support", desc: "Works seamlessly with LinkedIn, Indeed, Naukri, and more." },
+  { icon: BarChart, title: "Application Tracking", desc: "Monitor your applications and success rates in real-time." },
+  { icon: Shield, title: "Secure & Private", desc: "Your data is encrypted and protected with enterprise-grade security." },
+  { icon: Users, title: "Trusted by Thousands", desc: "Join over 10,000+ job seekers who've found success with AplyGen." }
 ];
 
 const FeaturesSection: React.FC = () => {
@@ -35,10 +35,11 @@ const FeaturesSection: React.FC = () => {
   };
 
   return (
-    <section className="py-24 px-4 relative">
+    <section className="py-24 px-4 relative bg-gray-50/50">
       <div className="max-w-7xl mx-auto">
         <SectionHeading 
-          title="Why Users Love It"
+          title="Why Choose AplyGen?"
+          subtitle="Streamline your job search with our powerful automation tools"
           align="center"
         />
         
@@ -53,14 +54,14 @@ const FeaturesSection: React.FC = () => {
             <motion.div key={i} variants={itemVariants}>
               <GlassCard 
                 hoverEffect 
-                className="h-full"
+                className="h-full p-6"
               >
                 <motion.div 
-                  className="w-14 h-14 bg-gradient-to-br from-green-500/30 to-emerald-500/30 rounded-2xl flex items-center justify-center mb-6"
+                  className="w-14 h-14 bg-gradient-to-br from-blue-500/20 to-blue-600/20 rounded-2xl flex items-center justify-center mb-6"
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 >
-                  <feature.icon className="w-7 h-7 text-green-600" />
+                  <feature.icon className="w-7 h-7 text-blue-600" />
                 </motion.div>
                 <h3 className="text-xl font-semibold mb-3 text-gray-900">
                   {feature.title}

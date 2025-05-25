@@ -28,7 +28,7 @@ const Navigation: React.FC = () => {
   return (
     <>
       <motion.nav 
-        className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-black/50 backdrop-blur-lg border-b border-white/10' : 'bg-transparent'}`}
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white/95 backdrop-blur-lg border-b border-blue-200/50 shadow-sm' : 'bg-transparent'}`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ type: "spring", stiffness: 200, damping: 20 }}
@@ -44,7 +44,7 @@ const Navigation: React.FC = () => {
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
-                AutoApply
+                AplyGen
               </motion.span>
             </Link>
             
@@ -57,12 +57,12 @@ const Navigation: React.FC = () => {
                 >
                   <Button 
                     variant="ghost" 
-                    className="text-white/80 hover:text-white bg-transparent"
+                    className="text-gray-600 hover:text-blue-600 bg-transparent"
                   >
                     {link.name}
                   </Button>
                   <motion.div 
-                    className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-purple group-hover:w-full transition-all duration-300"
+                    className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"
                   />
                 </motion.div>
               ))}
@@ -75,7 +75,7 @@ const Navigation: React.FC = () => {
               >
                 <Button 
                   variant="ghost"
-                  className="text-white/80 hover:text-white bg-transparent"
+                  className="text-gray-600 hover:text-blue-600 bg-transparent"
                   onClick={() => navigate('/login')}
                 >
                   Sign In
@@ -97,7 +97,7 @@ const Navigation: React.FC = () => {
             <div className="md:hidden">
               <Button 
                 variant="ghost" 
-                className="text-white bg-transparent"
+                className="text-gray-600 bg-transparent"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
                 {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -110,7 +110,7 @@ const Navigation: React.FC = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div 
-            className="fixed inset-0 z-40 md:hidden bg-black/90 backdrop-blur-xl"
+            className="fixed inset-0 z-40 md:hidden bg-white/95 backdrop-blur-xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -121,7 +121,7 @@ const Navigation: React.FC = () => {
                 <motion.a
                   key={i}
                   href={link.href}
-                  className="text-2xl font-medium text-white hover:text-primary-purple transition-colors"
+                  className="text-2xl font-medium text-gray-600 hover:text-blue-600 transition-colors"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 20 }}
@@ -141,7 +141,7 @@ const Navigation: React.FC = () => {
               >
                 <Button 
                   variant="ghost"
-                  className="text-xl text-white/80 hover:text-white bg-transparent mx-2"
+                  className="text-xl text-gray-600 hover:text-blue-600 bg-transparent mx-2"
                   onClick={() => {
                     navigate('/login');
                     setIsMobileMenuOpen(false);

@@ -43,14 +43,14 @@ const HeroBanner: React.FC = () => {
     >
       {/* Background gradient effects */}
       <motion.div 
-        className="absolute inset-0 bg-gradient-radial from-green-500/20 to-transparent"
+        className="absolute inset-0 bg-gradient-radial from-blue-500/10 to-transparent"
         style={{
           x: mousePosition.x * 20,
           y: mousePosition.y * 20,
         }}
       />
       <motion.div 
-        className="absolute inset-0 bg-gradient-radial from-emerald-500/10 to-transparent"
+        className="absolute inset-0 bg-gradient-radial from-blue-300/5 to-transparent"
         style={{
           x: mousePosition.x * -15,
           y: mousePosition.y * -15,
@@ -68,11 +68,11 @@ const HeroBanner: React.FC = () => {
             animate="visible"
             variants={textVariants}
           >
-            <div className="px-6 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-green-200 shadow-inner">
+            <div className="px-6 py-2 rounded-full bg-white/90 backdrop-blur-sm border border-blue-200 shadow-inner">
               <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse-soft"></div>
+                <div className="h-2 w-2 rounded-full bg-blue-500 animate-pulse-soft"></div>
                 <span className="text-sm font-medium text-gray-700">
-                  <AnimatedCounter value={1250} suffix="+ jobs auto-applied this week" />
+                  <AnimatedCounter value={2500} suffix="+ jobs auto-applied this week" />
                 </span>
               </div>
             </div>
@@ -85,26 +85,26 @@ const HeroBanner: React.FC = () => {
             animate="visible"
             variants={textVariants}
           >
-            AutoApply
+            AplyGen
             <motion.span 
-              className="block text-4xl md:text-5xl mt-4"
+              className="block text-4xl md:text-5xl mt-4 text-gray-700"
               custom={2}
               initial="hidden"
               animate="visible"
               variants={textVariants}
             >
-              Your personal job-seeking engine
+              One-click job applications across platforms
             </motion.span>
           </motion.h1>
           
           <motion.p
-            className="text-xl md:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto"
+            className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto"
             custom={3}
             initial="hidden"
             animate="visible"
             variants={textVariants}
           >
-            Harness AI to search, filter, and apply for jobs that match you best — all on autopilot.
+            Apply to jobs on LinkedIn, Indeed, and Naukri with a single click. Streamline your job search with our automated application system.
           </motion.p>
           
           <motion.div
@@ -120,7 +120,7 @@ const HeroBanner: React.FC = () => {
               onClick={() => navigate('/signup')}
               className="rounded-full"
             >
-              Try it Free
+              Start Applying
             </GradientButton>
             <GradientButton 
               variant="outline" 
@@ -130,6 +130,27 @@ const HeroBanner: React.FC = () => {
             >
               Sign In
             </GradientButton>
+          </motion.div>
+          
+          <motion.div
+            className="mt-8 flex items-center justify-center gap-8 text-sm text-gray-500"
+            custom={5}
+            initial="hidden"
+            animate="visible"
+            variants={textVariants}
+          >
+            <span className="flex items-center gap-2">
+              <div className="w-4 h-4 bg-[#0077B5] rounded"></div>
+              LinkedIn
+            </span>
+            <span className="flex items-center gap-2">
+              <div className="w-4 h-4 bg-[#2557A7] rounded"></div>
+              Indeed
+            </span>
+            <span className="flex items-center gap-2">
+              <div className="w-4 h-4 bg-[#4A90E2] rounded"></div>
+              Naukri
+            </span>
           </motion.div>
         </div>
       </div>
