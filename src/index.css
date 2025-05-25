@@ -12,57 +12,57 @@
 
 @layer base {
   :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
 
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
 
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
 
-    --primary: 270 79% 76%;
+    --primary: 142 76% 36%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 210 40% 98%;
+    --secondary-foreground: 222.2 84% 4.9%;
 
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
+    --muted: 210 40% 98%;
+    --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 210 40% 98%;
+    --accent-foreground: 222.2 84% 4.9%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 270 79% 76%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 142 76% 36%;
 
     --radius: 1rem;
 
-    --sidebar-background: 240 10% 3.9%;
-    --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 270 79% 76%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 240 10% 3.9%;
+    --sidebar-primary: 142 76% 36%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 270 79% 76%;
+    --sidebar-accent: 210 40% 98%;
+    --sidebar-accent-foreground: 222.2 84% 4.9%;
+    --sidebar-border: 214.3 31.8% 91.4%;
+    --sidebar-ring: 142 76% 36%;
   }
 }
 
 @layer base {
   * {
-    @apply border-border selection:bg-primary-purple/20 selection:text-white;
+    @apply border-border selection:bg-green-500/20 selection:text-green-900;
   }
 
   body {
     @apply bg-background text-foreground font-sans antialiased overflow-x-hidden;
     background-image: 
-      radial-gradient(circle at 15% 30%, rgba(155, 135, 245, 0.15) 0%, rgba(30, 30, 30, 0) 25%),
-      radial-gradient(circle at 85% 70%, rgba(116, 187, 251, 0.15) 0%, rgba(30, 30, 30, 0) 25%);
+      radial-gradient(circle at 15% 30%, rgba(34, 197, 94, 0.1) 0%, rgba(255, 255, 255, 0) 25%),
+      radial-gradient(circle at 85% 70%, rgba(16, 185, 129, 0.1) 0%, rgba(255, 255, 255, 0) 25%);
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -83,11 +83,11 @@
 
 @layer components {
   .glass-card {
-    @apply bg-white/5 backdrop-blur-md border border-white/10 shadow-xl;
+    @apply bg-white/80 backdrop-blur-md border border-green-200/50 shadow-xl;
   }
   
   .frosted-panel {
-    @apply bg-white/10 backdrop-blur-lg border border-white/10 shadow-lg rounded-2xl;
+    @apply bg-white/90 backdrop-blur-lg border border-green-200/50 shadow-lg rounded-2xl;
   }
 
   .animated-gradient {
@@ -96,11 +96,11 @@
   }
   
   .glassmorphism {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-lg rounded-2xl;
+    @apply bg-white/80 backdrop-blur-xl border border-green-200/50 shadow-lg rounded-2xl;
   }
   
   .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-purple to-primary-blue animate-text-gradient bg-[length:200%_auto];
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-emerald-500 animate-text-gradient bg-[length:200%_auto];
   }
   
   .glow-effect {
@@ -108,7 +108,7 @@
   }
   
   .glow-effect::before {
-    @apply absolute inset-0 rounded-same blur-lg opacity-50 bg-gradient-to-r from-primary-purple to-primary-blue -z-10;
+    @apply absolute inset-0 rounded-same blur-lg opacity-50 bg-gradient-to-r from-green-500 to-emerald-400 -z-10;
     content: '';
   }
   
@@ -117,7 +117,7 @@
   }
   
   .shimmer::after {
-    @apply absolute top-0 -inset-x-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 animate-shimmer;
+    @apply absolute top-0 -inset-x-full h-full bg-gradient-to-r from-transparent via-green-500/10 to-transparent skew-x-12 animate-shimmer;
     content: '';
   }
   
