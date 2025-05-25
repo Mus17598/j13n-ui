@@ -41,7 +41,7 @@ const EfficiencySection: React.FC = () => {
 
   return (
     <section className="py-32 relative overflow-hidden px-4">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#15151f] z-0"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-50 z-0"></div>
       
       <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeading 
@@ -56,10 +56,10 @@ const EfficiencySection: React.FC = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-3xl font-bold mb-6 text-white">
+            <h3 className="text-3xl font-bold mb-6 text-gray-900">
               Stop the Application Grind
             </h3>
-            <p className="text-xl text-white/70 mb-8 leading-relaxed">
+            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
               Tired of spending hours on repetitive job applications? We get it. That's why we've built a smarter way to job hunt.
             </p>
             <motion.ul 
@@ -75,8 +75,8 @@ const EfficiencySection: React.FC = () => {
                   className="flex items-start space-x-4"
                   variants={itemVariants}
                 >
-                  <CheckCircle2 className="w-6 h-6 text-primary-purple mt-1 flex-shrink-0" />
-                  <span className="text-lg text-white/80">{point}</span>
+                  <CheckCircle2 className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
+                  <span className="text-lg text-gray-700">{point}</span>
                 </motion.li>
               ))}
             </motion.ul>
@@ -92,7 +92,7 @@ const EfficiencySection: React.FC = () => {
               className="relative overflow-hidden"
               glowEffect
             >
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-purple to-primary-blue"></div>
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 to-emerald-500"></div>
               <div className="space-y-8">
                 {steps.map((step, i) => (
                   <motion.div
@@ -105,14 +105,14 @@ const EfficiencySection: React.FC = () => {
                     viewport={{ once: true }}
                   >
                     <motion.div 
-                      className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-purple/30 to-primary-blue/30 flex items-center justify-center group-hover:bg-primary-purple/30 transition-colors duration-300"
+                      className="w-12 h-12 rounded-full bg-gradient-to-br from-green-500/30 to-emerald-500/30 flex items-center justify-center group-hover:bg-green-500/30 transition-colors duration-300"
                       whileHover={{ scale: 1.1 }}
                     >
-                      <step.icon className="w-6 h-6 text-white" />
+                      <step.icon className="w-6 h-6 text-green-600" />
                     </motion.div>
                     <div>
-                      <h4 className="font-semibold text-white">{step.title}</h4>
-                      <p className="text-white/60">{step.desc}</p>
+                      <h4 className="font-semibold text-gray-900">{step.title}</h4>
+                      <p className="text-gray-600">{step.desc}</p>
                     </div>
                   </motion.div>
                 ))}

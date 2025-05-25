@@ -56,16 +56,16 @@ const FeaturesSection: React.FC = () => {
                 className="h-full"
               >
                 <motion.div 
-                  className="w-14 h-14 bg-gradient-to-br from-primary-purple/30 to-primary-blue/30 rounded-2xl flex items-center justify-center mb-6"
+                  className="w-14 h-14 bg-gradient-to-br from-green-500/30 to-emerald-500/30 rounded-2xl flex items-center justify-center mb-6"
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 >
-                  <feature.icon className="w-7 h-7 text-white" />
+                  <feature.icon className="w-7 h-7 text-green-600" />
                 </motion.div>
-                <h3 className="text-xl font-semibold mb-3 text-white">
+                <h3 className="text-xl font-semibold mb-3 text-gray-900">
                   {feature.title}
                 </h3>
-                <p className="text-white/70">
+                <p className="text-gray-600">
                   {feature.desc}
                 </p>
               </GlassCard>

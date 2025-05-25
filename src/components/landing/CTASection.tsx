@@ -9,7 +9,7 @@ const CTASection: React.FC = () => {
 
   return (
     <section className="py-24 px-4 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-r from-primary-purple/20 to-primary-blue/20 opacity-20"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-green-500/20 to-emerald-500/20 opacity-20"></div>
       
       <motion.div 
         className="max-w-7xl mx-auto relative z-10"
@@ -27,7 +27,7 @@ const CTASection: React.FC = () => {
             Let AutoApply work for you
           </motion.h2>
           
-          <p className="text-xl text-white/70 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
             Join thousands of job seekers who've simplified their job search with AutoApply.
           </p>
           
@@ -47,7 +47,7 @@ const CTASection: React.FC = () => {
             </GradientButton>
           </motion.div>
           
-          <p className="mt-4 text-sm text-white/50">No credit card needed. Instant start.</p>
+          <p className="mt-4 text-sm text-gray-500">No credit card needed. Instant start.</p>
         </div>
       </motion.div>
     </section>

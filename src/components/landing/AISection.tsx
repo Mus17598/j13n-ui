@@ -29,7 +29,7 @@ const AISection: React.FC = () => {
   return (
     <section className="py-32 relative overflow-hidden px-4">
       <motion.div 
-        className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(155,135,245,0.2),transparent)]"
+        className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(34,197,94,0.2),transparent)]"
         style={{
           x: mousePosition.x * 15,
           y: mousePosition.y * 15,
@@ -62,12 +62,12 @@ const AISection: React.FC = () => {
                   whileHover={{ x: 5 }}
                 >
                   <motion.div 
-                    className="w-8 h-8 rounded-full bg-primary-purple/20 flex items-center justify-center"
-                    whileHover={{ scale: 1.2, backgroundColor: "rgba(155, 135, 245, 0.3)" }}
+                    className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center"
+                    whileHover={{ scale: 1.2, backgroundColor: "rgba(34, 197, 94, 0.3)" }}
                   >
-                    <CheckCircle2 className="w-4 h-4 text-primary-purple" />
+                    <CheckCircle2 className="w-4 h-4 text-green-600" />
                   </motion.div>
-                  <span className="text-lg text-white/90 group-hover:text-primary-purple transition-colors duration-300">
+                  <span className="text-lg text-gray-700 group-hover:text-green-600 transition-colors duration-300">
                     {feature}
                   </span>
                 </motion.div>
@@ -83,14 +83,14 @@ const AISection: React.FC = () => {
             viewport={{ once: true }}
           >
             <motion.div 
-              className="absolute inset-0 bg-gradient-to-br from-primary-purple/30 to-primary-blue/20 rounded-[40px] transform rotate-6 transition-transform group-hover:rotate-12"
+              className="absolute inset-0 bg-gradient-to-br from-green-500/30 to-emerald-500/20 rounded-[40px] transform rotate-6 transition-transform group-hover:rotate-12"
               style={{
                 x: mousePosition.x * 10,
                 y: mousePosition.y * 10,
               }}
             />
             <motion.div 
-              className="absolute inset-0 bg-gradient-to-tl from-primary-blue/30 to-transparent rounded-[40px] transform -rotate-6 transition-transform group-hover:-rotate-12"
+              className="absolute inset-0 bg-gradient-to-tl from-emerald-500/30 to-transparent rounded-[40px] transform -rotate-6 transition-transform group-hover:-rotate-12"
               style={{
                 x: mousePosition.x * -10,
                 y: mousePosition.y * -10,
@@ -112,18 +112,18 @@ const AISection: React.FC = () => {
                   repeatType: "reverse"
                 }}
               >
-                <Brain className="w-16 h-16 text-primary-purple mb-6" />
+                <Brain className="w-16 h-16 text-green-600 mb-6" />
               </motion.div>
-              <h3 className="text-2xl font-semibold text-white mb-4">AI-Powered</h3>
-              <p className="text-white/70">Smart matching and automated applications to find your perfect job match in seconds.</p>
+              <h3 className="text-2xl font-semibold text-gray-900 mb-4">AI-Powered</h3>
+              <p className="text-gray-600">Smart matching and automated applications to find your perfect job match in seconds.</p>
               
               <motion.div 
-                className="mt-8 w-full bg-white/5 h-2 rounded-full overflow-hidden" 
+                className="mt-8 w-full bg-gray-200 h-2 rounded-full overflow-hidden" 
                 whileInView={{ opacity: 1 }} 
                 initial={{ opacity: 0.5 }}
               >
                 <motion.div 
-                  className="h-full bg-gradient-to-r from-primary-purple to-primary-blue"
+                  className="h-full bg-gradient-to-r from-green-500 to-emerald-500"
                   initial={{ width: "0%" }}
                   animate={{ width: "85%" }}
                   transition={{

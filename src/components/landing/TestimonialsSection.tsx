@@ -42,7 +42,7 @@ const TestimonialsSection: React.FC = () => {
   return (
     <section className="py-24 relative overflow-hidden px-4">
       <motion.div 
-        className="absolute inset-0 bg-[radial-gradient(circle_at_70%_70%,rgba(116,187,251,0.2),transparent)]"
+        className="absolute inset-0 bg-[radial-gradient(circle_at_70%_70%,rgba(16,185,129,0.2),transparent)]"
         style={{
           x: mousePosition.x * -15,
           y: mousePosition.y * -15,
@@ -69,7 +69,7 @@ const TestimonialsSection: React.FC = () => {
                 className="relative h-full"
               >
                 <motion.div 
-                  className="absolute inset-0 bg-gradient-to-br from-primary-purple/5 to-primary-blue/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                   style={{
                     x: mousePosition.x * 10,
                     y: mousePosition.y * 10,
@@ -79,7 +79,7 @@ const TestimonialsSection: React.FC = () => {
                 <div className="relative z-10">
                   <div className="flex items-center space-x-4 mb-6">
                     <motion.div 
-                      className="w-12 h-12 rounded-full bg-white/10 overflow-hidden border border-white/20"
+                      className="w-12 h-12 rounded-full bg-gray-200 overflow-hidden border border-green-200"
                       whileHover={{ scale: 1.1 }}
                     >
                       <img 
@@ -89,13 +89,13 @@ const TestimonialsSection: React.FC = () => {
                       />
                     </motion.div>
                     <div>
-                      <h3 className="text-lg font-semibold text-white">
+                      <h3 className="text-lg font-semibold text-gray-900">
                         {testimonial.name}
                       </h3>
-                      <p className="text-sm text-white/60">{testimonial.role}</p>
+                      <p className="text-sm text-gray-600">{testimonial.role}</p>
                     </div>
                   </div>
-                  <p className="text-white/80 italic">"{testimonial.text}"</p>
+                  <p className="text-gray-700 italic">"{testimonial.text}"</p>
                 
                   <div className="absolute bottom-0 right-0 w-16 h-16 opacity-10">
                     <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
