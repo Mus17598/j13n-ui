@@ -40,7 +40,7 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 262 83% 58%;
 
-    --radius: 1rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 240 10% 3.9%;
@@ -55,20 +55,21 @@
 
 @layer base {
   * {
-    @apply border-border selection:bg-purple-500/20 selection:text-purple-900;
+    @apply border-border selection:bg-purple-100 selection:text-purple-900;
   }
 
   body {
-    @apply bg-gradient-to-br from-slate-50 via-white to-purple-50/30 text-slate-700 font-sans antialiased overflow-x-hidden;
-    background-attachment: fixed;
+    @apply bg-white text-gray-900 font-sans antialiased overflow-x-hidden leading-relaxed;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display font-bold tracking-tight text-slate-900;
+    @apply font-semibold tracking-tight text-gray-900;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
   
   button {
-    @apply font-sans;
+    @apply font-medium;
   }
   
   html {
@@ -76,121 +77,73 @@
   }
 }
 
-@layer utilities {
-  .rounded-same {
-    border-radius: inherit;
-  }
-}
-
 @layer components {
-  .glass-card {
-    @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-xl shadow-purple-100/50;
+  /* SendPotion-style glassmorphism */
+  .sendpotion-glass {
+    @apply bg-white/80 backdrop-blur-md border border-gray-100/50 shadow-lg shadow-gray-100/20;
   }
   
-  .frosted-panel {
-    @apply bg-white/80 backdrop-blur-2xl border border-white/30 shadow-2xl shadow-purple-100/30 rounded-3xl;
+  /* SendPotion-style gradient background */
+  .sendpotion-bg {
+    background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 119, 198, 0.3), transparent),
+                radial-gradient(ellipse 80% 80% at 80% 50%, rgba(255, 125, 125, 0.15), transparent),
+                radial-gradient(ellipse 80% 80% at 20% 80%, rgba(120, 200, 200, 0.2), transparent);
   }
 
-  .potion-gradient {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* SendPotion buttons */
+  .sendpotion-btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 text-sm font-medium text-white bg-gray-900 rounded-full hover:bg-gray-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02];
   }
   
-  .potion-gradient-soft {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-  }
-
-  .animated-gradient {
-    background-size: 200% 200%;
-    animation: gradient-rotate 20s linear infinite;
+  .sendpotion-btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-full hover:bg-gray-50 hover:border-gray-300 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-[1.02];
   }
   
-  .glassmorphism {
-    @apply bg-white/60 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-purple-100/20 rounded-3xl;
+  /* SendPotion cards */
+  .sendpotion-card {
+    @apply bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 hover:border-gray-200;
   }
   
-  .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-600 via-blue-600 to-purple-600 animate-text-gradient bg-[length:200%_auto];
+  /* SendPotion section spacing */
+  .sendpotion-section {
+    @apply py-24 px-6;
   }
   
-  .potion-pill {
-    @apply px-6 py-3 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 text-white font-medium shadow-lg shadow-purple-200/50 hover:shadow-xl hover:shadow-purple-300/60 transform hover:scale-105 transition-all duration-300;
+  /* SendPotion container */
+  .sendpotion-container {
+    @apply max-w-6xl mx-auto;
   }
   
-  .potion-pill-outline {
-    @apply px-6 py-3 rounded-full bg-white/90 backdrop-blur-sm border border-purple-200/50 text-purple-600 font-medium shadow-lg shadow-purple-100/30 hover:bg-purple-50/90 hover:shadow-xl transform hover:scale-105 transition-all duration-300;
+  /* SendPotion typography */
+  .sendpotion-heading {
+    @apply text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-gray-900 leading-tight;
   }
   
-  .glow-effect {
-    @apply relative;
+  .sendpotion-subheading {
+    @apply text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl;
   }
   
-  .glow-effect::before {
-    @apply absolute inset-0 rounded-same blur-xl opacity-30 bg-gradient-to-r from-purple-400 to-blue-400 -z-10;
-    content: '';
+  /* Hover effects */
+  .sendpotion-hover-lift {
+    @apply transition-all duration-200 hover:scale-[1.02] hover:shadow-lg;
   }
   
-  .shimmer {
-    @apply relative overflow-hidden;
-  }
-  
-  .shimmer::after {
-    @apply absolute top-0 -inset-x-full h-full bg-gradient-to-r from-transparent via-purple-500/10 to-transparent skew-x-12 animate-shimmer;
-    content: '';
-  }
-  
-  .grain {
-    @apply relative;
-  }
-  
-  .grain::before {
-    @apply absolute inset-0 opacity-20 pointer-events-none bg-noise;
-    content: '';
-  }
-
-  /* Enhanced hover effects */
-  .hover-lift {
-    @apply transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-purple-200/30;
-  }
-
-  .hover-glow {
-    @apply transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20;
-  }
-
-  /* Smooth animations */
-  .animate-float {
-    animation: float 8s ease-in-out infinite;
-  }
-
-  .animate-float-delayed {
-    animation: float 8s ease-in-out infinite 3s;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-30px) rotate(3deg); }
-  }
-  
-  .potion-blur-orb {
-    @apply absolute rounded-full blur-3xl opacity-20 animate-pulse;
-    background: radial-gradient(circle, rgba(102, 126, 234, 0.4) 0%, rgba(118, 75, 162, 0.2) 50%, transparent 100%);
+  /* SendPotion navigation */
+  .sendpotion-nav {
+    @apply fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100/50;
   }
 }
 
-#root {
-  @apply w-full max-w-none mx-auto p-0 text-left;
+/* Remove default focus rings and add custom ones */
+*:focus {
+  outline: none;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+*:focus-visible {
+  @apply ring-2 ring-gray-900 ring-offset-2;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
 }
