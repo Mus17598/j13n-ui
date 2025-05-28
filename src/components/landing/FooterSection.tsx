@@ -18,39 +18,64 @@ const FooterSection: React.FC = () => {
   const legalLinks = ["Privacy Policy", "Terms of Service", "Cookie Policy"];
 
   return (
-    <footer className="border-t border-blue-200 bg-white backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="relative border-t border-white/20 bg-gradient-to-b from-slate-50/50 to-purple-50/30 backdrop-blur-sm">
+      {/* Background orbs */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(3)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="potion-blur-orb"
+            style={{
+              width: `${300 + i * 100}px`,
+              height: `${300 + i * 100}px`,
+              left: `${20 + i * 30}%`,
+              top: `${-10 + i * 5}%`,
+            }}
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.1, 0.2, 0.1],
+            }}
+            transition={{
+              duration: 20 + i * 5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="col-span-1 md:col-span-2">
             <motion.div 
-              className="flex items-center space-x-2 mb-4"
+              className="flex items-center space-x-3 mb-8"
               whileHover={{ scale: 1.02 }}
             >
-              <span className="text-xl font-display font-bold gradient-text">AplyGen</span>
+              <span className="text-3xl font-display font-bold gradient-text">AplyGen</span>
             </motion.div>
-            <p className="text-gray-600 max-w-md">
+            <p className="text-slate-600 max-w-md text-lg leading-relaxed mb-10">
               Revolutionizing the job search process with automated applications across multiple platforms.
             </p>
-            <div className="flex space-x-4 mt-6">
+            <div className="flex space-x-6">
               {socialLinks.map((social, i) => (
                 <motion.a
                   key={i}
                   href={social.href}
-                  className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-blue-500 hover:text-white transition-colors duration-300"
+                  className="w-14 h-14 rounded-2xl glassmorphism flex items-center justify-center text-slate-600 hover:text-purple-600 border border-white/20 shadow-lg hover:shadow-xl transition-all duration-500"
                   whileHover={{ scale: 1.1, rotate: 5 }}
                 >
-                  <social.icon className="w-5 h-5" />
+                  <social.icon className="w-6 h-6" />
                 </motion.a>
               ))}
             </div>
           </div>
           
           <div>
-            <h4 className="font-display font-semibold text-gray-900 mb-4">Product</h4>
-            <ul className="space-y-2">
+            <h4 className="font-display font-bold text-slate-800 mb-8 text-lg">Product</h4>
+            <ul className="space-y-4">
               {productLinks.map((item, i) => (
-                <motion.li key={i} whileHover={{ x: 2 }}>
-                  <a href="#" className="text-gray-600 hover:text-blue-600 transition-colors duration-300">
+                <motion.li key={i} whileHover={{ x: 4 }}>
+                  <a href="#" className="text-slate-600 hover:text-purple-600 transition-colors duration-300 text-base font-medium">
                     {item}
                   </a>
                 </motion.li>
@@ -59,11 +84,11 @@ const FooterSection: React.FC = () => {
           </div>
           
           <div>
-            <h4 className="font-display font-semibold text-gray-900 mb-4">Company</h4>
-            <ul className="space-y-2">
+            <h4 className="font-display font-bold text-slate-800 mb-8 text-lg">Company</h4>
+            <ul className="space-y-4">
               {companyLinks.map((item, i) => (
-                <motion.li key={i} whileHover={{ x: 2 }}>
-                  <a href="#" className="text-gray-600 hover:text-blue-600 transition-colors duration-300">
+                <motion.li key={i} whileHover={{ x: 4 }}>
+                  <a href="#" className="text-slate-600 hover:text-purple-600 transition-colors duration-300 text-base font-medium">
                     {item}
                   </a>
                 </motion.li>
@@ -72,17 +97,17 @@ const FooterSection: React.FC = () => {
           </div>
         </div>
         
-        <div className="mt-12 pt-8 border-t border-blue-200">
+        <div className="mt-20 pt-12 border-t border-white/20">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-500 text-sm">
+            <p className="text-slate-500 text-base">
               © {currentYear} AplyGen. All rights reserved.
             </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
+            <div className="flex space-x-8 mt-6 md:mt-0">
               {legalLinks.map((item, i) => (
                 <motion.a
                   key={i}
                   href="#"
-                  className="text-sm text-gray-500 hover:text-blue-600 transition-colors duration-300"
+                  className="text-base text-slate-500 hover:text-purple-600 transition-colors duration-300 font-medium"
                   whileHover={{ scale: 1.05 }}
                 >
                   {item}

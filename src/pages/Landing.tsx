@@ -14,7 +14,7 @@ const Landing: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-white text-foreground overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-purple-50/30 text-foreground overflow-hidden">
       <Navigation />
       <main>
         <HeroBanner />

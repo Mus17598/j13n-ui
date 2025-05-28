@@ -17,25 +17,24 @@ const GradientButton = React.forwardRef<HTMLButtonElement, GradientButtonProps>(
       <Button
         ref={ref}
         className={cn(
-          "relative group overflow-hidden transition-all duration-300",
-          variant === 'default' && "bg-gradient-to-r from-primary-purple to-primary-blue hover:opacity-90",
-          variant === 'secondary' && "bg-secondary hover:bg-secondary/80",
-          variant === 'outline' && "bg-transparent border border-white/20 hover:bg-white/5",
-          size === 'default' && "px-6 py-2 text-sm",
-          size === 'sm' && "px-4 py-1 text-sm",
-          size === 'lg' && "px-8 py-3 text-base",
-          size === 'xl' && "px-10 py-4 text-lg font-medium",
+          "relative group overflow-hidden transition-all duration-500 font-semibold",
+          variant === 'default' && "potion-pill",
+          variant === 'secondary' && "potion-pill-outline",
+          variant === 'outline' && "potion-pill-outline",
+          size === 'default' && "px-8 py-3 text-base",
+          size === 'sm' && "px-6 py-2 text-sm",
+          size === 'lg' && "px-10 py-4 text-lg",
+          size === 'xl' && "px-12 py-5 text-xl",
           className
         )}
         {...props}
       >
-        <span className="relative z-10 flex items-center gap-2">
+        <span className="relative z-10 flex items-center gap-3">
           {children}
           {showArrow && (
-            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+            <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
           )}
         </span>
-        <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary-purple/80 to-primary-blue/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </Button>
     );
   }

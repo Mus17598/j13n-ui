@@ -1,7 +1,6 @@
 
 import React from 'react';
-import { motion, useInView } from 'framer-motion';
-import { GlassCard } from '@/components/ui/glass-card';
+import { motion } from 'framer-motion';
 import SectionHeading from '@/components/ui/section-heading';
 import { Clock, Zap, Shield, BarChart, MousePointer, Users, ArrowRight } from 'lucide-react';
 
@@ -10,7 +9,7 @@ const features = [
     icon: MousePointer, 
     title: "One-Click Applications", 
     desc: "Apply to multiple job platforms instantly with a single click.",
-    color: "from-blue-500 to-blue-600"
+    color: "from-purple-500 to-blue-600"
   },
   { 
     icon: Clock, 
@@ -22,7 +21,7 @@ const features = [
     icon: Zap, 
     title: "Multi-Platform Support", 
     desc: "Works seamlessly with LinkedIn, Indeed, Naukri, and more.",
-    color: "from-purple-500 to-purple-600"
+    color: "from-purple-500 to-pink-600"
   },
   { 
     icon: BarChart, 
@@ -40,7 +39,7 @@ const features = [
     icon: Users, 
     title: "Trusted by Thousands", 
     desc: "Join over 10,000+ job seekers who've found success with AplyGen.",
-    color: "from-indigo-500 to-blue-600"
+    color: "from-indigo-500 to-purple-600"
   }
 ];
 
@@ -50,47 +49,49 @@ const FeaturesSection: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
+        staggerChildren: 0.15,
+        delayChildren: 0.3
       }
     }
   };
   
   const itemVariants = {
-    hidden: { opacity: 0, y: 40, scale: 0.9 },
+    hidden: { opacity: 0, y: 60, scale: 0.9 },
     visible: { 
       opacity: 1, 
       y: 0,
       scale: 1,
       transition: { 
-        duration: 0.8,
+        duration: 1,
         type: "spring",
-        stiffness: 200
+        stiffness: 100
       }
     }
   };
 
   return (
-    <section className="py-32 px-4 relative bg-gradient-to-b from-gray-50/50 to-white overflow-hidden">
-      {/* Background elements */}
+    <section className="py-40 px-6 relative overflow-hidden">
+      {/* Background orbs */}
       <div className="absolute inset-0">
-        {[...Array(4)].map((_, i) => (
+        {[...Array(5)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"
+            className="potion-blur-orb"
             animate={{
-              x: [0, 100, 0],
-              y: [0, -100, 0],
-              scale: [1, 1.3, 1],
+              x: [0, 150, 0],
+              y: [0, -120, 0],
+              scale: [1, 1.5, 1],
             }}
             transition={{
-              duration: 25 + i * 5,
+              duration: 30 + i * 8,
               repeat: Infinity,
               ease: "easeInOut",
             }}
             style={{
-              left: `${20 + i * 25}%`,
-              top: `${10 + i * 20}%`,
+              width: `${200 + i * 60}px`,
+              height: `${200 + i * 60}px`,
+              left: `${15 + i * 20}%`,
+              top: `${5 + i * 15}%`,
             }}
           />
         ))}
@@ -98,9 +99,9 @@ const FeaturesSection: React.FC = () => {
       
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 1 }}
           viewport={{ once: true }}
         >
           <SectionHeading 
@@ -111,7 +112,7 @@ const FeaturesSection: React.FC = () => {
         </motion.div>
         
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-20"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -121,63 +122,61 @@ const FeaturesSection: React.FC = () => {
             <motion.div 
               key={i} 
               variants={itemVariants}
-              whileHover={{ y: -10 }}
+              whileHover={{ y: -15, scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <GlassCard 
-                className="h-full p-8 group hover:shadow-2xl transition-all duration-500 hover:bg-white/80"
-              >
+              <div className="glassmorphism h-full p-10 group hover:shadow-2xl hover:shadow-purple-200/30 transition-all duration-700 hover:bg-white/80 border border-white/30">
                 {/* Icon with gradient background */}
                 <motion.div 
-                  className={`w-16 h-16 bg-gradient-to-br ${feature.color} rounded-2xl flex items-center justify-center mb-6 relative overflow-hidden group-hover:scale-110 transition-transform duration-500`}
+                  className={`w-20 h-20 bg-gradient-to-br ${feature.color} rounded-3xl flex items-center justify-center mb-8 relative overflow-hidden group-hover:scale-110 transition-transform duration-700 shadow-lg`}
                 >
-                  <feature.icon className="w-8 h-8 text-white relative z-10" />
+                  <feature.icon className="w-10 h-10 text-white relative z-10" />
                   <motion.div
                     className="absolute inset-0 bg-white/20"
                     initial={{ x: '-100%' }}
                     whileHover={{ x: '100%' }}
-                    transition={{ duration: 0.6 }}
+                    transition={{ duration: 0.8 }}
                   />
                 </motion.div>
                 
-                <h3 className="text-xl font-bold mb-4 text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
+                <h3 className="text-2xl font-bold mb-6 text-slate-800 group-hover:text-purple-600 transition-colors duration-500">
                   {feature.title}
                 </h3>
                 
-                <p className="text-gray-600 leading-relaxed mb-4">
+                <p className="text-slate-600 leading-relaxed mb-6 text-lg">
                   {feature.desc}
                 </p>
                 
                 {/* Hover arrow */}
                 <motion.div
-                  className="flex items-center text-blue-600 font-medium opacity-0 group-hover:opacity-100 transition-all duration-300"
-                  initial={{ x: -10 }}
+                  className="flex items-center text-purple-600 font-semibold opacity-0 group-hover:opacity-100 transition-all duration-500"
+                  initial={{ x: -15 }}
                   whileHover={{ x: 0 }}
                 >
                   <span className="text-sm">Learn more</span>
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 ml-3 group-hover:translate-x-2 transition-transform duration-300" />
                 </motion.div>
-              </GlassCard>
+              </div>
             </motion.div>
           ))}
         </motion.div>
 
         {/* Bottom floating element */}
         <motion.div
-          className="flex justify-center mt-20"
-          initial={{ opacity: 0, y: 30 }}
+          className="flex justify-center mt-24"
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
+          transition={{ duration: 1, delay: 0.6 }}
           viewport={{ once: true }}
         >
           <motion.div
-            className="glassmorphism px-8 py-4 inline-flex items-center gap-3"
+            className="glassmorphism px-10 py-6 inline-flex items-center gap-4 border border-white/30 shadow-xl"
             whileHover={{ scale: 1.05 }}
-            animate={{ y: [0, -5, 0] }}
-            transition={{ duration: 3, repeat: Infinity }}
+            animate={{ y: [0, -8, 0] }}
+            transition={{ duration: 4, repeat: Infinity }}
           >
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            <span className="text-gray-700 font-medium">All features included in free tier</span>
+            <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+            <span className="text-slate-700 font-semibold text-lg">All features included in free tier</span>
           </motion.div>
         </motion.div>
       </div>
