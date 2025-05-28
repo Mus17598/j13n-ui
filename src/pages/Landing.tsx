@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import AutoApplyFAB from '@/components/AutoApplyFAB';
 import Navigation from '@/components/landing/Navigation';
 import HeroBanner from '@/components/landing/HeroBanner';
 import FeaturesSection from '@/components/landing/FeaturesSection';
@@ -13,13 +12,9 @@ import FooterSection from '@/components/landing/FooterSection';
 
 const Landing: React.FC = () => {
   const navigate = useNavigate();
-  
-  const handleAutoApplyClick = () => {
-    navigate('/signup');
-  };
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-hidden">
+    <div className="min-h-screen bg-white text-foreground overflow-hidden">
       <Navigation />
       <main>
         <HeroBanner />
@@ -30,7 +25,6 @@ const Landing: React.FC = () => {
         <CTASection />
       </main>
       <FooterSection />
-      <AutoApplyFAB onClick={handleAutoApplyClick} />
     </div>
   );
 };
