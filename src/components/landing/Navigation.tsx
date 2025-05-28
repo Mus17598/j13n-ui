@@ -26,40 +26,40 @@ const Navigation: React.FC = () => {
   return (
     <>
       <motion.nav 
-        className={`potion-nav transition-all duration-300 ${
-          isScrolled ? 'shadow-sm bg-white/90' : 'bg-white/70'
+        className={`sp-nav transition-all duration-300 ${
+          isScrolled ? 'shadow-sm bg-white/98' : 'bg-white/95'
         }`}
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
       >
-        <div className="potion-container">
+        <div className="sp-container">
           <div className="flex justify-between items-center h-16">
             <Link 
               to="/" 
               className="flex items-center group"
             >
-              <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg mr-3 group-hover:scale-105 transition-transform duration-200"></div>
-              <span className="text-xl font-semibold text-gray-900">
+              <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg mr-3 group-hover:scale-105 transition-transform duration-200"></div>
+              <span className="text-xl font-bold text-slate-900">
                 AplyGen
               </span>
             </Link>
             
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center space-x-10">
               {navLinks.map((link, i) => (
                 <a
                   key={i}
                   href={link.href}
-                  className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors duration-200"
+                  className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors duration-200"
                 >
                   {link.name}
                 </a>
               ))}
             </div>
             
-            <div className="hidden md:flex items-center space-x-3">
+            <div className="hidden md:flex items-center space-x-4">
               <button 
-                className="text-sm font-medium text-gray-600 hover:text-gray-900 px-4 py-2 transition-colors duration-200"
+                className="text-sm font-medium text-slate-600 hover:text-slate-900 px-4 py-2 transition-colors duration-200"
                 onClick={() => navigate('/login')}
               >
                 Sign In
@@ -67,7 +67,7 @@ const Navigation: React.FC = () => {
               
               <button 
                 onClick={() => navigate('/signup')}
-                className="potion-btn-primary"
+                className="sp-btn-primary"
               >
                 Get Started
               </button>
@@ -75,7 +75,7 @@ const Navigation: React.FC = () => {
             
             <div className="md:hidden">
               <button 
-                className="p-2 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                className="p-2 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition-colors duration-200"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
                 {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -85,10 +85,9 @@ const Navigation: React.FC = () => {
         </div>
       </motion.nav>
       
-      {/* Mobile menu */}
       {isMobileMenuOpen && (
         <motion.div 
-          className="fixed inset-0 z-40 md:hidden bg-white/95 backdrop-blur-xl"
+          className="fixed inset-0 z-40 md:hidden bg-white/98 backdrop-blur-xl"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -98,7 +97,7 @@ const Navigation: React.FC = () => {
               <a
                 key={i}
                 href={link.href}
-                className="text-lg font-medium text-gray-600 hover:text-gray-900"
+                className="text-lg font-medium text-slate-600 hover:text-slate-900"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.name}
@@ -107,7 +106,7 @@ const Navigation: React.FC = () => {
             
             <div className="pt-6 space-y-4 flex flex-col">
               <button 
-                className="potion-btn-secondary"
+                className="sp-btn-secondary"
                 onClick={() => {
                   navigate('/login');
                   setIsMobileMenuOpen(false);
@@ -117,7 +116,7 @@ const Navigation: React.FC = () => {
               </button>
               
               <button 
-                className="potion-btn-primary"
+                className="sp-btn-primary"
                 onClick={() => {
                   navigate('/signup');
                   setIsMobileMenuOpen(false);

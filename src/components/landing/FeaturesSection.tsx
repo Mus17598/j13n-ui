@@ -38,11 +38,11 @@ const features = [
 
 const FeaturesSection: React.FC = () => {
   return (
-    <section id="features" className="potion-section bg-white">
-      <div className="potion-container">
-        <div className="text-center mb-20">
+    <section id="features" className="sp-section bg-slate-50">
+      <div className="sp-container">
+        <div className="text-center mb-24">
           <motion.div
-            className="inline-flex items-center gap-2 px-4 py-2 bg-purple-50 border border-purple-200 rounded-full text-sm font-medium text-purple-800 mb-6"
+            className="sp-badge mb-8"
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
@@ -52,7 +52,7 @@ const FeaturesSection: React.FC = () => {
           </motion.div>
           
           <motion.h2 
-            className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 mb-6"
+            className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 mb-8"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -62,7 +62,7 @@ const FeaturesSection: React.FC = () => {
           </motion.h2>
           
           <motion.p 
-            className="text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto"
+            className="text-xl md:text-2xl text-slate-600 leading-relaxed max-w-3xl mx-auto font-medium"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
@@ -76,21 +76,21 @@ const FeaturesSection: React.FC = () => {
           {features.map((feature, i) => (
             <motion.div 
               key={i}
-              className="potion-card group cursor-pointer"
+              className="sp-card group cursor-pointer"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               viewport={{ once: true }}
             >
-              <div className="w-14 h-14 bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-200">
-                <feature.icon className="w-7 h-7 text-purple-600" />
+              <div className="w-16 h-16 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-200">
+                <feature.icon className="w-8 h-8 text-indigo-600" />
               </div>
               
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+              <h3 className="text-xl font-bold text-slate-900 mb-4">
                 {feature.title}
               </h3>
               
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-slate-600 leading-relaxed font-medium">
                 {feature.desc}
               </p>
             </motion.div>

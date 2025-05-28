@@ -29,11 +29,11 @@ const testimonials = [
 
 const TestimonialsSection: React.FC = () => {
   return (
-    <section className="potion-section bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50">
-      <div className="potion-container">
-        <div className="text-center mb-20">
+    <section className="sp-section bg-white">
+      <div className="sp-container">
+        <div className="text-center mb-24">
           <motion.div
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-gray-200/50 rounded-full text-sm font-medium text-gray-700 mb-6"
+            className="sp-badge mb-8"
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
@@ -44,7 +44,7 @@ const TestimonialsSection: React.FC = () => {
           </motion.div>
           
           <motion.h2 
-            className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 mb-6"
+            className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 mb-8"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -58,21 +58,21 @@ const TestimonialsSection: React.FC = () => {
           {testimonials.map((testimonial, i) => (
             <motion.div
               key={i}
-              className="bg-white/80 backdrop-blur-sm border border-white/20 rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              className="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
               viewport={{ once: true }}
             >
               <div className="flex items-center space-x-4 mb-6">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white font-semibold">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg">
                   {testimonial.name.charAt(0)}
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">
+                  <h3 className="text-lg font-bold text-slate-900">
                     {testimonial.name}
                   </h3>
-                  <p className="text-sm text-gray-600">{testimonial.role}</p>
+                  <p className="text-sm text-slate-600 font-medium">{testimonial.role}</p>
                 </div>
               </div>
               
@@ -82,7 +82,7 @@ const TestimonialsSection: React.FC = () => {
                 ))}
               </div>
               
-              <p className="text-gray-700 leading-relaxed italic">"{testimonial.text}"</p>
+              <p className="text-slate-700 leading-relaxed font-medium">"{testimonial.text}"</p>
             </motion.div>
           ))}
         </div>
