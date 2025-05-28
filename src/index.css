@@ -14,42 +14,24 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
-
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-
     --primary: 262 83% 58%;
     --primary-foreground: 0 0% 98%;
-
     --secondary: 210 40% 98%;
     --secondary-foreground: 222.2 84% 4.9%;
-
     --muted: 210 40% 98%;
     --muted-foreground: 215.4 16.3% 46.9%;
-
     --accent: 210 40% 98%;
     --accent-foreground: 222.2 84% 4.9%;
-
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 262 83% 58%;
-
     --radius: 0.75rem;
-
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 240 10% 3.9%;
-    --sidebar-primary: 262 83% 58%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 210 40% 98%;
-    --sidebar-accent-foreground: 222.2 84% 4.9%;
-    --sidebar-border: 214.3 31.8% 91.4%;
-    --sidebar-ring: 262 83% 58%;
   }
 }
 
@@ -59,17 +41,15 @@
   }
 
   body {
-    @apply bg-white text-gray-900 font-sans antialiased overflow-x-hidden leading-relaxed;
+    @apply bg-[#fafbfc] text-gray-900 font-sans antialiased overflow-x-hidden;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1;
+    line-height: 1.6;
   }
   
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold tracking-tight text-gray-900;
     font-feature-settings: "rlig" 1, "calt" 1;
-  }
-  
-  button {
-    @apply font-medium;
   }
   
   html {
@@ -78,72 +58,58 @@
 }
 
 @layer components {
+  /* SendPotion-style buttons */
+  .potion-btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 text-sm font-medium text-white bg-gray-900 rounded-full hover:bg-gray-800 transition-all duration-200 shadow-sm hover:shadow-md transform hover:scale-[1.02];
+  }
+  
+  .potion-btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-full hover:bg-gray-50 hover:border-gray-300 transition-all duration-200 shadow-sm hover:shadow-md transform hover:scale-[1.02];
+  }
+  
+  /* SendPotion-style cards */
+  .potion-card {
+    @apply bg-white border border-gray-100 rounded-3xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 hover:border-gray-200 hover:-translate-y-1;
+  }
+  
   /* SendPotion-style glassmorphism */
-  .sendpotion-glass {
-    @apply bg-white/80 backdrop-blur-md border border-gray-100/50 shadow-lg shadow-gray-100/20;
-  }
-  
-  /* SendPotion-style gradient background */
-  .sendpotion-bg {
-    background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 119, 198, 0.3), transparent),
-                radial-gradient(ellipse 80% 80% at 80% 50%, rgba(255, 125, 125, 0.15), transparent),
-                radial-gradient(ellipse 80% 80% at 20% 80%, rgba(120, 200, 200, 0.2), transparent);
-  }
-
-  /* SendPotion buttons */
-  .sendpotion-btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 text-sm font-medium text-white bg-gray-900 rounded-full hover:bg-gray-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02];
-  }
-  
-  .sendpotion-btn-secondary {
-    @apply inline-flex items-center justify-center px-6 py-3 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-full hover:bg-gray-50 hover:border-gray-300 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-[1.02];
-  }
-  
-  /* SendPotion cards */
-  .sendpotion-card {
-    @apply bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 hover:border-gray-200;
+  .potion-glass {
+    @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-lg;
   }
   
   /* SendPotion section spacing */
-  .sendpotion-section {
-    @apply py-24 px-6;
+  .potion-section {
+    @apply py-20 px-6;
   }
   
   /* SendPotion container */
-  .sendpotion-container {
+  .potion-container {
     @apply max-w-6xl mx-auto;
   }
   
-  /* SendPotion typography */
-  .sendpotion-heading {
-    @apply text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-gray-900 leading-tight;
-  }
-  
-  .sendpotion-subheading {
-    @apply text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl;
-  }
-  
-  /* Hover effects */
-  .sendpotion-hover-lift {
-    @apply transition-all duration-200 hover:scale-[1.02] hover:shadow-lg;
+  /* SendPotion-style gradient background */
+  .potion-gradient-bg {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 50%, rgba(236, 72, 153, 0.05) 100%);
   }
   
   /* SendPotion navigation */
-  .sendpotion-nav {
-    @apply fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100/50;
+  .potion-nav {
+    @apply fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100/50;
+  }
+  
+  /* SendPotion hero gradient */
+  .potion-hero-bg {
+    background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 119, 198, 0.15), transparent),
+                radial-gradient(ellipse 60% 50% at 80% 50%, rgba(255, 154, 158, 0.1), transparent),
+                radial-gradient(ellipse 60% 50% at 20% 80%, rgba(139, 92, 246, 0.1), transparent);
   }
 }
 
-/* Remove default focus rings and add custom ones */
+/* Custom focus styles */
 *:focus {
   outline: none;
 }
 
 *:focus-visible {
   @apply ring-2 ring-gray-900 ring-offset-2;
-}
-
-/* Smooth scrolling for the entire page */
-html {
-  scroll-behavior: smooth;
 }

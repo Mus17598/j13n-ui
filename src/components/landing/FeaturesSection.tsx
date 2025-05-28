@@ -38,36 +38,59 @@ const features = [
 
 const FeaturesSection: React.FC = () => {
   return (
-    <section id="features" className="sendpotion-section bg-gray-50/50">
-      <div className="sendpotion-container">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
+    <section id="features" className="potion-section bg-white">
+      <div className="potion-container">
+        <div className="text-center mb-20">
+          <motion.div
+            className="inline-flex items-center gap-2 px-4 py-2 bg-purple-50 border border-purple-200 rounded-full text-sm font-medium text-purple-800 mb-6"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+          >
+            Features
+          </motion.div>
+          
+          <motion.h2 
+            className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 mb-6"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
             Why Choose AplyGen?
-          </h2>
-          <p className="sendpotion-subheading mx-auto">
+          </motion.h2>
+          
+          <motion.p 
+            className="text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            viewport={{ once: true }}
+          >
             Streamline your job search with our powerful automation tools
-          </p>
+          </motion.p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, i) => (
             <motion.div 
               key={i}
-              className="sendpotion-card sendpotion-hover-lift"
+              className="potion-card group cursor-pointer"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               viewport={{ once: true }}
             >
-              <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mb-4">
-                <feature.icon className="w-6 h-6 text-gray-700" />
+              <div className="w-14 h-14 bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-200">
+                <feature.icon className="w-7 h-7 text-purple-600" />
               </div>
               
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">
                 {feature.title}
               </h3>
               
-              <p className="text-gray-600 text-sm leading-relaxed">
+              <p className="text-gray-600 leading-relaxed">
                 {feature.desc}
               </p>
             </motion.div>

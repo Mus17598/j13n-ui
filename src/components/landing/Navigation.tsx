@@ -26,19 +26,20 @@ const Navigation: React.FC = () => {
   return (
     <>
       <motion.nav 
-        className={`sendpotion-nav transition-all duration-300 ${
-          isScrolled ? 'shadow-sm' : ''
+        className={`potion-nav transition-all duration-300 ${
+          isScrolled ? 'shadow-sm bg-white/90' : 'bg-white/70'
         }`}
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
       >
-        <div className="sendpotion-container">
+        <div className="potion-container">
           <div className="flex justify-between items-center h-16">
             <Link 
               to="/" 
-              className="flex items-center"
+              className="flex items-center group"
             >
+              <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg mr-3 group-hover:scale-105 transition-transform duration-200"></div>
               <span className="text-xl font-semibold text-gray-900">
                 AplyGen
               </span>
@@ -66,7 +67,7 @@ const Navigation: React.FC = () => {
               
               <button 
                 onClick={() => navigate('/signup')}
-                className="sendpotion-btn-primary"
+                className="potion-btn-primary"
               >
                 Get Started
               </button>
@@ -74,7 +75,7 @@ const Navigation: React.FC = () => {
             
             <div className="md:hidden">
               <button 
-                className="p-2 text-gray-600 hover:text-gray-900"
+                className="p-2 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100 transition-colors duration-200"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
                 {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -87,7 +88,7 @@ const Navigation: React.FC = () => {
       {/* Mobile menu */}
       {isMobileMenuOpen && (
         <motion.div 
-          className="fixed inset-0 z-40 md:hidden bg-white"
+          className="fixed inset-0 z-40 md:hidden bg-white/95 backdrop-blur-xl"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -106,7 +107,7 @@ const Navigation: React.FC = () => {
             
             <div className="pt-6 space-y-4 flex flex-col">
               <button 
-                className="sendpotion-btn-secondary"
+                className="potion-btn-secondary"
                 onClick={() => {
                   navigate('/login');
                   setIsMobileMenuOpen(false);
@@ -116,7 +117,7 @@ const Navigation: React.FC = () => {
               </button>
               
               <button 
-                className="sendpotion-btn-primary"
+                className="potion-btn-primary"
                 onClick={() => {
                   navigate('/signup');
                   setIsMobileMenuOpen(false);
