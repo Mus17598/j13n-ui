@@ -11,16 +11,19 @@ const FooterSection: React.FC = () => {
   const legalLinks = ["Privacy Policy", "Terms of Service", "Cookie Policy"];
 
   return (
-    <footer className="bg-slate-50 border-t border-slate-200">
-      <div className="sp-container py-24">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+    <footer className="bg-gray-50 border-t border-gray-200">
+      <div className="container-custom section">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center mb-8">
-              <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg mr-3"></div>
-              <span className="text-xl font-bold text-slate-900">AplyGen</span>
+            <div className="flex items-center mb-6">
+              <div className="w-8 h-8 bg-blue-600 rounded-lg mr-3 flex items-center justify-center">
+                <span className="text-white font-bold text-sm">A</span>
+              </div>
+              <span className="text-xl font-bold text-gray-900">AplyGen</span>
             </div>
-            <p className="text-slate-600 max-w-md mb-10 leading-relaxed text-lg font-medium">
-              Revolutionizing the job search process with automated applications across multiple platforms.
+            <p className="text-body max-w-md mb-8">
+              Revolutionizing the job search process with automated applications 
+              across multiple platforms.
             </p>
             <div className="flex space-x-4">
               {[
@@ -32,20 +35,20 @@ const FooterSection: React.FC = () => {
                 <a 
                   key={i}
                   href={social.href} 
-                  className="w-12 h-12 bg-white border border-slate-200 rounded-xl flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-100 hover:border-slate-300 transition-all duration-200 hover:scale-105"
+                  className="w-10 h-10 bg-white border border-gray-200 rounded-lg flex items-center justify-center text-gray-500 hover:text-gray-700 hover:bg-gray-100 hover:border-gray-300 transition-all duration-200"
                 >
-                  <social.icon className="w-5 h-5" />
+                  <social.icon className="w-4 h-4" />
                 </a>
               ))}
             </div>
           </div>
           
           <div>
-            <h4 className="font-bold text-slate-900 mb-8 text-lg">Product</h4>
+            <h4 className="font-semibold text-gray-900 mb-6">Product</h4>
             <ul className="space-y-4">
               {productLinks.map((item, i) => (
                 <li key={i}>
-                  <a href="#" className="text-slate-600 hover:text-slate-900 transition-colors duration-200 font-medium">
+                  <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200">
                     {item}
                   </a>
                 </li>
@@ -54,11 +57,11 @@ const FooterSection: React.FC = () => {
           </div>
           
           <div>
-            <h4 className="font-bold text-slate-900 mb-8 text-lg">Company</h4>
+            <h4 className="font-semibold text-gray-900 mb-6">Company</h4>
             <ul className="space-y-4">
               {companyLinks.map((item, i) => (
                 <li key={i}>
-                  <a href="#" className="text-slate-600 hover:text-slate-900 transition-colors duration-200 font-medium">
+                  <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200">
                     {item}
                   </a>
                 </li>
@@ -67,9 +70,9 @@ const FooterSection: React.FC = () => {
           </div>
         </div>
         
-        <div className="pt-8 border-t border-slate-200">
+        <div className="pt-8 border-t border-gray-200">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-slate-500 mb-4 md:mb-0 font-medium">
+            <p className="text-gray-500 mb-4 md:mb-0">
               © {currentYear} AplyGen. All rights reserved.
             </p>
             <div className="flex space-x-8">
@@ -77,7 +80,7 @@ const FooterSection: React.FC = () => {
                 <a
                   key={i}
                   href="#"
-                  className="text-slate-500 hover:text-slate-700 transition-colors duration-200 font-medium"
+                  className="text-gray-500 hover:text-gray-700 transition-colors duration-200"
                 >
                   {item}
                 </a>

@@ -26,40 +26,44 @@ const Navigation: React.FC = () => {
   return (
     <>
       <motion.nav 
-        className={`sp-nav transition-all duration-300 ${
-          isScrolled ? 'shadow-sm bg-white/98' : 'bg-white/95'
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+          isScrolled 
+            ? 'bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm' 
+            : 'bg-white/90 backdrop-blur-sm'
         }`}
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
       >
-        <div className="sp-container">
+        <div className="container-custom">
           <div className="flex justify-between items-center h-16">
             <Link 
               to="/" 
               className="flex items-center group"
             >
-              <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg mr-3 group-hover:scale-105 transition-transform duration-200"></div>
-              <span className="text-xl font-bold text-slate-900">
+              <div className="w-8 h-8 bg-blue-600 rounded-lg mr-3 group-hover:bg-blue-700 transition-colors duration-200 flex items-center justify-center">
+                <span className="text-white font-bold text-sm">A</span>
+              </div>
+              <span className="text-xl font-bold text-gray-900">
                 AplyGen
               </span>
             </Link>
             
-            <div className="hidden md:flex items-center space-x-10">
+            <div className="hidden md:flex items-center space-x-8">
               {navLinks.map((link, i) => (
                 <a
                   key={i}
                   href={link.href}
-                  className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors duration-200"
+                  className="nav-link"
                 >
                   {link.name}
                 </a>
               ))}
             </div>
             
-            <div className="hidden md:flex items-center space-x-4">
+            <div className="hidden md:flex items-center space-x-3">
               <button 
-                className="text-sm font-medium text-slate-600 hover:text-slate-900 px-4 py-2 transition-colors duration-200"
+                className="nav-link px-4 py-2"
                 onClick={() => navigate('/login')}
               >
                 Sign In
@@ -67,7 +71,7 @@ const Navigation: React.FC = () => {
               
               <button 
                 onClick={() => navigate('/signup')}
-                className="sp-btn-primary"
+                className="btn-primary"
               >
                 Get Started
               </button>
@@ -75,7 +79,7 @@ const Navigation: React.FC = () => {
             
             <div className="md:hidden">
               <button 
-                className="p-2 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition-colors duration-200"
+                className="p-2 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100 transition-colors duration-200"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
                 {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -87,7 +91,7 @@ const Navigation: React.FC = () => {
       
       {isMobileMenuOpen && (
         <motion.div 
-          className="fixed inset-0 z-40 md:hidden bg-white/98 backdrop-blur-xl"
+          className="fixed inset-0 z-40 md:hidden bg-white"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -97,7 +101,7 @@ const Navigation: React.FC = () => {
               <a
                 key={i}
                 href={link.href}
-                className="text-lg font-medium text-slate-600 hover:text-slate-900"
+                className="text-lg font-medium text-gray-600 hover:text-gray-900"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.name}
@@ -106,7 +110,7 @@ const Navigation: React.FC = () => {
             
             <div className="pt-6 space-y-4 flex flex-col">
               <button 
-                className="sp-btn-secondary"
+                className="btn-secondary"
                 onClick={() => {
                   navigate('/login');
                   setIsMobileMenuOpen(false);
@@ -116,7 +120,7 @@ const Navigation: React.FC = () => {
               </button>
               
               <button 
-                className="sp-btn-primary"
+                className="btn-primary"
                 onClick={() => {
                   navigate('/signup');
                   setIsMobileMenuOpen(false);
