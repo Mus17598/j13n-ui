@@ -1,11 +1,27 @@
-
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Sparkles, Play } from 'lucide-react';
 
 const HeroBanner: React.FC = () => {
   const navigate = useNavigate();
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let start = 0;
+    const end = 2500;
+    const duration = 2000;
+    const frameRate = 1000 / 60;
+    const totalFrames = Math.round(duration / frameRate);
+    let frame = 0;
+    const counter = setInterval(() => {
+      frame++;
+      const progress = Math.min(frame / totalFrames, 1);
+      setCount(Math.floor(progress * end));
+      if (progress === 1) clearInterval(counter);
+    }, frameRate);
+    return () => clearInterval(counter);
+  }, []);
 
   return (
     <section className="sp-section sp-hero-bg min-h-screen flex items-center pt-16">
@@ -19,7 +35,10 @@ const HeroBanner: React.FC = () => {
             transition={{ duration: 0.6 }}
           >
             <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
-            2,500+ jobs auto-applied this week
+            <span className="font-mono font-bold text-slate-900">
+              {count.toLocaleString()}+
+            </span>
+            {' jobs auto-applied this week'}
             <Sparkles className="w-4 h-4 text-indigo-600" />
           </motion.div>
           
@@ -30,11 +49,7 @@ const HeroBanner: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
-            One-click job applications
-            <br />
-            <span className="sp-gradient-text">
-              across all platforms
-            </span>
+            Finding a job shouldn't be a full-time job
           </motion.h1>
           
           <motion.p
@@ -43,56 +58,21 @@ const HeroBanner: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Apply to jobs on LinkedIn, Indeed, and Naukri with a single click. 
-            Streamline your job search with our intelligent automation system.
+            We're building the future of job search where AI agents do the heavy lifting for you. Our smart system automatically finds relevant roles, tailors your applications, and tracks every step—so you can focus on preparing, not searching. Whether you're starting out or switching careers, we are here to make applying effortless, fast, and intelligent.
           </motion.p>
           
           {/* Action buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-20"
+            className="flex justify-center items-center mb-20"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
             <button
-              onClick={() => navigate('/signup')}
               className="sp-btn-primary group text-base px-8 py-4 text-lg"
             >
-              Get Started Free
-              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-0.5 transition-transform" />
+              Try it here.
             </button>
-            
-            <button className="sp-btn-secondary group text-base px-8 py-4 text-lg">
-              <Play className="w-5 h-5 mr-2" />
-              Watch Demo
-            </button>
-          </motion.div>
-          
-          {/* Platform badges */}
-          <motion.div
-            className="flex flex-wrap items-center justify-center gap-8 text-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            {[
-              { name: "LinkedIn", color: "#0077B5" },
-              { name: "Indeed", color: "#2557A7" },
-              { name: "Naukri", color: "#4A90E2" }
-            ].map((platform) => (
-              <div 
-                key={platform.name}
-                className="flex items-center gap-3 bg-white/90 backdrop-blur-sm px-6 py-4 rounded-2xl border border-slate-200/60 shadow-sm hover:shadow-md transition-all duration-200"
-              >
-                <div 
-                  className="w-3 h-3 rounded-full" 
-                  style={{ backgroundColor: platform.color }}
-                ></div>
-                <span className="font-semibold text-slate-700">
-                  {platform.name}
-                </span>
-              </div>
-            ))}
           </motion.div>
         </div>
       </div>

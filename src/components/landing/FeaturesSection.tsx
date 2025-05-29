@@ -1,101 +1,105 @@
-
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Clock, Zap, Shield, BarChart, MousePointer, Users } from 'lucide-react';
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Clock, Zap, Shield, BarChart, MousePointer, Users } from "lucide-react";
 
 const features = [
-  { 
-    icon: MousePointer, 
-    title: "One-Click Applications", 
-    desc: "Apply to multiple job platforms instantly with a single click."
-  },
-  { 
-    icon: Clock, 
-    title: "Save Hours Daily", 
-    desc: "Automate your job search and focus on interview preparation."
-  },
-  { 
-    icon: Zap, 
-    title: "Multi-Platform Support", 
-    desc: "Works seamlessly with LinkedIn, Indeed, Naukri, and more."
-  },
-  { 
-    icon: BarChart, 
-    title: "Application Tracking", 
-    desc: "Monitor your applications and success rates in real-time."
-  },
-  { 
-    icon: Shield, 
-    title: "Secure & Private", 
-    desc: "Your data is encrypted and protected with enterprise-grade security."
-  },
-  { 
-    icon: Users, 
-    title: "Trusted by Thousands", 
-    desc: "Join over 10,000+ job seekers who've found success with AplyGen."
-  }
+  { icon: MousePointer, title: "One-Click Applications", desc: "Apply to multiple job platforms instantly with a single click." },
+  { icon: Clock, title: "Save Hours Daily", desc: "Automate your job search and focus on interview preparation." },
+  { icon: Zap, title: "Multi-Platform Support", desc: "Works seamlessly with LinkedIn, Indeed, Naukri, and more." },
+  { icon: BarChart, title: "Application Tracking", desc: "Monitor your applications and success rates in real-time." },
+  { icon: Shield, title: "Secure & Private", desc: "Your data is encrypted and protected with enterprise-grade security." },
+  { icon: Users, title: "Trusted by Thousands", desc: "Join over 10,000+ job seekers who've found success with AplyGen." }
 ];
 
+const SECTION_HEIGHT = 100; // vh
+
 const FeaturesSection: React.FC = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  // The scroll length is (number of features - 1) * 100vh
+  const scrollLength = (features.length - 1) * SECTION_HEIGHT;
+
+  // Framer Motion scroll progress for the section
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", `end start`]
+  });
+
+  // Horizontal translation for the features container
+  const x = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["0vw", `-${(features.length - 1) * 100}vw`]
+  );
+
+  // Parallax background movement
+  const bgX = useTransform(scrollYProgress, [0, 1], ["0vw", "-20vw"]);
+
   return (
-    <section id="features" className="sp-section bg-slate-50">
-      <div className="sp-container">
-        <div className="text-center mb-24">
-          <motion.div
-            className="sp-badge mb-8"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            Features
-          </motion.div>
-          
-          <motion.h2 
-            className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 mb-8"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            Why Choose AplyGen?
-          </motion.h2>
-          
-          <motion.p 
-            className="text-xl md:text-2xl text-slate-600 leading-relaxed max-w-3xl mx-auto font-medium"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            viewport={{ once: true }}
-          >
-            Streamline your job search with our powerful automation tools
-          </motion.p>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <section
+      ref={sectionRef}
+      style={{
+        height: `${scrollLength + SECTION_HEIGHT}vh`,
+        position: "relative",
+        zIndex: 1,
+      }}
+      aria-label="Features"
+    >
+      {/* Sticky container for horizontal scroll */}
+      <div
+        style={{
+          position: "sticky",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          overflow: "hidden",
+          zIndex: 2,
+        }}
+      >
+        {/* Parallax background */}
+        <motion.div
+          aria-hidden
+          style={{
+            x: bgX,
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "120vw",
+            height: "100vh",
+            background: "#fff",
+            zIndex: 0,
+          }}
+        />
+        {/* Horizontally scrolling features */}
+        <motion.div
+          style={{
+            x,
+            display: "flex",
+            flexDirection: "row",
+            width: `${features.length * 100}vw`,
+            height: "100vh",
+            zIndex: 1,
+          }}
+          transition={{ type: "spring", stiffness: 60, damping: 20 }}
+        >
           {features.map((feature, i) => (
-            <motion.div 
+            <div
               key={i}
-              className="sp-card group cursor-pointer"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              viewport={{ once: true }}
+              className="flex flex-col justify-center items-center w-screen h-full px-8 bg-white"
+              style={{
+                minWidth: "100vw",
+                maxWidth: "100vw",
+                flex: "0 0 100vw",
+              }}
+              tabIndex={0}
+              aria-label={feature.title}
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-200">
-                <feature.icon className="w-8 h-8 text-indigo-600" />
-              </div>
-              
-              <h3 className="text-xl font-bold text-slate-900 mb-4">
+              <h3 className="text-6xl md:text-7xl lg:text-8xl font-black text-indigo-700 text-center">
                 {feature.title}
               </h3>
-              
-              <p className="text-slate-600 leading-relaxed font-medium">
-                {feature.desc}
-              </p>
-            </motion.div>
+            </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

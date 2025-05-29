@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Brain } from 'lucide-react';
@@ -62,12 +61,12 @@ const AISection: React.FC = () => {
                   whileHover={{ x: 5 }}
                 >
                   <motion.div 
-                    className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center"
+                    className="w-8 h-8 rounded-full bg-white flex items-center justify-center"
                     whileHover={{ scale: 1.2, backgroundColor: "rgba(34, 197, 94, 0.3)" }}
                   >
-                    <CheckCircle2 className="w-4 h-4 text-green-600" />
+                    <CheckCircle2 className="w-4 h-4 text-indigo-700" />
                   </motion.div>
-                  <span className="text-lg text-gray-700 group-hover:text-green-600 transition-colors duration-300">
+                  <span className="text-lg text-black group-hover:text-indigo-700 transition-colors duration-300">
                     {feature}
                   </span>
                 </motion.div>
@@ -112,7 +111,7 @@ const AISection: React.FC = () => {
                   repeatType: "reverse"
                 }}
               >
-                <Brain className="w-16 h-16 text-green-600 mb-6" />
+                <Brain className="w-16 h-16 text-indigo-700 mb-6" />
               </motion.div>
               <h3 className="text-2xl font-semibold text-gray-900 mb-4">AI-Powered</h3>
               <p className="text-gray-600">Smart matching and automated applications to find your perfect job match in seconds.</p>

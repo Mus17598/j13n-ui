@@ -1,7 +1,7 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
+import AnimatedFallingTags from './AnimatedFallingTags';
 
 const testimonials = [
   {
@@ -53,7 +53,7 @@ const TestimonialsSection: React.FC = () => {
             What Our Users Say
           </motion.h2>
         </div>
-        
+        <AnimatedFallingTags />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial, i) => (
             <motion.div
