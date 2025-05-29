@@ -1,3 +1,4 @@
+
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Clock, Zap, Shield, BarChart, MousePointer, Users } from "lucide-react";
@@ -66,7 +67,7 @@ const FeaturesSection: React.FC = () => {
             left: 0,
             width: "120vw",
             height: "100vh",
-            background: "#fff",
+            background: "#EFF6FF",
             zIndex: 0,
           }}
         />
@@ -85,7 +86,7 @@ const FeaturesSection: React.FC = () => {
           {features.map((feature, i) => (
             <div
               key={i}
-              className="flex flex-col justify-center items-center w-screen h-full px-8 bg-white"
+              className="flex flex-col justify-center items-center w-screen h-full px-8 bg-blue-50"
               style={{
                 minWidth: "100vw",
                 maxWidth: "100vw",
@@ -94,7 +95,7 @@ const FeaturesSection: React.FC = () => {
               tabIndex={0}
               aria-label={feature.title}
             >
-              <h3 className="text-6xl md:text-7xl lg:text-8xl font-black text-indigo-700 text-center">
+              <h3 className="text-6xl md:text-7xl lg:text-8xl font-black text-blue-700 text-center">
                 {feature.title}
               </h3>
             </div>
