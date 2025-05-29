@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Navigation from '@/components/landing/Navigation';
 import HeroBanner from '@/components/landing/HeroBanner';
 import FeaturesSection from '@/components/landing/FeaturesSection';
+import FocusSection from '@/components/landing/FocusSection';
 import AISection from '@/components/landing/AISection';
 import EfficiencySection from '@/components/landing/EfficiencySection';
 import CTASection from '@/components/landing/CTASection';
@@ -19,6 +20,7 @@ const Landing: React.FC = () => {
       <main>
         <HeroBanner />
         <FeaturesSection />
+        <FocusSection />
         <AISection />
         <EfficiencySection />
         <TestimonialsSection />

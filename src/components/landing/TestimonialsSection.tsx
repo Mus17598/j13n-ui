@@ -2,6 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
+import AnimatedFallingTags from './AnimatedFallingTags';
 
 const testimonials = [
   {
@@ -29,11 +30,11 @@ const testimonials = [
 
 const TestimonialsSection: React.FC = () => {
   return (
-    <section className="sp-section bg-white">
-      <div className="sp-container">
+    <section className="blue-section bg-white">
+      <div className="blue-container">
         <div className="text-center mb-24">
           <motion.div
-            className="sp-badge mb-8"
+            className="blue-badge mb-8"
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
@@ -44,7 +45,7 @@ const TestimonialsSection: React.FC = () => {
           </motion.div>
           
           <motion.h2 
-            className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 mb-8"
+            className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-gray-900 mb-8"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -53,26 +54,26 @@ const TestimonialsSection: React.FC = () => {
             What Our Users Say
           </motion.h2>
         </div>
-        
+        <AnimatedFallingTags />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial, i) => (
             <motion.div
               key={i}
-              className="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              className="blue-card"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
               viewport={{ once: true }}
             >
               <div className="flex items-center space-x-4 mb-6">
-                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-bold text-lg">
                   {testimonial.name.charAt(0)}
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-slate-900">
+                  <h3 className="text-lg font-bold text-gray-900">
                     {testimonial.name}
                   </h3>
-                  <p className="text-sm text-slate-600 font-medium">{testimonial.role}</p>
+                  <p className="text-sm text-gray-600 font-medium">{testimonial.role}</p>
                 </div>
               </div>
               
@@ -82,7 +83,7 @@ const TestimonialsSection: React.FC = () => {
                 ))}
               </div>
               
-              <p className="text-slate-700 leading-relaxed font-medium">"{testimonial.text}"</p>
+              <p className="text-gray-700 leading-relaxed font-medium">"{testimonial.text}"</p>
             </motion.div>
           ))}
         </div>

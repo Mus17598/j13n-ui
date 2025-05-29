@@ -11,6 +11,7 @@ import LoginScreen from "@/components/LoginScreen";
 import UserOnboardingForm from "@/pages/UserOnboardingForm";
 import ProfilePage from "@/pages/ProfilePage";
 import Landing from "@/pages/Landing";
+import AnimatedCursor from './components/AnimatedCursor';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import LinkedInCallback from './components/LinkedInCallback';
 
@@ -55,17 +56,20 @@ const AppRoutes = () => {
 
 const App = () => {
   return (
-    <QueryClientProvider client={new QueryClient()}>
+    <>
+      <AnimatedCursor />
+      <QueryClientProvider client={new QueryClient()}>
       <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ''}>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <AppRoutes />
-          </BrowserRouter>
-        </TooltipProvider>
-      </GoogleOAuthProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <AppRoutes />
+            </BrowserRouter>
+          </TooltipProvider>
+        </GoogleOAuthProvider>
     </QueryClientProvider>
+    </>
   );
 };
 
