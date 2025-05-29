@@ -3,16 +3,16 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Index from "@/pages/Index";
-import NotFound from "@/pages/NotFound";
+import NotFound from "@/pages/NotFound";  
 import SignUpScreen from "@/components/SignUpScreen";
 import LoginScreen from "@/components/LoginScreen";
 import UserOnboardingForm from "@/pages/UserOnboardingForm";
 import ProfilePage from "@/pages/ProfilePage";
 import Landing from "@/pages/Landing";
-
-const queryClient = new QueryClient();
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import LinkedInCallback from './components/LinkedInCallback';
 
 const AppRoutes = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
@@ -47,7 +47,7 @@ const AppRoutes = () => {
       <Route path="/login" element={<LoginScreen onLoggedIn={handleLogin} />} />
       <Route path="/onboarding" element={<UserOnboardingForm onComplete={handleOnboardingComplete} />} />
       <Route path="/profile" element={<ProfilePage />} />
-      {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+      <Route path="/linkedin-callback" element={<LinkedInCallback />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
@@ -55,14 +55,16 @@ const AppRoutes = () => {
 
 const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
-      </TooltipProvider>
+    <QueryClientProvider client={new QueryClient()}>
+      <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ''}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </TooltipProvider>
+      </GoogleOAuthProvider>
     </QueryClientProvider>
   );
 };

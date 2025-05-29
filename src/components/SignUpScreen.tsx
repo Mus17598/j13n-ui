@@ -4,6 +4,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from 'react-router-dom';
+import { useGoogleLogin } from '@react-oauth/google';
+import { useLinkedIn } from 'react-linkedin-login-oauth2';
+import { authService } from '../services/auth.service';
 
 interface SignUpScreenProps {
   onSignedUp: () => void;
@@ -17,20 +20,52 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ onSignedUp }) => {
   const [country, setCountry] = useState('');
   const [agreedToTerms, setAgreedToTerms] = useState(false);
 
-  const handleSignUp = (e: React.FormEvent) => {
+  const handleGoogleSignUp = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+        const authResponse = await authService.loginWithGoogle(tokenResponse.access_token);
+        // Store the token in localStorage or your preferred state management solution
+        localStorage.setItem('token', authResponse.token);
+        onSignedUp();
+      } catch (error) {
+        console.error('Google sign-up failed:', error);
+      }
+    },
+    onError: (error) => console.error('Google sign-up failed:', error)
+  });
+
+  const { linkedInLogin } = useLinkedIn({
+    clientId: process.env.REACT_APP_LINKEDIN_CLIENT_ID || '',
+    redirectUri: `${window.location.origin}/linkedin-callback`,
+    onSuccess: async (code) => {
+      try {
+        const authResponse = await authService.loginWithLinkedIn(code);
+        localStorage.setItem('token', authResponse.token);
+        onSignedUp();
+      } catch (error) {
+        console.error('LinkedIn sign-up failed:', error);
+      }
+    },
+    onError: (error) => {
+      console.error('LinkedIn sign-up failed:', error);
+    },
+  });
+
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, this would handle registration
-    onSignedUp();
-  };
-
-  const handleGoogleSignUp = () => {
-    // Implement Google OAuth sign-up
-    console.log('Google sign-up clicked');
-  };
-
-  const handleLinkedInSignUp = () => {
-    // Implement LinkedIn OAuth sign-up
-    console.log('LinkedIn sign-up clicked');
+    try {
+      const authResponse = await authService.registerWithEmail({
+        firstName,
+        lastName,
+        email,
+        password,
+        country
+      });
+      localStorage.setItem('token', authResponse.token);
+      onSignedUp();
+    } catch (error) {
+      console.error('Email sign-up failed:', error);
+    }
   };
 
   return (
@@ -48,7 +83,7 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ onSignedUp }) => {
             type="button"
             variant="outline"
             className="w-full bg-white hover:bg-gray-50 text-gray-700 flex items-center justify-center gap-2"
-            onClick={handleGoogleSignUp}
+            onClick={() => handleGoogleSignUp()}
           >
             <img src="/google-icon.svg" alt="Google" className="w-5 h-5" />
             Continue with Google
@@ -58,7 +93,7 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ onSignedUp }) => {
             type="button"
             variant="outline"
             className="w-full bg-white hover:bg-gray-50 text-gray-700 flex items-center justify-center gap-2"
-            onClick={handleLinkedInSignUp}
+            onClick={() => linkedInLogin()}
           >
             <img src="/linkedin-icon.svg" alt="LinkedIn" className="w-5 h-5" />
             Continue with LinkedIn
@@ -185,4 +220,4 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ onSignedUp }) => {
   );
 };
 
-export default SignUpScreen; 
+export default SignUpScreen;

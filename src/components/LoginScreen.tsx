@@ -3,6 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from 'react-router-dom';
+import { useGoogleLogin } from '@react-oauth/google';
+import { useLinkedIn } from 'react-linkedin-login-oauth2';
+import { authService } from '../services/auth.service';
 
 interface LoginScreenProps {
   onLoggedIn: () => void;
@@ -12,20 +15,45 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLoggedIn }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+        const authResponse = await authService.loginWithGoogle(tokenResponse.access_token);
+        localStorage.setItem('token', authResponse.token);
+        onLoggedIn();
+      } catch (error) {
+        console.error('Google login failed:', error);
+      }
+    },
+    onError: (error) => console.error('Google login failed:', error)
+  });
+
+  const { linkedInLogin } = useLinkedIn({
+    clientId: process.env.REACT_APP_LINKEDIN_CLIENT_ID || '',
+    redirectUri: `${window.location.origin}/linkedin-callback`,
+    onSuccess: async (code) => {
+      try {
+        const authResponse = await authService.loginWithLinkedIn(code);
+        localStorage.setItem('token', authResponse.token);
+        onLoggedIn();
+      } catch (error) {
+        console.error('LinkedIn login failed:', error);
+      }
+    },
+    onError: (error) => {
+      console.error('LinkedIn login failed:', error);
+    },
+  });
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, this would handle authentication
-    onLoggedIn();
-  };
-
-  const handleGoogleLogin = () => {
-    // Implement Google OAuth login
-    console.log('Google login clicked');
-  };
-
-  const handleLinkedInLogin = () => {
-    // Implement LinkedIn OAuth login
-    console.log('LinkedIn login clicked');
+    try {
+      const authResponse = await authService.loginWithEmail({ email, password });
+      localStorage.setItem('token', authResponse.token);
+      onLoggedIn();
+    } catch (error) {
+      console.error('Email login failed:', error);
+    }
   };
 
   return (
@@ -44,7 +72,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLoggedIn }) => {
             type="button"
             variant="outline"
             className="w-full bg-white hover:bg-gray-50 text-gray-700 flex items-center justify-center gap-2"
-            onClick={handleGoogleLogin}
+            onClick={() => handleGoogleLogin()}
           >
             <img src="/google-icon.svg" alt="Google" className="w-5 h-5" />
             Continue with Google
@@ -54,7 +82,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLoggedIn }) => {
             type="button"
             variant="outline"
             className="w-full bg-white hover:bg-gray-50 text-gray-700 flex items-center justify-center gap-2"
-            onClick={handleLinkedInLogin}
+            onClick={() => linkedInLogin()}
           >
             <img src="/linkedin-icon.svg" alt="LinkedIn" className="w-5 h-5" />
             Continue with LinkedIn
