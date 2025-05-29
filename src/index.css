@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
@@ -8,35 +7,51 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 220 13% 18%;
+    --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
-    --card-foreground: 220 13% 18%;
+    --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 220 13% 18%;
-    --primary: 221 83% 53%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 262 83% 58%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 220 13% 18%;
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 8% 46%;
-    --accent: 220 14% 96%;
-    --accent-foreground: 220 13% 18%;
-    --destructive: 0 84% 60%;
+    --secondary: 210 40% 98%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 98%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 98%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 221 83% 53%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 262 83% 58%;
     --radius: 0.75rem;
+    
+    /* SendPotion exact colors */
+    --sp-primary: #6366f1;
+    --sp-primary-dark: #4f46e5;
+    --sp-secondary: #8b5cf6;
+    --sp-accent: #06b6d4;
+    --sp-gray-50: #f8fafc;
+    --sp-gray-100: #f1f5f9;
+    --sp-gray-200: #e2e8f0;
+    --sp-gray-300: #cbd5e1;
+    --sp-gray-400: #94a3b8;
+    --sp-gray-500: #64748b;
+    --sp-gray-600: #475569;
+    --sp-gray-700: #334155;
+    --sp-gray-800: #1e293b;
+    --sp-gray-900: #0f172a;
   }
 }
 
 @layer base {
   * {
-    @apply border-border selection:bg-blue-100 selection:text-blue-900;
+    @apply border-border selection:bg-indigo-100 selection:text-indigo-900;
   }
 
   body {
-    @apply bg-white text-gray-900 font-sans antialiased;
+    @apply bg-white text-slate-900 font-sans antialiased overflow-x-hidden;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1;
     line-height: 1.6;
@@ -44,9 +59,9 @@
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold tracking-tight text-gray-900;
+    @apply font-bold tracking-tight text-slate-900;
     font-feature-settings: "rlig" 1, "calt" 1;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.02em;
   }
   
   html {
@@ -54,103 +69,105 @@
   }
 
   html, body {
-    background: #ffffff !important;
+    background: #fff !important;
+    background-color: #fff !important;
   }
 }
 
 @layer components {
-  /* Primary Button */
-  .btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-100 transition-all duration-200 shadow-sm hover:shadow-md active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none;
+  /* SendPotion exact button styles */
+  .sp-btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition-all duration-200 shadow-sm hover:shadow-md transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2;
   }
   
-  /* Secondary Button */
-  .btn-secondary {
-    @apply inline-flex items-center justify-center px-6 py-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 focus:ring-4 focus:ring-gray-100 transition-all duration-200 shadow-sm hover:shadow-md active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none;
+  .sp-btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-slate-700 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-all duration-200 shadow-sm hover:shadow-md transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2;
   }
   
-  /* Card Component */
-  .card {
-    @apply bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 hover:border-gray-300;
+  /* SendPotion exact card styles */
+  .sp-card {
+    @apply bg-white border border-slate-200 rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 hover:border-slate-300 hover:-translate-y-1;
   }
   
-  /* Section Container */
-  .section {
-    @apply py-16 px-6;
+  /* SendPotion glassmorphism */
+  .sp-glass {
+    @apply bg-white/80 backdrop-blur-xl border border-white/20 shadow-lg;
   }
   
-  /* Container */
-  .container-custom {
+  /* SendPotion section spacing */
+  .sp-section {
+    @apply py-24 px-6;
+  }
+  
+  /* SendPotion container */
+  .sp-container {
     @apply max-w-7xl mx-auto;
   }
   
-  /* Navigation */
-  .nav-link {
-    @apply text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors duration-200;
+  /* SendPotion gradient background */
+  .sp-gradient-bg {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.03) 0%, rgba(139, 92, 246, 0.03) 50%, rgba(6, 182, 212, 0.03) 100%);
   }
   
-  /* Badge */
-  .badge {
-    @apply inline-flex items-center gap-2 px-3 py-1 bg-blue-50 border border-blue-200 rounded-full text-sm font-medium text-blue-700;
+  /* SendPotion navigation */
+  .sp-nav {
+    @apply fixed top-0 w-full z-50 bg-white/95 backdrop-blur-xl border-b border-slate-200/50;
   }
   
-  /* Text Styles */
-  .text-heading-xl {
-    @apply text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 leading-tight;
+  /* SendPotion hero background */
+  .sp-hero-bg {
+    background: 
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 102, 241, 0.08), transparent),
+      radial-gradient(ellipse 60% 50% at 80% 50%, rgba(139, 92, 246, 0.06), transparent),
+      radial-gradient(ellipse 60% 50% at 20% 80%, rgba(6, 182, 212, 0.04), transparent);
   }
   
-  .text-heading-lg {
-    @apply text-3xl md:text-4xl font-bold tracking-tight text-gray-900 leading-tight;
+  /* SendPotion badge styles */
+  .sp-badge {
+    @apply inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 border border-indigo-200 rounded-full text-sm font-medium text-indigo-700 shadow-sm;
   }
   
-  .text-heading-md {
-    @apply text-2xl md:text-3xl font-semibold tracking-tight text-gray-900 leading-tight;
-  }
-  
-  .text-body-lg {
-    @apply text-lg md:text-xl text-gray-600 leading-relaxed;
-  }
-  
-  .text-body {
-    @apply text-base text-gray-600 leading-relaxed;
-  }
-  
-  /* Input Styles */
-  .input {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200;
+  /* SendPotion text gradient */
+  .sp-gradient-text {
+    @apply bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-500 bg-clip-text text-transparent;
   }
 }
 
-/* Focus styles */
+/* SendPotion focus styles */
 *:focus {
   outline: none;
 }
 
 *:focus-visible {
-  @apply ring-2 ring-blue-500 ring-offset-2;
+  @apply ring-2 ring-indigo-500 ring-offset-2;
 }
 
-/* Smooth animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* SendPotion animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@keyframes pulse-ring {
+  0% { transform: scale(0.33); }
+  40%, 50% { opacity: 1; }
+  100% { opacity: 0; transform: scale(1.2); }
 }
 
-.animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out;
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.4s ease-out;
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+}
+
+.animate-gradient {
+  animation: gradient-shift 8s ease infinite;
+  background-size: 200% 200%;
 }
