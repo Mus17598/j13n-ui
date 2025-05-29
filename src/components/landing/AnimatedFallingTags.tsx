@@ -1,3 +1,4 @@
+
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
@@ -20,22 +21,26 @@ const TAGS = [
 // Helper for random values
 const random = (min: number, max: number) => Math.random() * (max - min) + min;
 
-// Predefine a slightly scattered, mostly single-line layout for the badges
-const badgeLayout = [
-  { x: 0, y: 0, r: -6 },
-  { x: 60, y: 8, r: 4 },
-  { x: 130, y: -6, r: -3 },
-  { x: 210, y: 10, r: 7 },
-  { x: 300, y: -8, r: 2 },
-  { x: 390, y: 6, r: -5 },
-  { x: 470, y: 0, r: 5 },
-  { x: 550, y: -7, r: -4 },
-  { x: 630, y: 8, r: 3 },
-  { x: 710, y: -5, r: -2 },
-  { x: 790, y: 7, r: 6 },
-  { x: 870, y: 0, r: -7 },
-  { x: 950, y: 5, r: 2 },
-];
+// Create more spaced out layout with multiple rows
+const createOrganicLayout = () => {
+  const positions = [];
+  const rows = 3;
+  const itemsPerRow = Math.ceil(TAGS.length / rows);
+  
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < itemsPerRow && positions.length < TAGS.length; col++) {
+      const baseX = (col * 200) + random(-30, 30); // More spacing between items
+      const baseY = (row * 60) + random(-20, 20); // Multiple rows with variation
+      const rotation = random(-8, 8);
+      
+      positions.push({ x: baseX, y: baseY, r: rotation });
+    }
+  }
+  
+  return positions;
+};
+
+const badgeLayout = createOrganicLayout();
 
 const AnimatedFallingTags: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -44,19 +49,26 @@ const AnimatedFallingTags: React.FC = () => {
   return (
     <div
       ref={ref}
-      className="relative w-full flex items-center justify-center select-none pointer-events-none"
-      style={{ zIndex: 1, minHeight: 90 }}
+      className="relative w-full flex items-center justify-center select-none pointer-events-none overflow-hidden"
+      style={{ zIndex: 1, minHeight: 220 }}
     >
-      <div className="relative flex flex-row flex-nowrap justify-center items-end w-full" style={{ minHeight: 90 }}>
+      <div className="relative w-full max-w-6xl" style={{ minHeight: 220 }}>
         {TAGS.map((tag, i) => {
           const layout = badgeLayout[i];
-          const delay = 0.18 + i * 0.11 + random(0, 0.09);
-          const duration = random(1.2, 1.6);
-          const bounce = random(0.38, 0.55);
+          const delay = 0.3 + i * 0.15 + random(0, 0.2); // Slower, more staggered
+          const duration = random(2.0, 2.8); // Much slower falling
+          const fallDistance = random(180, 250); // More varied fall distances
+          
           return (
             <motion.div
               key={tag.text}
-              initial={{ y: -100, opacity: 0, scale: 0.95, x: layout.x, rotate: random(-12, 12) }}
+              initial={{ 
+                y: -fallDistance, 
+                opacity: 0, 
+                scale: 0.8, 
+                x: layout.x + random(-20, 20), 
+                rotate: random(-15, 15) 
+              }}
               animate={
                 inView
                   ? {
@@ -71,18 +83,24 @@ const AnimatedFallingTags: React.FC = () => {
               transition={{
                 delay,
                 duration,
-                ease: [0.34, 1.56, 0.64, 1],
+                ease: [0.25, 0.46, 0.45, 0.94], // More organic easing
                 type: "spring",
-                bounce,
+                bounce: 0.3,
+                damping: 15,
               }}
-              className={`rounded-full px-6 py-2 shadow-md font-semibold text-base md:text-lg whitespace-nowrap ${tag.color}`}
+              whileHover={{
+                scale: 1.05,
+                rotate: layout.r + random(-3, 3),
+                transition: { duration: 0.3 }
+              }}
+              className={`rounded-full px-5 py-2.5 shadow-lg font-medium text-sm md:text-base whitespace-nowrap ${tag.color} backdrop-blur-sm border border-white/20`}
               style={{
-                pointerEvents: "none",
-                minWidth: 90,
-                textAlign: "center",
+                pointerEvents: "auto",
                 position: "absolute",
-                left: 0,
-                top: 0,
+                left: "50%",
+                top: "50%",
+                transform: "translate(-50%, -50%)",
+                zIndex: TAGS.length - i, // Layer badges so they don't overlap awkwardly
               }}
             >
               {tag.text}
@@ -94,4 +112,4 @@ const AnimatedFallingTags: React.FC = () => {
   );
 };
 
-export default AnimatedFallingTags; 
+export default AnimatedFallingTags;
