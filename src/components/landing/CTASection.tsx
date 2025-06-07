@@ -15,13 +15,13 @@ const CTASection: React.FC = () => {
   ];
 
   return (
-    <section className="blue-section bg-blue-900 text-white relative overflow-hidden">
+    <section className="section bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white relative overflow-hidden">
       {/* Background effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-800/30 via-blue-900/20 to-blue-950/20"></div>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-primary-600/30 via-primary-700/20 to-primary-800/20"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
       
-      <div className="blue-container relative z-10">
-        <div className="text-center max-w-5xl mx-auto">
+      <div className="container relative z-10">
+        <div className="text-center container-sm">
           <motion.div
             className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-sm font-semibold text-white mb-10"
             initial={{ opacity: 0, scale: 0.9 }}
@@ -34,7 +34,7 @@ const CTASection: React.FC = () => {
           </motion.div>
           
           <motion.h2 
-            className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[0.9] mb-8"
+            className="text-display mb-8 text-white"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -42,13 +42,13 @@ const CTASection: React.FC = () => {
           >
             Ready to transform
             <br />
-            <span className="bg-gradient-to-r from-blue-300 via-blue-200 to-blue-100 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-200 via-white to-blue-100 bg-clip-text text-transparent">
               your job search?
             </span>
           </motion.h2>
           
           <motion.p 
-            className="text-xl md:text-2xl text-blue-200 leading-relaxed max-w-3xl mx-auto mb-12 font-medium"
+            className="text-subheading text-blue-100 max-w-3xl mx-auto mb-12"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
@@ -67,7 +67,7 @@ const CTASection: React.FC = () => {
           >
             <button
               onClick={() => navigate('/signup')}
-              className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-900 bg-white rounded-xl hover:bg-blue-50 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02] group"
+              className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-primary-900 bg-white rounded-xl hover:bg-gray-50 transition-all duration-200 shadow-medium hover:shadow-strong transform hover:scale-[1.02] group focus-ring"
             >
               Get started for free
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-0.5 transition-transform" />
@@ -84,7 +84,7 @@ const CTASection: React.FC = () => {
             {features.map((feature, i) => (
               <div key={feature} className="flex items-center gap-2">
                 <Check className="w-4 h-4 text-green-400" />
-                <span className="font-semibold text-blue-200">{feature}</span>
+                <span className="font-medium text-blue-100">{feature}</span>
               </div>
             ))}
           </motion.div>
