@@ -1,10 +1,14 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useNavigate } from 'react-router-dom';
 import PersonalizedAvatar from '@/components/PersonalizedAvatar';
 import { motion } from 'framer-motion';
-import { MapPin, Briefcase } from 'lucide-react';
+import ImageUploader from '@/components/ImageUploader';
+import { useToast } from "@/components/ui/use-toast";
 import { UserSettingsDropdown } from '@/components/UserSettingsDropdown';
+import { Button } from '@/components/ui/button';
+import { Home } from 'lucide-react';
 
 interface CandidateProfileProps {
   name?: string;
@@ -30,7 +34,19 @@ const CandidateProfile: React.FC<CandidateProfileProps> = ({
   role = 'Visual Designer at NALA Money'
 }) => {
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const [localAvatarUrl, setLocalAvatarUrl] = useState<string | undefined>(avatarUrl);
   
+  const handleImageSelect = (file: File) => {
+    const url = URL.createObjectURL(file);
+    setLocalAvatarUrl(url);
+    
+    toast({
+      title: "Profile picture updated",
+      description: "Your new profile picture has been set successfully.",
+    });
+  };
+
   const statusConfig = {
     applied: { color: '#8FE388', text: 'Applied', bg: 'bg-[#8FE388]/80' },
     pending: { color: '#74BBFB', text: 'Pending', bg: 'bg-[#74BBFB]/80' },
@@ -86,45 +102,58 @@ const CandidateProfile: React.FC<CandidateProfileProps> = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="pr-8"
+      className="flex flex-col items-center text-center w-full px-8"
     >
-      <div className="relative">
+      <div className="relative w-full">
         <div className="absolute top-0 right-0">
           <UserSettingsDropdown
             username={name}
             email={email}
-            onLogout={handleLogout}
+            onLogout={() => navigate('/login')}
           />
         </div>
         
-        <Avatar className="w-32 h-32 ring-4 ring-white shadow-lg">
-          <AvatarImage src={avatarUrl} alt={name} />
-          <AvatarFallback className="bg-gradient-to-br from-[#D6BCFA] to-[#9b87f5] text-white text-3xl">
-            {avatarUrl ? null : (
-              <PersonalizedAvatar gender={gender} />
-            )}
-            {!avatarUrl && !gender && name.charAt(0)}
-          </AvatarFallback>
-        </Avatar>
+        <div className="flex flex-col items-center">
+          <ImageUploader onImageSelect={handleImageSelect}>
+            <Avatar className="w-32 h-32 ring-4 ring-white shadow-lg">
+              <AvatarImage src={localAvatarUrl} alt={name} />
+              <AvatarFallback className="bg-gradient-to-br from-[#D6BCFA] to-[#9b87f5] text-white text-3xl">
+                {localAvatarUrl ? null : (
+                  <PersonalizedAvatar gender={gender} />
+                )}
+                {!localAvatarUrl && !gender && name.charAt(0)}
+              </AvatarFallback>
+            </Avatar>
+          </ImageUploader>
 
-        <div className="mt-6">
-          <h2 className="text-4xl font-bold text-gray-900">{name}</h2>
-          <p className="text-lg text-gray-500 mt-1">{role}</p>
-        </div>
+          <div className="mt-6 space-y-2">
+            <h2 className="text-4xl font-bold text-gray-900">{name}</h2>
+            <p className="text-xl text-gray-500">{role}</p>
+          </div>
 
-        <div className="mt-6">
-          <p className="text-lg text-gray-600 leading-relaxed max-w-md">
-            {bio}
-          </p>
-        </div>
+          <div className="mt-8">
+            <p className="text-lg text-gray-600 leading-relaxed">
+              {bio}
+            </p>
+          </div>
 
-        <div className="mt-8">
-          <button 
-            onClick={() => navigate('/profile')}
-            className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
-          >
-            My Bento
-          </button>
+          <div className="mt-8 flex flex-col space-y-4">
+            <button 
+              onClick={() => navigate('/profile')}
+              className="text-base font-medium text-gray-500 hover:text-gray-900 transition-colors"
+            >
+              My Bento
+            </button>
+            
+            <Button 
+              onClick={() => navigate('/')}
+              className="mt-4 bg-primary-green hover:bg-primary-green/90 text-white flex items-center justify-center gap-2"
+              size="sm"
+            >
+              <Home size={16} />
+              Landing Page
+            </Button>
+          </div>
         </div>
       </div>
     </motion.div>

@@ -80,7 +80,7 @@ const UserSettingsModal: React.FC<UserSettingsModalProps> = ({
           onClick={e => e.stopPropagation()}
         >
           <Card className="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border-0">
-            <CardContent className="p-6 overflow-y-auto max-h-[80vh]">
+            <CardContent className="p-6">
               <div className="flex justify-between items-center mb-8">
                 <div>
                   <h2 className="text-2xl font-bold bg-gradient-to-r from-primary-purple to-primary-pink bg-clip-text text-transparent">Settings</h2>
@@ -169,4 +169,4 @@ const UserSettingsModal: React.FC<UserSettingsModalProps> = ({
   );
 };
 
-export default UserSettingsModal;
+export default UserSettingsModal; 

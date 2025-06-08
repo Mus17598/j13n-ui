@@ -10,6 +10,9 @@ import CandidateProfile from '@/components/CandidateProfile';
 import FloatingActionBar from '@/components/FloatingActionBar';
 import { useDocumentsStore } from '@/stores/useDocumentsStore';
 import { motion } from 'framer-motion';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Card } from '@/components/ui/card';
+import Profile from "@/components/Profile";
 
 const mockJobs = [
   {
@@ -88,30 +91,44 @@ const Index = ({ isLoggedIn }: IndexProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100/50 font-sans">
-      <main className="container mx-auto px-4 py-6 h-[calc(100vh)]">
+    <div className="h-screen overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100/50 font-sans">
+      <main className="container mx-auto h-full py-6 px-4">
         <motion.div 
           className="grid grid-cols-12 gap-6 h-full"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <div className="col-span-12 md:col-span-3 sticky top-6">
-            <CandidateProfile 
-              name="John Doe"
-              email={userEmail}
-              status="applied"
-              gender={userGender}
-              className="bg-transparent text-2xl"
-            />
+          {/* Left Column - Fixed, doesn't scroll */}
+          <div className="col-span-12 md:col-span-3 h-full flex items-start pt-8">
+            <div className="w-full">
+              <Profile />
+            </div>
           </div>
           
-          <div className="col-span-12 md:col-span-9 space-y-6 overflow-y-auto pr-4 max-h-[calc(100vh-4rem)]">
-            <div className="grid grid-cols-1 gap-6">
-              <JobFilters />
-              <QAEditor />
-              <RecentApplications />
-            </div>
+          {/* Right Column - Scrollable content */}
+          <div className="col-span-12 md:col-span-9 h-full overflow-hidden">
+            <ScrollArea className="h-full pr-2">
+              <div className="grid grid-cols-1 gap-6 pb-6">
+                <Card className="shadow-sm bg-white/80 backdrop-blur-sm rounded-2xl p-5">
+                  <ScrollArea className="max-h-[300px]">
+                    <JobFilters />
+                  </ScrollArea>
+                </Card>
+                
+                <Card className="shadow-sm bg-white/80 backdrop-blur-sm rounded-2xl p-5">
+                  <ScrollArea className="max-h-[400px]">
+                    <QAEditor />
+                  </ScrollArea>
+                </Card>
+                
+                <Card className="shadow-sm bg-white/80 backdrop-blur-sm rounded-2xl p-5">
+                  <ScrollArea className="max-h-[400px]">
+                    <RecentApplications />
+                  </ScrollArea>
+                </Card>
+              </div>
+            </ScrollArea>
           </div>
         </motion.div>
       </main>

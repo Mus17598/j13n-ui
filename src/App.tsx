@@ -11,7 +11,6 @@ import LoginScreen from "@/components/LoginScreen";
 import UserOnboardingForm from "@/pages/UserOnboardingForm";
 import ProfilePage from "@/pages/ProfilePage";
 import Landing from "@/pages/Landing";
-import AnimatedCursor from './components/AnimatedCursor';
 
 const queryClient = new QueryClient();
 
@@ -56,18 +55,15 @@ const AppRoutes = () => {
 
 const App = () => {
   return (
-    <>
-      <AnimatedCursor />
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <AppRoutes />
-          </BrowserRouter>
-        </TooltipProvider>
-      </QueryClientProvider>
-    </>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
   );
 };
 
