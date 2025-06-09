@@ -23,7 +23,7 @@ interface CandidateProfileProps {
 }
 
 const CandidateProfile: React.FC<CandidateProfileProps> = ({
-  name = 'John Doe',
+  name = 'Muskan Gupta',
   email = 'user@example.com',
   status = 'pending',
   avatarUrl,
@@ -31,7 +31,7 @@ const CandidateProfile: React.FC<CandidateProfileProps> = ({
   className,
   bio = 'Always looking for new & innovative ways to share my art and design skills. I love nothing more than diving into a new project and getting my hands dirty.',
   location = 'San Francisco, CA',
-  role = 'Visual Designer at NALA Money'
+  role = 'Likes Building Products'
 }) => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -118,11 +118,11 @@ const CandidateProfile: React.FC<CandidateProfileProps> = ({
             <div className="relative w-32 h-32">
               <Avatar className="w-32 h-32 ring-4 ring-white shadow-lg">
                 <AvatarImage src={localAvatarUrl} alt={name} />
-                <AvatarFallback className="bg-gray-100 border-2 border-dashed border-gray-300">
+                <AvatarFallback className="bg-gray-50 border-2 border-dashed border-gray-300 hover:border-gray-400 transition-colors">
                   {!localAvatarUrl ? (
                     <div className="flex flex-col items-center justify-center text-center p-4">
-                      <Upload className="w-6 h-6 text-gray-400 mb-1" />
-                      <span className="text-xs text-gray-500 leading-tight">Put your smiling face here</span>
+                      <Upload className="w-8 h-8 text-gray-400 mb-2" />
+                      <span className="text-xs text-gray-500 leading-tight font-medium">Upload your picture</span>
                     </div>
                   ) : (
                     <PersonalizedAvatar gender={gender} />
