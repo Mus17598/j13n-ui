@@ -8,7 +8,7 @@ import ImageUploader from '@/components/ImageUploader';
 import { useToast } from "@/components/ui/use-toast";
 import { UserSettingsDropdown } from '@/components/UserSettingsDropdown';
 import { Button } from '@/components/ui/button';
-import { Home } from 'lucide-react';
+import { Home, Upload } from 'lucide-react';
 
 interface CandidateProfileProps {
   name?: string;
@@ -115,15 +115,21 @@ const CandidateProfile: React.FC<CandidateProfileProps> = ({
         
         <div className="flex flex-col items-center">
           <ImageUploader onImageSelect={handleImageSelect}>
-            <Avatar className="w-32 h-32 ring-4 ring-white shadow-lg">
-              <AvatarImage src={localAvatarUrl} alt={name} />
-              <AvatarFallback className="bg-gradient-to-br from-[#D6BCFA] to-[#9b87f5] text-white text-3xl">
-                {localAvatarUrl ? null : (
-                  <PersonalizedAvatar gender={gender} />
-                )}
-                {!localAvatarUrl && !gender && name.charAt(0)}
-              </AvatarFallback>
-            </Avatar>
+            <div className="relative w-32 h-32">
+              <Avatar className="w-32 h-32 ring-4 ring-white shadow-lg">
+                <AvatarImage src={localAvatarUrl} alt={name} />
+                <AvatarFallback className="bg-gray-100 border-2 border-dashed border-gray-300">
+                  {!localAvatarUrl ? (
+                    <div className="flex flex-col items-center justify-center text-center p-4">
+                      <Upload className="w-6 h-6 text-gray-400 mb-1" />
+                      <span className="text-xs text-gray-500 leading-tight">Put your smiling face here</span>
+                    </div>
+                  ) : (
+                    <PersonalizedAvatar gender={gender} />
+                  )}
+                </AvatarFallback>
+              </Avatar>
+            </div>
           </ImageUploader>
 
           <div className="mt-6 space-y-2">
